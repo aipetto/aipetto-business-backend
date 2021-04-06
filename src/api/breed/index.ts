@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/breed`,
+    require('./breedCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/breed/:id`,
+    require('./breedUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/breed/import`,
+    require('./breedImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/breed`,
+    require('./breedDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/breed/autocomplete`,
+    require('./breedAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/breed`,
+    require('./breedList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/breed/:id`,
+    require('./breedFind').default,
+  );
+};
