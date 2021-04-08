@@ -2,7 +2,12 @@ class Roles {
   static get values() {
     return {
       admin: 'admin',
-      custom: 'custom',
+      adminPetshop: 'adminPetshop',
+      employee: 'employee',
+      adminVeterinary: 'adminVeterinary',
+      petOwner: 'petOwner',
+      veterinarian: 'veterinarian',
+      transporter: 'transporter'
     };
   }
 }
