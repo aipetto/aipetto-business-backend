@@ -1,7 +1,14 @@
 # aipetto-business-backend
 
+Example of command to enable CORS in the Google Cloud File Storage using gsutil:
+```
+gsutil cors set gcp-cors.json gs://aipetto-platform-file-storage
+```
 
 #### Deploy Google Cloud - Run (Option selected by now for MVP)
+```
+gcloud auth login
+```
 
 ```
 latest: digest: sha256:561575c4835e3e97cd1d06e4e24775315d809e3b8f23907fe9dea55624ce421b size: 3054
@@ -12,28 +19,24 @@ ID                                    CREATE_TIME                DURATION  SOURC
 b03edb47-279c-4508-94c3-b308f39dfd90  2021-04-06T15:00:20+00:00  1M29S     gs://aipetto_cloudbuild/source/1617721190.566734-f9be2a5ded6e4e2da891f58d50ca3a8d.tgz  gcr.io/aipetto/aipetto (+1 more)  SUCCESS
 
 ```
-​Google Cloud Run is a fully-managed compute platform for deploying and scaling containerized applications.
+
+Google Cloud Run is a fully-managed compute platform for deploying and scaling containerized applications.
 
 Requirements
-​Emails with Sendgrid​
-
-​Payments with Stripe (if payments are enabled)
-
-​File Storage (Google Cloud Storage is preferable)
-
-​Database (MongoDB Atlas hosted at GCP or Google SQL are preferable)
-
 Docker Files
 Google Cloud Run requires the application to use docker, so add those two files to the backend folder.
 
 backend/Dockerfile
-
+```
 FROM node:14
 WORKDIR /app
 COPY . /app
 RUN npm install
 RUN npm run build
 CMD ["node", "./dist/server.js"]
+```
+
+
 backend/.dockerignore
 
 node_modules
@@ -70,14 +73,16 @@ Replace:
 PROJECT-ID: By your Google Cloud project ID.
 
 APPLICATION-ID: By the name of your application.
-
+``` 
 gcloud builds submit --tag gcr.io/PROJECT-ID/APPLICATION-ID
+```
 On your first try, you will receive an error warning you to enable the Google Build API, so please do it and try again.
 
 
 After the image is built, you can deploy it to Google Cloud Run:
-
+```
 gcloud run deploy --image gcr.io/PROJECT-ID/APPLICATION-ID --platform managed --project PROJECT-ID
+```
 You'll be prompted to:
 
 Enable the API: Select yes.
@@ -91,6 +96,7 @@ You may want to create a deployment script.
 
 backend/package.json
 
+```
 {
 ...
 "scripts": {
@@ -100,6 +106,8 @@ backend/package.json
 },
 ...
 }
+```
+
 Environment Variables
 Go to the Google Cloud Run console.
 
