@@ -1,5 +1,18 @@
 # aipetto-business-backend
 
+### Building a new image and deploy to Google Clound Run
+
+``` 
+gcloud auth login 
+gcloud builds submit --tag gcr.io/aipetto/aipetto
+
+```
+
+### Change permission to storage
+```
+gsutil uniformbucketlevelaccess set on gs://aipetto-platform-file-storage
+```
+
 Example of command to enable CORS in the Google Cloud File Storage using gsutil:
 ```
 gsutil cors set gcp-cors.json gs://aipetto-platform-file-storage
