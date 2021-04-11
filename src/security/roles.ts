@@ -1,10 +1,11 @@
 class Roles {
   static get values() {
     return {
-      admin: 'admin',
-      adminPetshop: 'adminPetshop',
+      aipettoAdmin: 'aipettoAdmin',
+      businessOwner: 'businessOwner',
+      aipettoAdminPetshop: 'aipettoAdminPetshop',
       employee: 'employee',
-      adminVeterinary: 'adminVeterinary',
+      aipettoAdminVeterinary: 'aipettoAdminVeterinary',
       petOwner: 'petOwner',
       veterinarian: 'veterinarian',
       transporter: 'transporter'

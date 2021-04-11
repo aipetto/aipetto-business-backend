@@ -4,7 +4,7 @@
 
 const ptBR = {
   app: {
-    title: 'Aplicação',
+    title: 'AIPETTO',
   },
 
   auth: {

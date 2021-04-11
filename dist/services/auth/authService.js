@@ -144,7 +144,7 @@ class AuthService {
             if (isMultiTenantViaSubdomain) {
                 yield new tenantService_1.default(Object.assign(Object.assign({}, options), { currentUser })).joinWithDefaultRolesOrAskApproval({
                     tenantId,
-                    // leave empty to require admin's approval
+                    // leave empty to require aipettoAdmin's approval
                     roles: [],
                 }, options);
             }
@@ -156,7 +156,7 @@ class AuthService {
                 yield new tenantService_1.default(Object.assign(Object.assign({}, options), { currentUser })).joinDefaultUsingInvitedEmail(options.session);
                 // Creates or join default Tenant
                 yield new tenantService_1.default(Object.assign(Object.assign({}, options), { currentUser })).createOrJoinDefault({
-                    // leave empty to require admin's approval
+                    // leave empty to require aipettoAdmin's approval
                     roles: [],
                 }, options.session);
             }

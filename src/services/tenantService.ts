@@ -22,7 +22,7 @@ export default class TenantService {
   /**
    * Creates the default tenant or joins the default with
    * roles passed.
-   * If default roles are empty, the admin will have to asign the roles
+   * If default roles are empty, the aipettoAdmin will have to asign the roles
    * to new users.
    */
   async createOrJoinDefault({ roles }, session) {
@@ -80,7 +80,7 @@ export default class TenantService {
     await TenantUserRepository.create(
       record,
       this.options.currentUser,
-      [Roles.values.admin],
+      [Roles.values.aipettoAdmin],
       {
         ...this.options,
         session,
@@ -223,7 +223,7 @@ export default class TenantService {
       await TenantUserRepository.create(
         record,
         this.options.currentUser,
-        [Roles.values.admin],
+        [Roles.values.aipettoAdmin],
         {
           ...this.options,
           session,

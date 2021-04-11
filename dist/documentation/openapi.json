@@ -5929,7 +5929,7 @@
                         "type": "array",
                         "items": {
                           "type": "string",
-                          "example": "admin"
+                          "example": "aipettoAdmin"
                         }
                       }
                     }
@@ -5999,7 +5999,7 @@
                         "type": "array",
                         "items": {
                           "type": "string",
-                          "example": "admin"
+                          "example": "aipettoAdmin"
                         }
                       }
                     }
@@ -6178,7 +6178,7 @@
                         "type": "array",
                         "items": {
                           "type": "string",
-                          "example": "admin"
+                          "example": "aipettoAdmin"
                         }
                       }                      
                     }
@@ -6881,7 +6881,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "example": "admin"
+              "example": "aipettoAdmin"
             }
           },
           "status": {
@@ -6916,7 +6916,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "example": "admin"
+              "example": "aipettoAdmin"
             }
           },
           "invitationToken": {

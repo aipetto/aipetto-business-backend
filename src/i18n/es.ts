@@ -1,6 +1,6 @@
 const es = {
   app: {
-    title: 'Aplicación',
+    title: 'AIPETTO',
   },
   auth: {
     userNotFound:
@@ -35,11 +35,11 @@ const es = {
       userNotFound: 'Usuario no encontrado.',
       destroyingHimself: 'No puedes eliminarte a ti mismo.',
       revokingOwnPermission:
-        'No puede revocar su propio permiso de administrador.',
+        'No puede revocar su propio permiso de aipettoAdministrador.',
       revokingPlanUser:
-        'No puede revocar el permiso de administrador del administrador del plan.',
+        'No puede revocar el permiso de aipettoAdministrador del aipettoAdministrador del plan.',
       destroyingPlanUser:
-        'No puede eliminar el administrador del plan.',
+        'No puede eliminar el aipettoAdministrador del plan.',
     },
   },
   tenant: {

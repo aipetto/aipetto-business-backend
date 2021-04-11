@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class Roles {
     static get values() {
         return {
-            admin: 'admin',
+            aipettoAdmin: 'aipettoAdmin',
             custom: 'custom',
         };
     }

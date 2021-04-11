@@ -31,7 +31,7 @@ class TenantService {
     /**
      * Creates the default tenant or joins the default with
      * roles passed.
-     * If default roles are empty, the admin will have to asign the roles
+     * If default roles are empty, the aipettoAdmin will have to asign the roles
      * to new users.
      */
     createOrJoinDefault({ roles }, session) {
@@ -53,7 +53,7 @@ class TenantService {
             }
             let record = yield tenantRepository_1.default.create({ name: 'default', url: 'default' }, Object.assign(Object.assign({}, this.options), { session }));
             yield settingsService_1.default.findOrCreateDefault(Object.assign(Object.assign({}, this.options), { currentTenant: record, session }));
-            yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roles_1.default.values.admin], Object.assign(Object.assign({}, this.options), { session }));
+            yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roles_1.default.values.aipettoAdmin], Object.assign(Object.assign({}, this.options), { session }));
         });
     }
     joinWithDefaultRolesOrAskApproval({ roles, tenantId }, { session }) {
@@ -113,7 +113,7 @@ class TenantService {
                 }
                 let record = yield tenantRepository_1.default.create(data, Object.assign(Object.assign({}, this.options), { session }));
                 yield settingsService_1.default.findOrCreateDefault(Object.assign(Object.assign({}, this.options), { currentTenant: record, session }));
-                yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roles_1.default.values.admin], Object.assign(Object.assign({}, this.options), { session }));
+                yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roles_1.default.values.aipettoAdmin], Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
             }

@@ -28,9 +28,9 @@ const es = {
             userAlreadyExists: 'El usuario con este correo electrónico ya existe.',
             userNotFound: 'Usuario no encontrado.',
             destroyingHimself: 'No puedes eliminarte a ti mismo.',
-            revokingOwnPermission: 'No puede revocar su propio permiso de administrador.',
-            revokingPlanUser: 'No puede revocar el permiso de administrador del administrador del plan.',
-            destroyingPlanUser: 'No puede eliminar el administrador del plan.',
+            revokingOwnPermission: 'No puede revocar su propio permiso de aipettoAdministrador.',
+            revokingPlanUser: 'No puede revocar el permiso de aipettoAdministrador del aipettoAdministrador del plan.',
+            destroyingPlanUser: 'No puede eliminar el aipettoAdministrador del plan.',
         },
     },
     tenant: {

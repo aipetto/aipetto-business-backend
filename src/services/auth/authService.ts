@@ -310,7 +310,7 @@ class AuthService {
       }).joinWithDefaultRolesOrAskApproval(
         {
           tenantId,
-          // leave empty to require admin's approval
+          // leave empty to require aipettoAdmin's approval
           roles: [],
         },
         options,
@@ -335,7 +335,7 @@ class AuthService {
         currentUser,
       }).createOrJoinDefault(
         {
-          // leave empty to require admin's approval
+          // leave empty to require aipettoAdmin's approval
           roles: [],
         },
         options.session,

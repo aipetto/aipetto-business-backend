@@ -67,7 +67,7 @@ class UserEditor {
      */
     _isRemovingPlanUser() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this._roles.includes(roles_1.default.values.admin)) {
+            if (this._roles.includes(roles_1.default.values.aipettoAdmin)) {
                 return false;
             }
             const currentTenant = this.options.currentTenant;
@@ -82,11 +82,11 @@ class UserEditor {
         });
     }
     /**
-     * Checks if the user is removing it's own admin role
+     * Checks if the user is removing it's own aipettoAdmin role
      */
-    _isRemovingOwnAdminRole() {
+    _isRemovingOwnaipettoAdminRole() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (this._roles.includes(roles_1.default.values.admin)) {
+            if (this._roles.includes(roles_1.default.values.aipettoAdmin)) {
                 return false;
             }
             if (String(this.data.id) !==
@@ -95,7 +95,7 @@ class UserEditor {
             }
             const tenantUser = this.options.currentUser.tenants.find((userTenant) => userTenant.tenant.id ===
                 this.options.currentTenant.id);
-            return tenantUser.roles.includes(roles_1.default.values.admin);
+            return tenantUser.roles.includes(roles_1.default.values.aipettoAdmin);
         });
     }
     _validate() {
@@ -109,7 +109,7 @@ class UserEditor {
             if (yield this._isRemovingPlanUser()) {
                 throw new Error400_1.default(this.options.language, 'user.errors.revokingPlanUser');
             }
-            if (yield this._isRemovingOwnAdminRole()) {
+            if (yield this._isRemovingOwnaipettoAdminRole()) {
                 throw new Error400_1.default(this.options.language, 'user.errors.revokingOwnPermission');
             }
         });
