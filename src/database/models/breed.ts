@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from "./schemas/fileSchema";
 const Schema = mongoose.Schema;
 
 export default (database) => {
