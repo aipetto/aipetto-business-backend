@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/reservation-agenda`,
+    require('./reservationAgendaCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/reservation-agenda/:id`,
+    require('./reservationAgendaUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/reservation-agenda/import`,
+    require('./reservationAgendaImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/reservation-agenda`,
+    require('./reservationAgendaDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/reservation-agenda/autocomplete`,
+    require('./reservationAgendaAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/reservation-agenda`,
+    require('./reservationAgendaList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/reservation-agenda/:id`,
+    require('./reservationAgendaFind').default,
+  );
+};

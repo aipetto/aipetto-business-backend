@@ -5,8 +5,8 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import PetTypes from '../models/petTypes';
 import FileRepository from './fileRepository';
-import Breed from '../models/breed';
 import Pet from '../models/pet';
+import Breed from '../models/breed';
 
 class PetTypesRepository {
   
@@ -40,14 +40,7 @@ class PetTypesRepository {
       options,
     );
 
-    await MongooseRepository.refreshTwoWayRelationManyToOne(
-      record,
-      PetTypes(options.database),
-      'breeds',
-      Breed(options.database),
-      'type',
-      options,
-    );    
+
 
     return this.findById(record.id, options);
   }
@@ -91,14 +84,7 @@ class PetTypesRepository {
 
     record = await this.findById(id, options);
 
-    await MongooseRepository.refreshTwoWayRelationManyToOne(
-      record,
-      PetTypes(options.database),
-      'breeds',
-      Breed(options.database),
-      'type',
-      options,
-    );
+
 
     return record;
   }
@@ -168,8 +154,7 @@ class PetTypesRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       PetTypes(options.database)
-        .findById(id)
-      .populate('breeds'),
+        .findById(id),
       options,
     );
 
@@ -258,8 +243,7 @@ class PetTypesRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort)
-      .populate('breeds');
+      .sort(sort);
 
     const count = await PetTypes(
       options.database,

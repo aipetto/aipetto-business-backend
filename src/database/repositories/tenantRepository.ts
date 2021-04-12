@@ -15,6 +15,7 @@ import Business from '../models/business';
 import Place from '../models/place';
 import BusinessServicesTypes from '../models/businessServicesTypes';
 import ServiceReservation from '../models/serviceReservation';
+import ReservationAgenda from '../models/reservationAgenda';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
 import { isUserInTenant } from '../utils/userTenantUtils';
@@ -283,6 +284,11 @@ class TenantRepository {
 
     await MongooseRepository.wrapWithSessionIfExists(
       ServiceReservation(options.database).deleteMany({ tenant: id }),
+      options,
+    );
+
+    await MongooseRepository.wrapWithSessionIfExists(
+      ReservationAgenda(options.database).deleteMany({ tenant: id }),
       options,
     );
 

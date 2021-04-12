@@ -50,7 +50,11 @@ export default class Storage {
         maxSizeInBytes: 100 * 1024 * 1024,
       },
 
-
+      breedImage: {
+        id: 'breedImage',
+        folder: 'tenant/:tenantId/breed/image',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
 
       petTypesImage: {
         id: 'petTypesImage',

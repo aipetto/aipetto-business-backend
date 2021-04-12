@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import BusinessServicesTypes from '../models/businessServicesTypes';
 import ServiceReservation from '../models/serviceReservation';
+import ReservationAgenda from '../models/reservationAgenda';
 
 class BusinessServicesTypesRepository {
   
@@ -119,6 +120,13 @@ class BusinessServicesTypesRepository {
     await MongooseRepository.destroyRelationToMany(
       id,
       ServiceReservation(options.database),
+      'serviceType',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ReservationAgenda(options.database),
       'serviceType',
       options,
     );

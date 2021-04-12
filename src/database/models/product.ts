@@ -28,6 +28,10 @@ export default (database) => {
         max: 99999,
       },
       photos: [FileSchema],
+      businessId: {
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

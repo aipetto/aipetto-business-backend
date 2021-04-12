@@ -35,8 +35,8 @@ const en = {
         'User with this email already exists.',
       userNotFound: 'User not found.',
       destroyingHimself: `You can't delete yourself.`,
-      revokingOwnPermission: `You can't revoke your own aipettoAdmin permission.`,
-      revokingPlanUser: `You can't revoke the aipettoAdmin permission of the plan manager.`,
+      revokingOwnPermission: `You can't revoke your own admin permission.`,
+      revokingPlanUser: `You can't revoke the admin permission of the plan manager.`,
       destroyingPlanUser: `You can't delete the plan manager.`,
     },
   },
@@ -152,6 +152,13 @@ const en = {
       }
     },
     serviceReservation: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    reservationAgenda: {
       errors: {
         unique: {
 

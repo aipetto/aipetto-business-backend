@@ -3,15 +3,9 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
-import Business from '../models/business';
-import Customer from '../models/customer';
-import Product from '../models/product';
-import Order from '../models/order';
-import Place from '../models/place';
-import ServiceReservation from '../models/serviceReservation';
 import ReservationAgenda from '../models/reservationAgenda';
 
-class BusinessRepository {
+class ReservationAgendaRepository {
   
   static async create(data, options: IRepositoryOptions) {
     const currentTenant = MongooseRepository.getCurrentTenant(
@@ -22,7 +16,7 @@ class BusinessRepository {
       options,
     );
 
-    const [record] = await Business(
+    const [record] = await ReservationAgenda(
       options.database,
     ).create(
       [
@@ -54,7 +48,7 @@ class BusinessRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database).findById(id),
+      ReservationAgenda(options.database).findById(id),
       options,
     );
 
@@ -66,7 +60,7 @@ class BusinessRepository {
     }
 
     await MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database).updateOne(
+      ReservationAgenda(options.database).updateOne(
         { _id: id },
         {
           ...data,
@@ -98,7 +92,7 @@ class BusinessRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database).findById(id),
+      ReservationAgenda(options.database).findById(id),
       options,
     );
 
@@ -110,7 +104,7 @@ class BusinessRepository {
     }
 
     await MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database).deleteOne({ _id: id }),
+      ReservationAgenda(options.database).deleteOne({ _id: id }),
       options,
     );
 
@@ -121,47 +115,7 @@ class BusinessRepository {
       options,
     );
 
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      Customer(options.database),
-      'businessId',
-      options,
-    );
 
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      Product(options.database),
-      'businessId',
-      options,
-    );
-
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      Order(options.database),
-      'businessId',
-      options,
-    );
-
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      Place(options.database),
-      'businessId',
-      options,
-    );
-
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      ServiceReservation(options.database),
-      'businessId',
-      options,
-    );
-
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      ReservationAgenda(options.database),
-      'businessId',
-      options,
-    );
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -170,7 +124,7 @@ class BusinessRepository {
     );
 
     return MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database).countDocuments({
+      ReservationAgenda(options.database).countDocuments({
         ...filter,
         tenant: currentTenant.id,
       }),
@@ -184,8 +138,10 @@ class BusinessRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database)
-        .findById(id),
+      ReservationAgenda(options.database)
+        .findById(id)
+      .populate('businessId')
+      .populate('serviceType'),
       options,
     );
 
@@ -217,6 +173,28 @@ class BusinessRepository {
       if (filter.id) {
         criteriaAnd.push({
           ['_id']: MongooseQueryUtils.uuid(filter.id),
+        });
+      }
+
+      if (filter.businessId) {
+        criteriaAnd.push({
+          businessId: MongooseQueryUtils.uuid(
+            filter.businessId,
+          ),
+        });
+      }
+
+      if (filter.timeSlot) {
+        criteriaAnd.push({
+          timeSlot: { $all: filter.timeSlot },
+        });
+      }
+
+      if (filter.serviceType) {
+        criteriaAnd.push({
+          serviceType: MongooseQueryUtils.uuid(
+            filter.serviceType,
+          ),
         });
       }
 
@@ -270,13 +248,15 @@ class BusinessRepository {
       ? { $and: criteriaAnd }
       : null;
 
-    let rows = await Business(options.database)
+    let rows = await ReservationAgenda(options.database)
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('businessId')
+      .populate('serviceType');
 
-    const count = await Business(
+    const count = await ReservationAgenda(
       options.database,
     ).countDocuments(criteria);
 
@@ -317,7 +297,7 @@ class BusinessRepository {
 
     const criteria = { $and: criteriaAnd };
 
-    const records = await Business(options.database)
+    const records = await ReservationAgenda(options.database)
       .find(criteria)
       .limit(limitEscaped)
       .sort(sort);
@@ -331,7 +311,7 @@ class BusinessRepository {
   static async _createAuditLog(action, id, data, options: IRepositoryOptions) {
     await AuditLogRepository.log(
       {
-        entityName: Business(options.database).modelName,
+        entityName: ReservationAgenda(options.database).modelName,
         entityId: id,
         action,
         values: data,
@@ -355,4 +335,4 @@ class BusinessRepository {
   }
 }
 
-export default BusinessRepository;
+export default ReservationAgendaRepository;

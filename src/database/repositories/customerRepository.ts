@@ -154,7 +154,8 @@ class CustomerRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Customer(options.database)
         .findById(id)
-      .populate('userId'),
+      .populate('userId')
+      .populate('businessId'),
       options,
     );
 
@@ -234,6 +235,14 @@ class CustomerRepository {
         });
       }
 
+      if (filter.businessId) {
+        criteriaAnd.push({
+          businessId: MongooseQueryUtils.uuid(
+            filter.businessId,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -278,7 +287,8 @@ class CustomerRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('userId');
+      .populate('userId')
+      .populate('businessId');
 
     const count = await Customer(
       options.database,

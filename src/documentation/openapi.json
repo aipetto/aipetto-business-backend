@@ -548,6 +548,14 @@
           },      
           {
             "in": "query",
+            "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[createdAtRange][]",
             "schema": {
               "type": "array",
@@ -982,6 +990,14 @@
           },      
           {
             "in": "query",
+            "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[createdAtRange][]",
             "schema": {
               "type": "array",
@@ -1412,7 +1428,15 @@
               "type": "string",
               "format": "uuid"
             }
-          },      
+          },
+          {
+            "in": "query",
+            "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
           {
             "in": "query",
             "name": "filter[createdAtRange][]",
@@ -2328,7 +2352,87 @@
               "type": "string",
               "format": "uuid"
             }
-          },      
+          },
+          {
+            "in": "query",
+            "name": "filter[size]",
+            "schema": {
+              "type": "string",
+              "enum": ["Small","Medium","Large"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[exercise]",
+            "schema": {
+              "type": "string",
+              "enum": ["up_to_30_minutes_per_day","up_to_1_hour_per_day","more_than_2_hours_per_day"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[sizeOfHome]",
+            "schema": {
+              "type": "string",
+              "enum": ["flat_apartment","small_house","large_house"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[grooming]",
+            "schema": {
+              "type": "string",
+              "enum": ["more_than_once_a_week","every_day","once_a_week"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[coatLength]",
+            "schema": {
+              "type": "string",
+              "enum": ["short","medium","long"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[sheds]",
+            "schema": {
+              "type": "string",
+              "enum": ["yes","no"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[lifespan]",
+            "schema": {
+              "type": "string",
+              "enum": ["under_10_years","over_10_years","over_12_years"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[vulnerableNativeBreed]",
+            "schema": {
+              "type": "string",
+              "enum": ["yes","no"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[townOrCountry]",
+            "schema": {
+              "type": "string",
+              "enum": ["country","town","either"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[sizeOfGarden]",
+            "schema": {
+              "type": "string",
+              "enum": ["small","medium","small_medium","large"]
+            }
+          },
           {
             "in": "query",
             "name": "filter[createdAtRange][]",
@@ -4849,6 +4953,457 @@
         }
       }
     },
+    "/tenant/{tenantId}/reservation-agenda/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationAgenda"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ReservationAgendaInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationAgenda"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/reservation-agenda": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[timeSlotRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["06_00","06_30","07_00","07_30","08_00","08_30","09_00","09_30","10_00","10_30","11_00","11_30","12_00","12_30","13_00","13_30","14_00","14_30","15_00","15_30","16_00","16_30","17","17_30","18_00","18_30","19_00","19_30","20_00","20_30","21_00"]
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[serviceType]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[createdAtRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "example": "createdAt_DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ReservationAgenda"
+                      }
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ReservationAgendaInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationAgenda"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids[]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/reservation-agenda/autocomplete": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/reservation-agenda/import": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ReservationAgenda"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data", "importHash"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ReservationAgendaInput"
+                  },
+                  "importHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationAgenda"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
     "/tenant/{tenantId}/audit-log": {
       "get": {
         "security": [
@@ -6245,7 +6800,10 @@
           },
           "userId": {
             "$ref": "#/components/schemas/UserRelated"
-          }    
+          },
+          "businessId": {
+            "$ref": "#/components/schemas/Business"
+          }
         }
       },
       "CustomerInput": {
@@ -6265,7 +6823,11 @@
           "userId": {
             "type": "string",
             "format": "uuid"
-          }    
+          },
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          }
         }
       },
       "Product": {
@@ -6290,7 +6852,10 @@
             "items": {
               "$ref": "#/components/schemas/File"
             }
-          }    
+          },
+          "businessId": {
+            "$ref": "#/components/schemas/Business"
+          }
         }
       },
       "ProductInput": {
@@ -6310,7 +6875,11 @@
             "items": {
               "$ref": "#/components/schemas/FileInput"
             }
-          }    
+          },
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          }
         }
       },
       "Order": {
@@ -6341,7 +6910,10 @@
             "items": {
               "$ref": "#/components/schemas/File"
             }
-          }    
+          },
+          "businessId": {
+            "$ref": "#/components/schemas/Business"
+          }
         }
       },
       "OrderInput": {
@@ -6370,7 +6942,11 @@
             "items": {
               "$ref": "#/components/schemas/FileInput"
             }
-          }    
+          },
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          }
         }
       },
       "Pet": {
@@ -6469,7 +7045,53 @@
           },
           "type": {
             "$ref": "#/components/schemas/PetTypes"
-          }    
+          },
+          "size": {
+            "type": "string",
+            "enum": ["Small","Medium","Large"]
+          },
+          "exercise": {
+            "type": "string",
+            "enum": ["up_to_30_minutes_per_day","up_to_1_hour_per_day","more_than_2_hours_per_day"]
+          },
+          "sizeOfHome": {
+            "type": "string",
+            "enum": ["flat_apartment","small_house","large_house"]
+          },
+          "grooming": {
+            "type": "string",
+            "enum": ["more_than_once_a_week","every_day","once_a_week"]
+          },
+          "coatLength": {
+            "type": "string",
+            "enum": ["short","medium","long"]
+          },
+          "sheds": {
+            "type": "string",
+            "enum": ["yes","no"]
+          },
+          "lifespan": {
+            "type": "string",
+            "enum": ["under_10_years","over_10_years","over_12_years"]
+          },
+          "vulnerableNativeBreed": {
+            "type": "string",
+            "enum": ["yes","no"]
+          },
+          "townOrCountry": {
+            "type": "string",
+            "enum": ["country","town","either"]
+          },
+          "sizeOfGarden": {
+            "type": "string",
+            "enum": ["small","medium","small_medium","large"]
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
         }
       },
       "BreedInput": {
@@ -6481,7 +7103,53 @@
           "type": {
             "type": "string",
             "format": "uuid"
-          }    
+          },
+          "size": {
+            "type": "string",
+            "enum": ["Small","Medium","Large"]
+          },
+          "exercise": {
+            "type": "string",
+            "enum": ["up_to_30_minutes_per_day","up_to_1_hour_per_day","more_than_2_hours_per_day"]
+          },
+          "sizeOfHome": {
+            "type": "string",
+            "enum": ["flat_apartment","small_house","large_house"]
+          },
+          "grooming": {
+            "type": "string",
+            "enum": ["more_than_once_a_week","every_day","once_a_week"]
+          },
+          "coatLength": {
+            "type": "string",
+            "enum": ["short","medium","long"]
+          },
+          "sheds": {
+            "type": "string",
+            "enum": ["yes","no"]
+          },
+          "lifespan": {
+            "type": "string",
+            "enum": ["under_10_years","over_10_years","over_12_years"]
+          },
+          "vulnerableNativeBreed": {
+            "type": "string",
+            "enum": ["yes","no"]
+          },
+          "townOrCountry": {
+            "type": "string",
+            "enum": ["country","town","either"]
+          },
+          "sizeOfGarden": {
+            "type": "string",
+            "enum": ["small","medium","small_medium","large"]
+          },
+          "image": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileInput"
+            }
+          }
         }
       },
       "PetTypes": {
@@ -6500,12 +7168,6 @@
             "items": {
               "$ref": "#/components/schemas/File"
             }
-          },
-          "breeds": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Breed"
-            }
           }    
         }
       },
@@ -6519,13 +7181,6 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FileInput"
-            }
-          },
-          "breeds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
             }
           }    
         }
@@ -6717,6 +7372,55 @@
             "type": "string",
             "enum": ["user_approval_pending","business_approval_pending","business_approved","business_declined"]
           }    
+        }
+      },
+      "ReservationAgenda": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "businessId": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "timeSlot": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["06_00","06_30","07_00","07_30","08_00","08_30","09_00","09_30","10_00","10_30","11_00","11_30","12_00","12_30","13_00","13_30","14_00","14_30","15_00","15_30","16_00","16_30","17","17_30","18_00","18_30","19_00","19_30","20_00","20_30","21_00"]
+            }
+          },
+          "serviceType": {
+            "$ref": "#/components/schemas/BusinessServicesTypes"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ReservationAgendaInput": {
+        "type": "object",
+        "properties": {
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "timeSlot": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["06_00","06_30","07_00","07_30","08_00","08_30","09_00","09_30","10_00","10_30","11_00","11_30","12_00","12_30","13_00","13_30","14_00","14_30","15_00","15_30","16_00","16_30","17","17_30","18_00","18_30","19_00","19_30","20_00","20_30","21_00"]
+            }
+          },
+          "serviceType": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          }
         }
       },
       "AuditLog": {

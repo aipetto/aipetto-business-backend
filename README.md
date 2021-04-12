@@ -1,10 +1,21 @@
 # aipetto-business-backend
 
 ### Building a new image and deploy to Google Clound Run
-
+Add versioning to image and git tag before generate image and deploy. Check steps in order to set a CI/CD on future.
 ``` 
 gcloud auth login 
 gcloud builds submit --tag gcr.io/aipetto/aipetto
+gcloud run deploy --image gcr.io/aipetto/aipetto --platform managed --project aipetto
+Please enter your numeric choice:  19
+
+To make this the default region, run `gcloud config set run/region us-central1`.
+
+Deploying container to Cloud Run service [aipetto] in project [aipetto] region [us-central1]
+✓ Deploying... Done.                                                                                                                                                                                                                   
+  ✓ Creating Revision...                                                                                                                                                                                                               
+  ✓ Routing traffic...                                                                                                                                                                                                                 
+Done.                                                                                                                                                                                                                                  
+Service [aipetto] revision [aipetto-00011-sax] has been deployed and is serving 100 percent of traffic.
 
 ```
 

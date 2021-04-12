@@ -4,7 +4,7 @@ import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import Breed from '../models/breed';
-import PetTypes from '../models/petTypes';
+import FileRepository from './fileRepository';
 import Pet from '../models/pet';
 
 class BreedRepository {
@@ -39,13 +39,7 @@ class BreedRepository {
       options,
     );
 
-    await MongooseRepository.refreshTwoWayRelationOneToMany(
-      record,
-      'type',
-      PetTypes(options.database),
-      'breeds',
-      options,
-    );    
+
 
     return this.findById(record.id, options);
   }
@@ -89,13 +83,7 @@ class BreedRepository {
 
     record = await this.findById(id, options);
 
-    await MongooseRepository.refreshTwoWayRelationOneToMany(
-      record,
-      'type',
-      PetTypes(options.database),
-      'breeds',
-      options,
-    );
+
 
     return record;
   }
@@ -133,13 +121,6 @@ class BreedRepository {
       id,
       Pet(options.database),
       'breed',
-      options,
-    );
-
-    await MongooseRepository.destroyRelationToMany(
-      id,
-      PetTypes(options.database),
-      'breeds',
       options,
     );
   }
@@ -217,6 +198,66 @@ class BreedRepository {
           type: MongooseQueryUtils.uuid(
             filter.type,
           ),
+        });
+      }
+
+      if (filter.size) {
+        criteriaAnd.push({
+          size: filter.size
+        });
+      }
+
+      if (filter.exercise) {
+        criteriaAnd.push({
+          exercise: filter.exercise
+        });
+      }
+
+      if (filter.sizeOfHome) {
+        criteriaAnd.push({
+          sizeOfHome: filter.sizeOfHome
+        });
+      }
+
+      if (filter.grooming) {
+        criteriaAnd.push({
+          grooming: filter.grooming
+        });
+      }
+
+      if (filter.coatLength) {
+        criteriaAnd.push({
+          coatLength: filter.coatLength
+        });
+      }
+
+      if (filter.sheds) {
+        criteriaAnd.push({
+          sheds: filter.sheds
+        });
+      }
+
+      if (filter.lifespan) {
+        criteriaAnd.push({
+          lifespan: filter.lifespan
+        });
+      }
+
+      if (filter.vulnerableNativeBreed) {
+        criteriaAnd.push({
+          vulnerableNativeBreed: filter.vulnerableNativeBreed
+        });
+      }
+
+      if (filter.townOrCountry) {
+        criteriaAnd.push({
+          townOrCountry: filter.townOrCountry
+        });
+      }
+
+      if (filter.sizeOfGarden) {
+        criteriaAnd.push({
+          sizeOfGarden: filter.sizeOfGarden
         });
       }
 
@@ -339,7 +380,9 @@ class BreedRepository {
       ? record.toObject()
       : record;
 
-
+    output.image = await FileRepository.fillDownloadUrl(
+      output.image,
+    );
 
     return output;
   }

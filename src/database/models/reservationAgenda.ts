@@ -1,20 +1,29 @@
 import mongoose from 'mongoose';
-import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
   try {
-    return database.model('petTypes');
+    return database.model('reservationAgenda');
   } catch (error) {
     // continue, because model doesnt exist
   }
 
-  const PetTypesSchema = new Schema(
+  const ReservationAgendaSchema = new Schema(
     {
+      businessId: {
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      },
+      timeSlot: [{
+        type: String  
+      }],
+      serviceType: {
+        type: Schema.Types.ObjectId,
+        ref: 'businessServicesTypes',
+      },
       name: {
         type: String,
       },
-      image: [FileSchema],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -32,7 +41,7 @@ export default (database) => {
     { timestamps: true },
   );
 
-  PetTypesSchema.index(
+  ReservationAgendaSchema.index(
     { importHash: 1, tenant: 1 },
     {
       unique: true,
@@ -44,18 +53,18 @@ export default (database) => {
 
   
 
-  PetTypesSchema.virtual('id').get(function () {
+  ReservationAgendaSchema.virtual('id').get(function () {
     // @ts-ignore
     return this._id.toHexString();
   });
 
-  PetTypesSchema.set('toJSON', {
+  ReservationAgendaSchema.set('toJSON', {
     getters: true,
   });
 
-  PetTypesSchema.set('toObject', {
+  ReservationAgendaSchema.set('toObject', {
     getters: true,
   });
 
-  return database.model('petTypes', PetTypesSchema);
+  return database.model('reservationAgenda', ReservationAgendaSchema);
 };

@@ -12,7 +12,8 @@ const models = [
   require('./business').default,
   require('./place').default,
   require('./businessServicesTypes').default,
-  require('./serviceReservation').default,  
+  require('./serviceReservation').default,
+  require('./reservationAgenda').default,
 ];
 
 export default function init(database) {

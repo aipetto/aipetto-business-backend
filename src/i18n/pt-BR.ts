@@ -156,6 +156,13 @@ const ptBR = {
         }
       }
     },
+    reservationAgenda: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 

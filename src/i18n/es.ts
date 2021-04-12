@@ -35,11 +35,11 @@ const es = {
       userNotFound: 'Usuario no encontrado.',
       destroyingHimself: 'No puedes eliminarte a ti mismo.',
       revokingOwnPermission:
-        'No puede revocar su propio permiso de aipettoAdministrador.',
+        'No puede revocar su propio permiso de administrador.',
       revokingPlanUser:
-        'No puede revocar el permiso de aipettoAdministrador del aipettoAdministrador del plan.',
+        'No puede revocar el permiso de administrador del administrador del plan.',
       destroyingPlanUser:
-        'No puede eliminar el aipettoAdministrador del plan.',
+        'No puede eliminar el administrador del plan.',
     },
   },
   tenant: {
@@ -154,6 +154,13 @@ const es = {
       }
     },
     serviceReservation: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    reservationAgenda: {
       errors: {
         unique: {
 

@@ -143,7 +143,8 @@ class OrderRepository {
         .findById(id)
       .populate('customer')
       .populate('products')
-      .populate('employee'),
+      .populate('employee')
+      .populate('businessId'),
       options,
     );
 
@@ -194,6 +195,14 @@ class OrderRepository {
         });
       }
 
+      if (filter.businessId) {
+        criteriaAnd.push({
+          businessId: MongooseQueryUtils.uuid(
+            filter.businessId,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -240,7 +249,8 @@ class OrderRepository {
       .sort(sort)
       .populate('customer')
       .populate('products')
-      .populate('employee');
+      .populate('employee')
+      .populate('businessId');
 
     const count = await Order(
       options.database,
