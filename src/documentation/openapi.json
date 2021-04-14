@@ -7655,7 +7655,7 @@
           },
           "plan": {
             "type": "string",
-            "enum": ["free", "growth", "enterprise"]
+            "enum": ["free", "growth", "premium"]
           },
           "planStatus": {
             "type": "string",

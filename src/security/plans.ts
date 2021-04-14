@@ -5,22 +5,22 @@ class Plans {
     return {
       free: 'free',
       growth: 'growth',
-      enterprise: 'enterprise',
+      premium: 'premium',
     };
   }
 
   static selectPlanByStripePriceId(stripePriceId) {
     const growthStripePriceId = getConfig()
       .PLAN_STRIPE_PRICES_GROWTH;
-    const enterpriseStripePriceId = getConfig()
-      .PLAN_STRIPE_PRICES_ENTERPRISE;
+    const premiumStripePriceId = getConfig()
+      .PLAN_STRIPE_PRICES_PREMIUM;
 
     if (growthStripePriceId === stripePriceId) {
       return Plans.values.growth;
     }
 
-    if (enterpriseStripePriceId === stripePriceId) {
-      return Plans.values.enterprise;
+    if (premiumStripePriceId === stripePriceId) {
+      return Plans.values.premium;
     }
 
     return Plans.values.free;
@@ -31,8 +31,8 @@ class Plans {
       return getConfig().PLAN_STRIPE_PRICES_GROWTH;
     }
 
-    if (plan === Plans.values.enterprise) {
-      return getConfig().PLAN_STRIPE_PRICES_ENTERPRISE;
+    if (plan === Plans.values.premium) {
+      return getConfig().PLAN_STRIPE_PRICES_PREMIUM;
     }
 
     return null;

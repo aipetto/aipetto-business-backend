@@ -24,7 +24,7 @@ exports.default = (database) => {
         plan: {
             type: String,
             required: true,
-            enum: [plans.free, plans.growth, plans.enterprise],
+            enum: [plans.free, plans.growth, plans.premium],
             default: plans.free,
         },
         planStatus: {
