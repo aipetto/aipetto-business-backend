@@ -2,6 +2,8 @@
 
 ### Building a new image and deploy to Google Clound Run
 Add versioning to image and git tag before generate image and deploy. Check steps in order to set a CI/CD on future.
+
+Run the command `npm run deploy:production`, below are the manual steps included:
 ``` 
 gcloud auth login 
 gcloud builds submit --tag gcr.io/aipetto/aipetto

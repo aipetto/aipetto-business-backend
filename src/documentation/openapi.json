@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Application",
+    "title": "AIPETTO",
     "version": "0.0.1",
     "description": "To use the API you must first sign-in using the `POST /auth/sign-in` endpoint and collect the **Bearer token** from the response.\n"
   },
