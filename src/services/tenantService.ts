@@ -223,7 +223,7 @@ export default class TenantService {
       await TenantUserRepository.create(
         record,
         this.options.currentUser,
-        [Roles.values.aipettoAdmin],
+        [Roles.values.petOwner],
         {
           ...this.options,
           session,

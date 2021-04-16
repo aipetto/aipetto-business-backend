@@ -11,6 +11,7 @@ import TenantRepository from '../../database/repositories/tenantRepository';
 import { tenantSubdomain } from '../tenantSubdomain';
 import Error401 from '../../errors/Error401';
 import moment from 'moment';
+import Roles from "../../security/roles";
 
 const BCRYPT_SALT_ROUNDS = 12;
 
@@ -311,7 +312,8 @@ class AuthService {
         {
           tenantId,
           // leave empty to require aipettoAdmin's approval
-          roles: [],
+          // By default as the most basic role an user is assigned to is petOwner
+          roles: [Roles.values.petOwner],
         },
         options,
       );
@@ -336,7 +338,8 @@ class AuthService {
       }).createOrJoinDefault(
         {
           // leave empty to require aipettoAdmin's approval
-          roles: [],
+          // By default as the most basic role an user is assigned to is petOwner
+          roles: [Roles.values.petOwner],
         },
         options.session,
       );
