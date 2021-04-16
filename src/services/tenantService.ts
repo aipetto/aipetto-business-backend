@@ -80,7 +80,7 @@ export default class TenantService {
     await TenantUserRepository.create(
       record,
       this.options.currentUser,
-      [Roles.values.aipettoAdmin],
+      [],
       {
         ...this.options,
         session,
