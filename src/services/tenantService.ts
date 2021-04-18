@@ -220,10 +220,12 @@ export default class TenantService {
         session,
       });
 
+      const roleToBeAssigned: Roles = record.name.substring(0, 7) == 'aipetto' ? Roles.values.petOwner : Roles.values.aipettoAdmin;
+
       await TenantUserRepository.create(
         record,
         this.options.currentUser,
-        [Roles.values.petOwner],
+        [roleToBeAssigned],
         {
           ...this.options,
           session,
