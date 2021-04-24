@@ -13,6 +13,43 @@ export default (database) => {
       name: {
         type: String,
       },
+      services: [{
+        type: Schema.Types.ObjectId,
+        ref: 'businessServicesTypes',
+      }],
+      contactName: {
+        type: String,
+      },
+      contactPhone: {
+        type: String,
+      },
+      contactWhatsApp: {
+        type: String,
+      },
+      contactEmail: {
+        type: String,
+      },
+      addressStreet: {
+        type: String,
+      },
+      addressStreetNumber: {
+        type: String,
+      },
+      addressPostCode: {
+        type: String,
+      },
+      city: {
+        type: Schema.Types.ObjectId,
+        ref: 'city',
+      },
+      state: {
+        type: Schema.Types.ObjectId,
+        ref: 'state',
+      },
+      country: {
+        type: Schema.Types.ObjectId,
+        ref: 'country',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

@@ -514,7 +514,38 @@
           },
           {
             "in": "query",
+            "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[source]",
+            "schema": {
+              "type": "string",
+              "enum": ["aipetto","facebook","twitter","instagram","youtube","telegram","whatsapp","email","phone","direct","friend_recomendation"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[userId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[surname]",
             "schema": {
               "type": "string"
             }
@@ -540,18 +571,121 @@
           },
           {
             "in": "query",
-            "name": "filter[userId]",
+            "name": "filter[whatsApp]",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
-          },      
+          },
           {
             "in": "query",
-            "name": "filter[businessId]",
+            "name": "filter[phoneNumber]",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[address]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[zipCode]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[city]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[state]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[country]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressStreet]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressCity]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressState]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressZipCode]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressCountry]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressStreet]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressCity]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressState]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressZipCode]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressCountry]",
+            "schema": {
+              "type": "string"
             }
           },
           {
@@ -987,7 +1121,7 @@
                 "type": "number"
               }
             }
-          },      
+          },
           {
             "in": "query",
             "name": "filter[businessId]",
@@ -1916,6 +2050,14 @@
           {
             "in": "query",
             "name": "filter[type]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[customerId]",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -3280,6 +3422,79 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "in": "query",
+            "name": "filter[contactName]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[contactPhone]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[contactWhatsApp]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[contactEmail]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressStreet]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressStreetNumber]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressPostCode]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[city]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[state]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[country]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
           },      
           {
             "in": "query",
@@ -4187,7 +4402,7 @@
           },
           {
             "in": "query",
-            "name": "filter[nome]",
+            "name": "filter[name]",
             "schema": {
               "type": "string"
             }
@@ -4640,7 +4855,8 @@
             "in": "query",
             "name": "filter[time]",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
             }
           },
           {
@@ -4953,14 +5169,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/reservation-agenda/{id}": {
+    "/tenant/{tenantId}/business-place-service-availability/{id}": {
       "get": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -4985,7 +5201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReservationAgenda"
+                  "$ref": "#/components/schemas/BusinessPlaceServiceAvailability"
                 }
               }
             }
@@ -5004,7 +5220,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -5032,7 +5248,7 @@
                 "required": ["data"],
                 "properties": {
                   "data": {
-                    "$ref": "#/components/schemas/ReservationAgendaInput"
+                    "$ref": "#/components/schemas/BusinessPlaceServiceAvailabilityInput"
                   }
                 }
               }
@@ -5045,7 +5261,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReservationAgenda"
+                  "$ref": "#/components/schemas/BusinessPlaceServiceAvailability"
                 }
               }
             }
@@ -5059,14 +5275,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/reservation-agenda": {
+    "/tenant/{tenantId}/business-place-service-availability": {
       "get": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -5079,6 +5295,13 @@
           {
             "in": "query",
             "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[name]",
             "schema": {
               "type": "string"
             }
@@ -5098,8 +5321,26 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "enum": ["06_00","06_30","07_00","07_30","08_00","08_30","09_00","09_30","10_00","10_30","11_00","11_30","12_00","12_30","13_00","13_30","14_00","14_30","15_00","15_30","16_00","16_30","17","17_30","18_00","18_30","19_00","19_30","20_00","20_30","21_00"]
+                "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
               }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[daysRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[workOnHolidays]",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -5108,13 +5349,6 @@
             "schema": {
               "type": "string",
               "format": "uuid"
-            }
-          },
-          {
-            "in": "query",
-            "name": "filter[name]",
-            "schema": {
-              "type": "string"
             }
           },
           {
@@ -5165,7 +5399,7 @@
                     "rows": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/ReservationAgenda"
+                        "$ref": "#/components/schemas/BusinessPlaceServiceAvailability"
                       }
                     },
                     "count": {
@@ -5193,7 +5427,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -5213,7 +5447,7 @@
                 "required": ["data"],
                 "properties": {
                   "data": {
-                    "$ref": "#/components/schemas/ReservationAgendaInput"
+                    "$ref": "#/components/schemas/BusinessPlaceServiceAvailabilityInput"
                   }
                 }
               }
@@ -5226,7 +5460,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReservationAgenda"
+                  "$ref": "#/components/schemas/BusinessPlaceServiceAvailability"
                 }
               }
             }
@@ -5245,7 +5479,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -5280,14 +5514,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/reservation-agenda/autocomplete": {
+    "/tenant/{tenantId}/business-place-service-availability/autocomplete": {
       "get": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -5347,14 +5581,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/reservation-agenda/import": {
+    "/tenant/{tenantId}/business-place-service-availability/import": {
       "post": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["ReservationAgenda"],
+        "tags": ["BusinessPlaceServiceAvailability"],
         "parameters": [
           {
             "in": "path",
@@ -5374,7 +5608,7 @@
                 "required": ["data", "importHash"],
                 "properties": {
                   "data": {
-                    "$ref": "#/components/schemas/ReservationAgendaInput"
+                    "$ref": "#/components/schemas/BusinessPlaceServiceAvailabilityInput"
                   },
                   "importHash": {
                     "type": "string"
@@ -5390,7 +5624,2243 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReservationAgenda"
+                  "$ref": "#/components/schemas/BusinessPlaceServiceAvailability"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/country/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/CountryInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/country": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[initials]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[createdAtRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "example": "createdAt_DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Country"
+                      }
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/CountryInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids[]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/country/autocomplete": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/country/import": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Country"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data", "importHash"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/CountryInput"
+                  },
+                  "importHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Country"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/city/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/CityInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/city": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[country]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[latitudeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[longitudeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[createdAtRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "example": "createdAt_DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/City"
+                      }
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/CityInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids[]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/city/autocomplete": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/city/import": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["City"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data", "importHash"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/CityInput"
+                  },
+                  "importHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/City"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/state/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/StateInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/state": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[country]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[initials]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[createdAtRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "example": "createdAt_DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/State"
+                      }
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/StateInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids[]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/state/autocomplete": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/state/import": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["State"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data", "importHash"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/StateInput"
+                  },
+                  "importHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/messages/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Messages"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/MessagesInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Messages"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/messages": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[from]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[to]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[message]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[createdAtRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "example": "createdAt_DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Messages"
+                      }
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/MessagesInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Messages"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids[]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/messages/autocomplete": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/messages/import": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["Messages"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data", "importHash"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/MessagesInput"
+                  },
+                  "importHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Messages"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/professionals-service-availability/{id}": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessionalsServiceAvailability"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "put": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProfessionalsServiceAvailabilityInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessionalsServiceAvailability"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/professionals-service-availability": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[id]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[userId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[serviceType]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[timeSlotRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[dateAvailabilityStartRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[dateAvailabilityEndRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[createdAtRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "explode": true
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "number",
+              "example": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "orderBy",
+            "schema": {
+              "type": "string",
+              "example": "createdAt_DESC"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProfessionalsServiceAvailability"
+                      }
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProfessionalsServiceAvailabilityInput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessionalsServiceAvailability"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      },
+      "delete": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "ids[]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "explode": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/professionals-service-availability/autocomplete": {
+      "get": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number",
+              "example": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "429": {
+            "description": "Too Many Requests."
+          }
+        }
+      }
+    },
+    "/tenant/{tenantId}/professionals-service-availability/import": {
+      "post": {
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "tags": ["ProfessionalsServiceAvailability"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tenantId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["data", "importHash"],
+                "properties": {
+                  "data": {
+                    "$ref": "#/components/schemas/ProfessionalsServiceAvailabilityInput"
+                  },
+                  "importHash": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessionalsServiceAvailability"
                 }
               }
             }
@@ -6787,7 +9257,20 @@
         ],
         "type": "object",
         "properties": {
+          "businessId": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["aipetto","facebook","twitter","instagram","youtube","telegram","whatsapp","email","phone","direct","friend_recomendation"]
+          },
+          "userId": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
           "name": {
+            "type": "string"
+          },
+          "surname": {
             "type": "string"
           },
           "birthdate": {
@@ -6798,18 +9281,78 @@
             "type": "string",
             "enum": ["male","female"]
           },
-          "userId": {
-            "$ref": "#/components/schemas/UserRelated"
+          "whatsApp": {
+            "type": "string"
           },
-          "businessId": {
-            "$ref": "#/components/schemas/Business"
+          "phoneNumber": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "billingAddressStreet": {
+            "type": "string"
+          },
+          "billingAddressCity": {
+            "type": "string"
+          },
+          "billingAddressState": {
+            "type": "string"
+          },
+          "billingAddressZipCode": {
+            "type": "string"
+          },
+          "billingAddressCountry": {
+            "type": "string"
+          },
+          "shippingAddressStreet": {
+            "type": "string"
+          },
+          "shippingAddressCity": {
+            "type": "string"
+          },
+          "shippingAddressState": {
+            "type": "string"
+          },
+          "shippingAddressZipCode": {
+            "type": "string"
+          },
+          "shippingAddressCountry": {
+            "type": "string"
           }
         }
       },
       "CustomerInput": {
         "type": "object",
         "properties": {
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["aipetto","facebook","twitter","instagram","youtube","telegram","whatsapp","email","phone","direct","friend_recomendation"]
+          },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "name": {
+            "type": "string"
+          },
+          "surname": {
             "type": "string"
           },
           "birthdate": {
@@ -6820,13 +9363,56 @@
             "type": "string",
             "enum": ["male","female"]
           },
-          "userId": {
-            "type": "string",
-            "format": "uuid"
+          "whatsApp": {
+            "type": "string"
           },
-          "businessId": {
-            "type": "string",
-            "format": "uuid"
+          "phoneNumber": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "zipCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "billingAddressStreet": {
+            "type": "string"
+          },
+          "billingAddressCity": {
+            "type": "string"
+          },
+          "billingAddressState": {
+            "type": "string"
+          },
+          "billingAddressZipCode": {
+            "type": "string"
+          },
+          "billingAddressCountry": {
+            "type": "string"
+          },
+          "shippingAddressStreet": {
+            "type": "string"
+          },
+          "shippingAddressCity": {
+            "type": "string"
+          },
+          "shippingAddressState": {
+            "type": "string"
+          },
+          "shippingAddressZipCode": {
+            "type": "string"
+          },
+          "shippingAddressCountry": {
+            "type": "string"
           }
         }
       },
@@ -6989,7 +9575,16 @@
           },
           "type": {
             "$ref": "#/components/schemas/PetTypes"
-          }    
+          },
+          "customerId": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "petOwners": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRelated"
+            }
+          }
         }
       },
       "PetInput": {
@@ -7029,7 +9624,18 @@
           "type": {
             "type": "string",
             "format": "uuid"
-          }    
+          },
+          "customerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "petOwners": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
         }
       },
       "Breed": {
@@ -7195,7 +9801,43 @@
         "properties": {
           "name": {
             "type": "string"
-          }    
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessServicesTypes"
+            }
+          },
+          "contactName": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "contactWhatsApp": {
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string"
+          },
+          "addressStreet": {
+            "type": "string"
+          },
+          "addressStreetNumber": {
+            "type": "string"
+          },
+          "addressPostCode": {
+            "type": "string"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          },
+          "state": {
+            "$ref": "#/components/schemas/State"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          }
         }
       },
       "BusinessInput": {
@@ -7203,7 +9845,47 @@
         "properties": {
           "name": {
             "type": "string"
-          }    
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "contactName": {
+            "type": "string"
+          },
+          "contactPhone": {
+            "type": "string"
+          },
+          "contactWhatsApp": {
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string"
+          },
+          "addressStreet": {
+            "type": "string"
+          },
+          "addressStreetNumber": {
+            "type": "string"
+          },
+          "addressPostCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          }
         }
       },
       "Place": {
@@ -7284,7 +9966,7 @@
         ],
         "type": "object",
         "properties": {
-          "nome": {
+          "name": {
             "type": "string"
           }    
         }
@@ -7292,7 +9974,7 @@
       "BusinessServicesTypesInput": {
         "type": "object",
         "properties": {
-          "nome": {
+          "name": {
             "type": "string"
           }    
         }
@@ -7322,7 +10004,8 @@
             }
           },
           "time": {
-            "type": "string"
+            "type": "string",
+            "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
           },
           "needTransportation": {
             "type": "boolean"
@@ -7359,7 +10042,8 @@
             }
           },
           "time": {
-            "type": "string"
+            "type": "string",
+            "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
           },
           "needTransportation": {
             "type": "boolean"
@@ -7374,7 +10058,7 @@
           }    
         }
       },
-      "ReservationAgenda": {
+      "BusinessPlaceServiceAvailability": {
         "allOf": [
           {
             "$ref": "#/components/schemas/GenericEntity"
@@ -7382,6 +10066,9 @@
         ],
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "businessId": {
             "$ref": "#/components/schemas/Business"
           },
@@ -7389,20 +10076,36 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["06_00","06_30","07_00","07_30","08_00","08_30","09_00","09_30","10_00","10_30","11_00","11_30","12_00","12_30","13_00","13_30","14_00","14_30","15_00","15_30","16_00","16_30","17","17_30","18_00","18_30","19_00","19_30","20_00","20_30","21_00"]
+              "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
             }
+          },
+          "days": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+            }
+          },
+          "workOnHolidays": {
+            "type": "boolean"
           },
           "serviceType": {
             "$ref": "#/components/schemas/BusinessServicesTypes"
           },
-          "name": {
-            "type": "string"
+          "places": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Place"
+            }
           }
         }
       },
-      "ReservationAgendaInput": {
+      "BusinessPlaceServiceAvailabilityInput": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "businessId": {
             "type": "string",
             "format": "uuid"
@@ -7411,15 +10114,231 @@
             "type": "array",
             "items": {
               "type": "string",
-              "enum": ["06_00","06_30","07_00","07_30","08_00","08_30","09_00","09_30","10_00","10_30","11_00","11_30","12_00","12_30","13_00","13_30","14_00","14_30","15_00","15_30","16_00","16_30","17","17_30","18_00","18_30","19_00","19_30","20_00","20_30","21_00"]
+              "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
             }
+          },
+          "days": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"]
+            }
+          },
+          "workOnHolidays": {
+            "type": "boolean"
           },
           "serviceType": {
             "type": "string",
             "format": "uuid"
           },
+          "places": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        }
+      },
+      "Country": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
           "name": {
             "type": "string"
+          },
+          "initials": {
+            "type": "string"
+          }
+        }
+      },
+      "CountryInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "initials": {
+            "type": "string"
+          }
+        }
+      },
+      "City": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "name": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          }
+        }
+      },
+      "CityInput": {
+        "type": "object",
+        "properties": {
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          }
+        }
+      },
+      "State": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "initials": {
+            "type": "string"
+          }
+        }
+      },
+      "StateInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "initials": {
+            "type": "string"
+          }
+        }
+      },
+      "Messages": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "from": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
+          "to": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "MessagesInput": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "to": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ProfessionalsServiceAvailability": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
+          "businessId": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "serviceType": {
+            "$ref": "#/components/schemas/BusinessServicesTypes"
+          },
+          "timeSlot": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
+            }
+          },
+          "dateAvailabilityStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateAvailabilityEnd": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "ProfessionalsServiceAvailabilityInput": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "businessId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "serviceType": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "timeSlot": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["06_00AM","06_30AM","07_00AM","07_30AM","08_00AM","08_30AM","09_00AM","09_30AM","10_00AM","10_30AM","11_00AM","11_30AM","12_00AM","12_30PM","01_30PM","02_00PM","02_30PM","03_00PM","03_30PM","04_00PM","04_30PM","05_00PM","05_30PM","06_00PM","06_30PM","07_00PM","07_30PM","08_00PM","09_30PM","10_00PM","10_30PM","11_00PM","11_30PM","00_00AM","00_30AM","01_00AM","01_30AM","02_00AM","02_30AM","03_00AM","03_30AM","04_00AM","04_30AM","05_00","05_30AM"]
+            }
+          },
+          "dateAvailabilityStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateAvailabilityEnd": {
+            "type": "string",
+            "format": "date"
           }
         }
       },

@@ -78,7 +78,12 @@ require('./business').default(routes);
 require('./place').default(routes);
 require('./businessServicesTypes').default(routes);
 require('./serviceReservation').default(routes);
-require('./reservationAgenda').default(routes);
+require('./businessPlaceServiceAvailability').default(routes);
+require('./country').default(routes);
+require('./city').default(routes);
+require('./state').default(routes);
+require('./messages').default(routes);
+require('./professionalsServiceAvailability').default(routes);
 
 // Loads the Tenant if the :tenantId param is passed
 routes.param('tenantId', tenantMiddleware);

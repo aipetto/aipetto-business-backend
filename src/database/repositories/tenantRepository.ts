@@ -15,7 +15,12 @@ import Business from '../models/business';
 import Place from '../models/place';
 import BusinessServicesTypes from '../models/businessServicesTypes';
 import ServiceReservation from '../models/serviceReservation';
-import ReservationAgenda from '../models/reservationAgenda';
+import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
+import Country from '../models/country';
+import City from '../models/city';
+import State from '../models/state';
+import Messages from '../models/messages';
+import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
 import { isUserInTenant } from '../utils/userTenantUtils';
@@ -288,7 +293,32 @@ class TenantRepository {
     );
 
     await MongooseRepository.wrapWithSessionIfExists(
-      ReservationAgenda(options.database).deleteMany({ tenant: id }),
+      BusinessPlaceServiceAvailability(options.database).deleteMany({ tenant: id }),
+      options,
+    );
+
+    await MongooseRepository.wrapWithSessionIfExists(
+      Country(options.database).deleteMany({ tenant: id }),
+      options,
+    );
+
+    await MongooseRepository.wrapWithSessionIfExists(
+      City(options.database).deleteMany({ tenant: id }),
+      options,
+    );
+
+    await MongooseRepository.wrapWithSessionIfExists(
+      State(options.database).deleteMany({ tenant: id }),
+      options,
+    );
+
+    await MongooseRepository.wrapWithSessionIfExists(
+      Messages(options.database).deleteMany({ tenant: id }),
+      options,
+    );
+
+    await MongooseRepository.wrapWithSessionIfExists(
+      ProfessionalsServiceAvailability(options.database).deleteMany({ tenant: id }),
       options,
     );
 

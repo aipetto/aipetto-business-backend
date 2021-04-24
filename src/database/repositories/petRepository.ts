@@ -142,7 +142,9 @@ class PetRepository {
       Pet(options.database)
         .findById(id)
       .populate('breed')
-      .populate('type'),
+      .populate('type')
+      .populate('customerId')
+      .populate('petOwners'),
       options,
     );
 
@@ -267,6 +269,14 @@ class PetRepository {
         });
       }
 
+      if (filter.customerId) {
+        criteriaAnd.push({
+          customerId: MongooseQueryUtils.uuid(
+            filter.customerId,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -312,7 +322,9 @@ class PetRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('breed')
-      .populate('type');
+      .populate('type')
+      .populate('customerId')
+      .populate('petOwners');
 
     const count = await Pet(
       options.database,

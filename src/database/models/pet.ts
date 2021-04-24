@@ -52,6 +52,14 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'petTypes',
       },
+      customerId: {
+        type: Schema.Types.ObjectId,
+        ref: 'customer',
+      },
+      petOwners: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      }],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

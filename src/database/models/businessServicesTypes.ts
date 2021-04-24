@@ -10,7 +10,7 @@ export default (database) => {
 
   const BusinessServicesTypesSchema = new Schema(
     {
-      nome: {
+      name: {
         type: String,
       },
       tenant: {

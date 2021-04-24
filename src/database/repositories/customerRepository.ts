@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import Customer from '../models/customer';
 import Order from '../models/order';
+import Pet from '../models/pet';
 import ServiceReservation from '../models/serviceReservation';
 
 class CustomerRepository {
@@ -126,6 +127,13 @@ class CustomerRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Pet(options.database),
+      'customerId',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       ServiceReservation(options.database),
       'customerId',
       options,
@@ -154,8 +162,8 @@ class CustomerRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Customer(options.database)
         .findById(id)
-      .populate('userId')
-      .populate('businessId'),
+      .populate('businessId')
+      .populate('userId'),
       options,
     );
 
@@ -190,11 +198,44 @@ class CustomerRepository {
         });
       }
 
+      if (filter.businessId) {
+        criteriaAnd.push({
+          businessId: MongooseQueryUtils.uuid(
+            filter.businessId,
+          ),
+        });
+      }
+
+      if (filter.source) {
+        criteriaAnd.push({
+          source: filter.source
+        });
+      }
+
+      if (filter.userId) {
+        criteriaAnd.push({
+          userId: MongooseQueryUtils.uuid(
+            filter.userId,
+          ),
+        });
+      }
+
       if (filter.name) {
         criteriaAnd.push({
           name: {
             $regex: MongooseQueryUtils.escapeRegExp(
               filter.name,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.surname) {
+        criteriaAnd.push({
+          surname: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.surname,
             ),
             $options: 'i',
           },
@@ -227,19 +268,190 @@ class CustomerRepository {
         });
       }
 
-      if (filter.userId) {
+      if (filter.whatsApp) {
         criteriaAnd.push({
-          userId: MongooseQueryUtils.uuid(
-            filter.userId,
-          ),
+          whatsApp: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.whatsApp,
+            ),
+            $options: 'i',
+          },
         });
       }
 
-      if (filter.businessId) {
+      if (filter.phoneNumber) {
         criteriaAnd.push({
-          businessId: MongooseQueryUtils.uuid(
-            filter.businessId,
-          ),
+          phoneNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.phoneNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.address) {
+        criteriaAnd.push({
+          address: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.address,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.zipCode) {
+        criteriaAnd.push({
+          zipCode: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.zipCode,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.city) {
+        criteriaAnd.push({
+          city: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.city,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.state) {
+        criteriaAnd.push({
+          state: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.state,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.country) {
+        criteriaAnd.push({
+          country: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.country,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressStreet) {
+        criteriaAnd.push({
+          billingAddressStreet: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressStreet,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressCity) {
+        criteriaAnd.push({
+          billingAddressCity: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressCity,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressState) {
+        criteriaAnd.push({
+          billingAddressState: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressState,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressZipCode) {
+        criteriaAnd.push({
+          billingAddressZipCode: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressZipCode,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressCountry) {
+        criteriaAnd.push({
+          billingAddressCountry: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressCountry,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.shippingAddressStreet) {
+        criteriaAnd.push({
+          shippingAddressStreet: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressStreet,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.shippingAddressCity) {
+        criteriaAnd.push({
+          shippingAddressCity: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressCity,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.shippingAddressState) {
+        criteriaAnd.push({
+          shippingAddressState: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressState,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.shippingAddressZipCode) {
+        criteriaAnd.push({
+          shippingAddressZipCode: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressZipCode,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.shippingAddressCountry) {
+        criteriaAnd.push({
+          shippingAddressCountry: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressCountry,
+            ),
+            $options: 'i',
+          },
         });
       }
 
@@ -287,8 +499,8 @@ class CustomerRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('userId')
-      .populate('businessId');
+      .populate('businessId')
+      .populate('userId');
 
     const count = await Customer(
       options.database,

@@ -216,12 +216,7 @@ class ServiceReservationRepository {
 
       if (filter.time) {
         criteriaAnd.push({
-          time: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.time,
-            ),
-            $options: 'i',
-          },
+          time: filter.time
         });
       }
 

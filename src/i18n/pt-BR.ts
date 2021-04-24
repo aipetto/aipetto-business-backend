@@ -156,7 +156,42 @@ const ptBR = {
         }
       }
     },
-    reservationAgenda: {
+    businessPlaceServiceAvailability: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    country: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    city: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    state: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    messages: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    professionalsServiceAvailability: {
       errors: {
         unique: {
 

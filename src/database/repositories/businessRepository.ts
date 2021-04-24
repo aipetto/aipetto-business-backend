@@ -9,7 +9,8 @@ import Product from '../models/product';
 import Order from '../models/order';
 import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
-import ReservationAgenda from '../models/reservationAgenda';
+import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
+import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 
 class BusinessRepository {
   
@@ -158,7 +159,14 @@ class BusinessRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
-      ReservationAgenda(options.database),
+      BusinessPlaceServiceAvailability(options.database),
+      'businessId',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ProfessionalsServiceAvailability(options.database),
       'businessId',
       options,
     );
@@ -185,7 +193,11 @@ class BusinessRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Business(options.database)
-        .findById(id),
+        .findById(id)
+      .populate('services')
+      .populate('city')
+      .populate('state')
+      .populate('country'),
       options,
     );
 
@@ -228,6 +240,107 @@ class BusinessRepository {
             ),
             $options: 'i',
           },
+        });
+      }
+
+      if (filter.contactName) {
+        criteriaAnd.push({
+          contactName: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.contactName,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.contactPhone) {
+        criteriaAnd.push({
+          contactPhone: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.contactPhone,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.contactWhatsApp) {
+        criteriaAnd.push({
+          contactWhatsApp: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.contactWhatsApp,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.contactEmail) {
+        criteriaAnd.push({
+          contactEmail: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.contactEmail,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressStreet) {
+        criteriaAnd.push({
+          addressStreet: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressStreet,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressStreetNumber) {
+        criteriaAnd.push({
+          addressStreetNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressStreetNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressPostCode) {
+        criteriaAnd.push({
+          addressPostCode: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressPostCode,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.city) {
+        criteriaAnd.push({
+          city: MongooseQueryUtils.uuid(
+            filter.city,
+          ),
+        });
+      }
+
+      if (filter.state) {
+        criteriaAnd.push({
+          state: MongooseQueryUtils.uuid(
+            filter.state,
+          ),
+        });
+      }
+
+      if (filter.country) {
+        criteriaAnd.push({
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
         });
       }
 
@@ -274,7 +387,11 @@ class BusinessRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('services')
+      .populate('city')
+      .populate('state')
+      .populate('country');
 
     const count = await Business(
       options.database,

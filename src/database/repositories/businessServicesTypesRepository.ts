@@ -4,8 +4,10 @@ import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import BusinessServicesTypes from '../models/businessServicesTypes';
+import Business from '../models/business';
 import ServiceReservation from '../models/serviceReservation';
-import ReservationAgenda from '../models/reservationAgenda';
+import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
+import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 
 class BusinessServicesTypesRepository {
   
@@ -119,6 +121,13 @@ class BusinessServicesTypesRepository {
 
     await MongooseRepository.destroyRelationToMany(
       id,
+      Business(options.database),
+      'services',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
       ServiceReservation(options.database),
       'serviceType',
       options,
@@ -126,7 +135,14 @@ class BusinessServicesTypesRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
-      ReservationAgenda(options.database),
+      BusinessPlaceServiceAvailability(options.database),
+      'serviceType',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ProfessionalsServiceAvailability(options.database),
       'serviceType',
       options,
     );
@@ -188,11 +204,11 @@ class BusinessServicesTypesRepository {
         });
       }
 
-      if (filter.nome) {
+      if (filter.name) {
         criteriaAnd.push({
-          nome: {
+          name: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.nome,
+              filter.name,
             ),
             $options: 'i',
           },
@@ -271,7 +287,7 @@ class BusinessServicesTypesRepository {
             _id: MongooseQueryUtils.uuid(search),
           },
           {
-            nome: {
+            name: {
               $regex: MongooseQueryUtils.escapeRegExp(search),
               $options: 'i',
             }
@@ -280,7 +296,7 @@ class BusinessServicesTypesRepository {
       });
     }
 
-    const sort = MongooseQueryUtils.sort('nome_ASC');
+    const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
@@ -292,7 +308,7 @@ class BusinessServicesTypesRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record.nome,
+      label: record.name,
     }));
   }
 

@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
+import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 
 class PlaceRepository {
   
@@ -120,6 +121,13 @@ class PlaceRepository {
       id,
       ServiceReservation(options.database),
       'place',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      BusinessPlaceServiceAvailability(options.database),
+      'places',
       options,
     );
   }
