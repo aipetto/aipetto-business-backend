@@ -383,12 +383,17 @@ class PlaceRepository {
           {
             _id: MongooseQueryUtils.uuid(search),
           },
-          
+          {
+            name: {
+              $regex: MongooseQueryUtils.escapeRegExp(search),
+              $options: 'i',
+            }
+          },
         ],
       });
     }
 
-    const sort = MongooseQueryUtils.sort('id_ASC');
+    const sort = MongooseQueryUtils.sort('name_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
@@ -400,7 +405,7 @@ class PlaceRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record.id,
+      label: record.name,
     }));
   }
 
