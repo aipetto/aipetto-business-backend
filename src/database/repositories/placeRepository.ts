@@ -184,6 +184,17 @@ class PlaceRepository {
         });
       }
 
+      if (filter.name) {
+        criteriaAnd.push({
+          name: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.name,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.businessId) {
         criteriaAnd.push({
           businessId: MongooseQueryUtils.uuid(

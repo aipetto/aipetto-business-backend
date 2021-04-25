@@ -9896,6 +9896,9 @@
         ],
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "businessId": {
             "$ref": "#/components/schemas/Business"
           },
@@ -9928,6 +9931,9 @@
       "PlaceInput": {
         "type": "object",
         "properties": {
+          "name": {
+            "type": "string"
+          },
           "businessId": {
             "type": "string",
             "format": "uuid"

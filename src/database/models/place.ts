@@ -10,6 +10,10 @@ export default (database) => {
 
   const PlaceSchema = new Schema(
     {
+      name: {
+        type: String,
+        required: true,
+      },
       businessId: {
         type: Schema.Types.ObjectId,
         ref: 'business',
