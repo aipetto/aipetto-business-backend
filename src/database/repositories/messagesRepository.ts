@@ -25,9 +25,9 @@ class MessagesRepository {
           tenant: currentTenant.id,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await this._createAuditLog(
@@ -59,16 +59,14 @@ class MessagesRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Messages(options.database).updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
+    await Messages(options.database).updateOne(
+      { _id: id },
+      {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(
+          options,
+        ).id,
+      },
       options,
     );
 
@@ -103,10 +101,7 @@ class MessagesRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Messages(options.database).deleteOne({ _id: id }),
-      options,
-    );
+    await Messages(options.database).deleteOne({ _id: id }, options);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,

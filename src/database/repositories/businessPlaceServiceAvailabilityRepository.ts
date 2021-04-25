@@ -25,9 +25,9 @@ class BusinessPlaceServiceAvailabilityRepository {
           tenant: currentTenant.id,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await this._createAuditLog(
@@ -59,16 +59,14 @@ class BusinessPlaceServiceAvailabilityRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      BusinessPlaceServiceAvailability(options.database).updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
+    await BusinessPlaceServiceAvailability(options.database).updateOne(
+      { _id: id },
+      {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(
+          options,
+        ).id,
+      },
       options,
     );
 
@@ -103,10 +101,7 @@ class BusinessPlaceServiceAvailabilityRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      BusinessPlaceServiceAvailability(options.database).deleteOne({ _id: id }),
-      options,
-    );
+    await BusinessPlaceServiceAvailability(options.database).deleteOne({ _id: id }, options);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,

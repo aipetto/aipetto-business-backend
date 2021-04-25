@@ -31,7 +31,7 @@ export default class UserRepository {
           updatedBy: currentUser.id,
         },
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await AuditLogRepository.log(
@@ -63,9 +63,9 @@ export default class UserRepository {
           password: data.password,
           firstName: data.firstName,
           fullName: data.fullName,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     delete user.password;
@@ -104,10 +104,7 @@ export default class UserRepository {
       data.jwtTokenInvalidBefore = new Date();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne({ _id: id }, data),
-      options,
-    );
+    await User(options.database).updateOne({ _id: id }, data, options);
 
     await AuditLogRepository.log(
       {
@@ -139,18 +136,16 @@ export default class UserRepository {
 
     data = this._preSave(data);
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id },
-        {
-          firstName: data.firstName || null,
-          lastName: data.lastName || null,
-          fullName: data.fullName || null,
-          phoneNumber: data.phoneNumber || null,
-          updatedBy: currentUser.id,
-          avatars: data.avatars || [],
-        },
-      ),
+    await User(options.database).updateOne(
+      { _id: id },
+      {
+        firstName: data.firstName || null,
+        lastName: data.lastName || null,
+        fullName: data.fullName || null,
+        phoneNumber: data.phoneNumber || null,
+        updatedBy: currentUser.id,
+        avatars: data.avatars || [],
+      },
       options,
     );
 
@@ -188,15 +183,13 @@ export default class UserRepository {
     const emailVerificationTokenExpiresAt =
       Date.now() + 24 * 60 * 60 * 1000;
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id },
-        {
-          emailVerificationToken,
-          emailVerificationTokenExpiresAt,
-          updatedBy: currentUser.id,
-        },
-      ),
+    await User(options.database).updateOne(
+      { _id: id },
+      {
+        emailVerificationToken,
+        emailVerificationTokenExpiresAt,
+        updatedBy: currentUser.id,
+      },
       options,
     );
 
@@ -236,15 +229,13 @@ export default class UserRepository {
     const passwordResetTokenExpiresAt =
       Date.now() + 24 * 60 * 60 * 1000;
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id },
-        {
-          passwordResetToken,
-          passwordResetTokenExpiresAt,
-          updatedBy: currentUser.id,
-        },
-      ),
+    await User(options.database).updateOne(
+      { _id: id },
+      {
+        passwordResetToken,
+        passwordResetTokenExpiresAt,
+        updatedBy: currentUser.id,
+      },
       options,
     );
 
@@ -276,18 +267,16 @@ export default class UserRepository {
 
     data = this._preSave(data);
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id },
-        {
-          firstName: data.firstName || null,
-          lastName: data.lastName || null,
-          fullName: data.fullName || null,
-          phoneNumber: data.phoneNumber || null,
-          updatedBy: currentUser.id,
-          avatars: data.avatars || [],
-        },
-      ),
+    await User(options.database).updateOne(
+      { _id: id },
+      {
+        firstName: data.firstName || null,
+        lastName: data.lastName || null,
+        fullName: data.fullName || null,
+        phoneNumber: data.phoneNumber || null,
+        updatedBy: currentUser.id,
+        avatars: data.avatars || [],
+      },
       options,
     );
 
@@ -652,14 +641,12 @@ export default class UserRepository {
       options,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id },
-        {
-          emailVerified: true,
-          updatedBy: currentUser.id,
-        },
-      ),
+    await User(options.database).updateOne(
+      { _id: id },
+      {
+        emailVerified: true,
+        updatedBy: currentUser.id,
+      },
       options,
     );
 
@@ -809,7 +796,7 @@ export default class UserRepository {
 
     let [user] = await User(options.database).create(
       [data],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await AuditLogRepository.log(

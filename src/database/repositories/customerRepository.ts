@@ -28,9 +28,9 @@ class CustomerRepository {
           tenant: currentTenant.id,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await this._createAuditLog(
@@ -62,16 +62,14 @@ class CustomerRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Customer(options.database).updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
+    await Customer(options.database).updateOne(
+      { _id: id },
+      {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(
+          options,
+        ).id,
+      },
       options,
     );
 
@@ -106,10 +104,7 @@ class CustomerRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Customer(options.database).deleteOne({ _id: id }),
-      options,
-    );
+    await Customer(options.database).deleteOne({ _id: id }, options);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,

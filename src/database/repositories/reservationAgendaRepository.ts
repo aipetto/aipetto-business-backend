@@ -27,7 +27,7 @@ class ReservationAgendaRepository {
           updatedBy: currentUser.id,
         },
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await this._createAuditLog(

@@ -21,7 +21,10 @@ export default class SettingsRepository {
     );
   }
 
-  static async findOrCreateDefault(defaults, options: IRepositoryOptions) {
+  static async findOrCreateDefault(
+    defaults,
+    options: IRepositoryOptions,
+  ) {
     const currentTenant = MongooseRepository.getCurrentTenant(
       options,
     );
@@ -49,9 +52,9 @@ export default class SettingsRepository {
           )
             ? MongooseRepository.getCurrentUser(options).id
             : null,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     return this._fillFileDownloadUrls(settings);
@@ -69,11 +72,9 @@ export default class SettingsRepository {
       options,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Settings(options.database).updateOne(
-        { _id: record.id },
-        { ...data, tenant: currentTenant.id },
-      ),
+    await Settings(options.database).updateOne(
+      { _id: record.id },
+      { ...data, tenant: currentTenant.id },
       options,
     );
 

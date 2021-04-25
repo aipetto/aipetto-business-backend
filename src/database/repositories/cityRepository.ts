@@ -26,9 +26,9 @@ class CityRepository {
           tenant: currentTenant.id,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await this._createAuditLog(
@@ -60,16 +60,14 @@ class CityRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      City(options.database).updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
+    await City(options.database).updateOne(
+      { _id: id },
+      {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(
+          options,
+        ).id,
+      },
       options,
     );
 
@@ -104,10 +102,7 @@ class CityRepository {
       throw new Error404();
     }
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      City(options.database).deleteOne({ _id: id }),
-      options,
-    );
+    await City(options.database).deleteOne({ _id: id }, options);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,

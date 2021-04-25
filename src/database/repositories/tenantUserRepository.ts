@@ -46,19 +46,17 @@ export default class TenantUserRepository {
     roles = roles || [];
     const status = selectStatus('active', roles);
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateMany(
-        { _id: user.id },
-        {
-          $push: {
-            tenants: {
-              tenant: tenant.id,
-              status,
-              roles,
-            },
+    await User(options.database).updateMany(
+      { _id: user.id },
+      {
+        $push: {
+          tenants: {
+            tenant: tenant.id,
+            status,
+            roles,
           },
         },
-      ),
+      },
       options,
     );
 
@@ -87,15 +85,13 @@ export default class TenantUserRepository {
       options,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id },
-        {
-          $pull: {
-            tenants: { tenant: tenantId },
-          },
+    await User(options.database).updateOne(
+      { _id: id },
+      {
+        $pull: {
+          tenants: { tenant: tenantId },
         },
-      ),
+      },
       options,
     );
 
@@ -137,15 +133,13 @@ export default class TenantUserRepository {
         roles: [],
       };
 
-      await MongooseRepository.wrapWithSessionIfExists(
-        User(options.database).updateOne(
-          { _id: id },
-          {
-            $push: {
-              tenants: tenantUser,
-            },
+      await User(options.database).updateOne(
+        { _id: id },
+        {
+          $push: {
+            tenants: tenantUser,
           },
-        ),
+        },
         options,
       );
     }
@@ -170,16 +164,14 @@ export default class TenantUserRepository {
       newRoles,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: id, 'tenants.tenant': tenantId },
-        {
-          $set: {
-            'tenants.$.roles': newRoles,
-            'tenants.$.status': tenantUser.status,
-          },
+    await User(options.database).updateOne(
+      { _id: id, 'tenants.tenant': tenantId },
+      {
+        $set: {
+          'tenants.$.roles': newRoles,
+          'tenants.$.status': tenantUser.status,
         },
-      ),
+      },
       options,
     );
 
@@ -258,16 +250,14 @@ export default class TenantUserRepository {
       currentUser.emailVerified ||
       isSameEmailFromInvitation;
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateOne(
-        { _id: currentUser.id },
-        {
-          emailVerified,
-          $push: {
-            tenants: tenantUser,
-          },
+    await User(options.database).updateOne(
+      { _id: currentUser.id },
+      {
+        emailVerified,
+        $push: {
+          tenants: tenantUser,
         },
-      ),
+      },
       options,
     );
 

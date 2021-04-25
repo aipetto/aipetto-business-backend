@@ -1,6 +1,7 @@
 import { getConfig } from '../../config';
 import Error400 from '../../errors/Error400';
 import { IRepositoryOptions } from './IRepositoryOptions';
+import mongoose from 'mongoose';
 
 /**
  * Abstracts some basic Mongoose operations.
@@ -46,7 +47,9 @@ export default class MongooseRepository {
   /**
    * Creates a database session and transaction.
    */
-  static async createSession(connection) {
+  static async createSession(
+    connection,
+  ) {
     if (getConfig().DATABASE_TRANSACTIONS !== 'true') {
       return;
     }
@@ -64,7 +67,8 @@ export default class MongooseRepository {
       return;
     }
 
-    return session.commitTransaction();
+    await session.commitTransaction();
+    await session.endSession();
   }
 
   /**
@@ -75,29 +79,22 @@ export default class MongooseRepository {
       return;
     }
 
-    return session.abortTransaction();
+    await session.abortTransaction();
+    await session.endSession();
   }
 
   /**
    * Wraps the operation with the current session.
    */
-  static async wrapWithSessionIfExists(toWrap, options: IRepositoryOptions) {
+  static async wrapWithSessionIfExists(
+    toWrap,
+    options: IRepositoryOptions,
+  ) {
     if (!this.getSession(options)) {
       return toWrap;
     }
 
     return toWrap.session(this.getSession(options));
-  }
-
-  /**
-   * Returns the session as an option object if it exists on the options.
-   */
-  static getSessionOptionsIfExists(options: IRepositoryOptions) {
-    if (!this.getSession(options)) {
-      return undefined;
-    }
-
-    return { session: this.getSession(options) };
   }
 
   /**
@@ -113,39 +110,33 @@ export default class MongooseRepository {
     targetProperty,
     options: IRepositoryOptions,
   ) {
-    await this.wrapWithSessionIfExists(
-      sourceModel.updateMany(
-        {
-          _id: { $nin: record._id },
-          [sourceProperty]: { $in: record[sourceProperty] },
+    await sourceModel.updateMany(
+      {
+        _id: { $nin: record._id },
+        [sourceProperty]: { $in: record[sourceProperty] },
+      },
+      {
+        $pullAll: {
+          [sourceProperty]: record[sourceProperty],
         },
-        {
-          $pullAll: {
-            [sourceProperty]: record[sourceProperty],
-          },
-        },
-      ),
+      },
       options,
     );
 
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        {
-          _id: { $in: record[sourceProperty] },
-        },
-        { [targetProperty]: record._id },
-      ),
+    await targetModel.updateMany(
+      {
+        _id: { $in: record[sourceProperty] },
+      },
+      { [targetProperty]: record._id },
       options,
     );
 
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        {
-          _id: { $nin: record[sourceProperty] },
-          [targetProperty]: record._id,
-        },
-        { [targetProperty]: null },
-      ),
+    await targetModel.updateMany(
+      {
+        _id: { $nin: record[sourceProperty] },
+        [targetProperty]: record._id,
+      },
+      { [targetProperty]: null },
       options,
     );
   }
@@ -162,22 +153,18 @@ export default class MongooseRepository {
     targetProperty,
     options: IRepositoryOptions,
   ) {
-    await this.wrapWithSessionIfExists(
-      targetModel.updateOne(
-        { _id: record[sourceProperty] },
-        { $addToSet: { [targetProperty]: record._id } },
-      ),
+    await targetModel.updateOne(
+      { _id: record[sourceProperty] },
+      { $addToSet: { [targetProperty]: record._id } },
       options,
     );
 
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        {
-          _id: { $ne: record[sourceProperty] },
-          [targetProperty]: record._id,
-        },
-        { $pull: { [targetProperty]: record._id } },
-      ),
+    await targetModel.updateMany(
+      {
+        _id: { $ne: record[sourceProperty] },
+        [targetProperty]: record._id,
+      },
+      { $pull: { [targetProperty]: record._id } },
       options,
     );
   }
@@ -194,22 +181,18 @@ export default class MongooseRepository {
     targetProperty,
     options: IRepositoryOptions,
   ) {
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        { _id: { $in: record[sourceProperty] } },
-        { $addToSet: { [targetProperty]: record._id } },
-      ),
+    await targetModel.updateMany(
+      { _id: { $in: record[sourceProperty] } },
+      { $addToSet: { [targetProperty]: record._id } },
       options,
     );
 
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        {
-          _id: { $nin: record[sourceProperty] },
-          [targetProperty]: { $in: record._id },
-        },
-        { $pull: { [targetProperty]: record._id } },
-      ),
+    await targetModel.updateMany(
+      {
+        _id: { $nin: record[sourceProperty] },
+        [targetProperty]: { $in: record._id },
+      },
+      { $pull: { [targetProperty]: record._id } },
       options,
     );
   }
@@ -225,11 +208,9 @@ export default class MongooseRepository {
     targetProperty,
     options: IRepositoryOptions,
   ) {
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        { [targetProperty]: recordId },
-        { $pull: { [targetProperty]: recordId } },
-      ),
+    await targetModel.updateMany(
+      { [targetProperty]: recordId },
+      { $pull: { [targetProperty]: recordId } },
       options,
     );
   }
@@ -245,11 +226,9 @@ export default class MongooseRepository {
     targetProperty,
     options: IRepositoryOptions,
   ) {
-    await this.wrapWithSessionIfExists(
-      targetModel.updateMany(
-        { [targetProperty]: recordId },
-        { [targetProperty]: null },
-      ),
+    await targetModel.updateMany(
+      { [targetProperty]: recordId },
+      { [targetProperty]: null },
       options,
     );
   }

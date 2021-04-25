@@ -55,7 +55,7 @@ export default class AuditLogRepository {
               : null,
         },
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     return log;

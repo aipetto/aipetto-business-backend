@@ -61,9 +61,9 @@ class TenantRepository {
           ...data,
           createdBy: currentUser.id,
           updatedBy: currentUser.id,
-        },
+        }
       ],
-      MongooseRepository.getSessionOptionsIfExists(options),
+      options,
     );
 
     await this._createAuditLog(
@@ -81,7 +81,11 @@ class TenantRepository {
     });
   }
 
-  static async update(id, data, options: IRepositoryOptions) {
+  static async update(
+    id,
+    data,
+    options: IRepositoryOptions,
+  ) {
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
@@ -122,16 +126,14 @@ class TenantRepository {
     delete data.planUserId;
     delete data.planStatus;
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Tenant(options.database).updateOne(
-        { _id: id },
-        {
-          ...data,
-          updatedBy: MongooseRepository.getCurrentUser(
-            options,
-          ).id,
-        },
-      ),
+    await Tenant(options.database).updateOne(
+      { _id: id },
+      {
+        ...data,
+        updatedBy: MongooseRepository.getCurrentUser(
+          options,
+        ).id,
+      },
       options,
     );
 
@@ -164,8 +166,9 @@ class TenantRepository {
       updatedBy: currentUser.id,
     };
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Tenant(options.database).updateOne({ _id: id }, data),
+    await Tenant(options.database).updateOne(
+      { _id: id },
+      data,
       options,
     );
 
@@ -178,7 +181,7 @@ class TenantRepository {
 
     return await this.findById(id, options);
   }
-  
+
   static async updatePlanStatus(
     planStripeCustomerId,
     plan,
@@ -198,11 +201,9 @@ class TenantRepository {
       options,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Tenant(options.database).updateOne(
-        { _id: record.id },
-        data,
-      ),
+    await Tenant(options.database).updateOne(
+      { _id: record.id },
+      data,
       options,
     );
 
@@ -230,8 +231,8 @@ class TenantRepository {
       options,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Tenant(options.database).deleteOne({ _id: id }),
+    await Tenant(options.database).deleteOne(
+      { _id: id },
       options,
     );
 
@@ -241,112 +242,62 @@ class TenantRepository {
       record,
       options,
     );
-    
-    await MongooseRepository.wrapWithSessionIfExists(
-      Customer(options.database).deleteMany({ tenant: id }),
+
+    await Customer(options.database).deleteMany({ tenant: id }, options);
+
+    await Product(options.database).deleteMany({ tenant: id }, options);
+
+    await Order(options.database).deleteMany({ tenant: id }, options);
+
+    await Pet(options.database).deleteMany({ tenant: id }, options);
+
+    await Breed(options.database).deleteMany({ tenant: id }, options);
+
+    await PetTypes(options.database).deleteMany({ tenant: id }, options);
+
+    await Business(options.database).deleteMany({ tenant: id }, options);
+
+    await Place(options.database).deleteMany({ tenant: id }, options);
+
+    await BusinessServicesTypes(options.database).deleteMany({ tenant: id }, options);
+
+    await ServiceReservation(options.database).deleteMany({ tenant: id }, options);
+
+    await BusinessPlaceServiceAvailability(options.database).deleteMany({ tenant: id }, options);
+
+    await Country(options.database).deleteMany({ tenant: id }, options);
+
+    await City(options.database).deleteMany({ tenant: id }, options);
+
+    await State(options.database).deleteMany({ tenant: id }, options);
+
+    await Messages(options.database).deleteMany({ tenant: id }, options);
+
+    await ProfessionalsServiceAvailability(options.database).deleteMany({ tenant: id }, options);
+
+    await Settings(options.database).deleteMany(
+      { tenant: id },
       options,
     );
 
-    await MongooseRepository.wrapWithSessionIfExists(
-      Product(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Order(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Pet(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Breed(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      PetTypes(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Business(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Place(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      BusinessServicesTypes(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      ServiceReservation(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      BusinessPlaceServiceAvailability(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Country(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      City(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      State(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Messages(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      ProfessionalsServiceAvailability(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      Settings(options.database).deleteMany({ tenant: id }),
-      options,
-    );
-
-    await MongooseRepository.wrapWithSessionIfExists(
-      User(options.database).updateMany(
-        {},
-        {
-          $pull: {
-            tenants: { tenant: id },
-          },
+    await User(options.database).updateMany(
+      {},
+      {
+        $pull: {
+          tenants: { tenant: id },
         },
-      ),
+      },
       options,
     );
   }
- 
+
   static async count(filter, options: IRepositoryOptions) {
     return MongooseRepository.wrapWithSessionIfExists(
       Tenant(options.database).countDocuments(filter),
       options,
     );
   }
-  
+
   static async findById(id, options: IRepositoryOptions) {
     const record = await MongooseRepository.wrapWithSessionIfExists(
       Tenant(options.database).findById(id),
@@ -368,7 +319,7 @@ class TenantRepository {
 
     return output;
   }
-  
+
   static async findByUrl(url, options: IRepositoryOptions) {
     const record = await MongooseRepository.wrapWithSessionIfExists(
       Tenant(options.database).findOne({ url }),
@@ -390,11 +341,11 @@ class TenantRepository {
 
     return output;
   }
-  
+
   static async findDefault(options: IRepositoryOptions) {
     return Tenant(options.database).findOne();
   }
-  
+
   static async findAndCountAll(
     { filter, limit = 0, offset = 0, orderBy = '' },
     options: IRepositoryOptions,
@@ -486,19 +437,25 @@ class TenantRepository {
 
     return { rows, count };
   }
-  
-  static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
+
+  static async findAllAutocomplete(
+    search,
+    limit,
+    options: IRepositoryOptions,
+  ) {
     const currentUser = MongooseRepository.getCurrentUser(
       options,
     );
 
-    let criteriaAnd: Array<any> = [{
-      _id: {
-        $in: currentUser.tenants.map(
-          (userTenant) => userTenant.tenant.id,
-        ),
+    let criteriaAnd: Array<any> = [
+      {
+        _id: {
+          $in: currentUser.tenants.map(
+            (userTenant) => userTenant.tenant.id,
+          ),
+        },
       },
-    }];
+    ];
 
     if (search) {
       criteriaAnd.push({
@@ -533,8 +490,13 @@ class TenantRepository {
       label: record['name'],
     }));
   }
-  
-  static async _createAuditLog(action, id, data, options: IRepositoryOptions) {
+
+  static async _createAuditLog(
+    action,
+    id,
+    data,
+    options: IRepositoryOptions,
+  ) {
     await AuditLogRepository.log(
       {
         entityName: Tenant(options.database).modelName,
@@ -545,7 +507,7 @@ class TenantRepository {
       options,
     );
   }
-  
+
   static _isUserInTenant(user, tenantId) {
     if (!user || !user.tenants) {
       return false;
