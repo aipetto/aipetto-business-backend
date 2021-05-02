@@ -5,8 +5,8 @@
     "start": "nodemon --watch \"src/**/*.ts\" -e ts,json --exec \"ts-node --transpile-only ./src/server.ts\"",
     "test": "nodemon --exec \"cross-env NODE_ENV=test mocha -r ts-node/register ./src/**/*.test.ts --exit || exit 1\"",
     "build:documentation": "copyfiles --flat ./src/documentation/openapi.json ./dist/documentation/",
-    "deploy:staging": "gcloud builds submit --tag gcr.io/aipetto/aipetto --project aipetto && gcloud run deploy aipetto --image gcr.io/aipetto/aipetto --platform managed --project aipetto --memory=2Gi --region us-central1 ",
-    "deploy:production": "gcloud builds submit --tag gcr.io/aipetto/aipetto --project aipetto && gcloud run deploy aipetto --image gcr.io/aipetto/aipetto --platform managed --project aipetto --memory=2Gi --region us-central1 ",
+    "deploy:staging": "gcloud builds submit --tag gcr.io/aipetto-312421/aipetto-312421 --project aipetto-312421 && gcloud run deploy aipetto-312421 --image gcr.io/aipetto-312421/aipetto-312421 --platform managed --project aipetto-312421 --memory=2Gi --region southamerica-east1",
+    "deploy:production": "gcloud builds submit --tag gcr.io/aipetto-312421/aipetto-312421 --project aipetto-312421 && gcloud run deploy aipetto-312421 --image gcr.io/aipetto-312421/aipetto-312421 --platform managed --project aipetto-312421 --memory=2Gi --region southamerica-east1",
     "build": "tsc && npm run build:documentation",
     "db:create": "npm run build && node ./dist/database/migrations/create"
   },

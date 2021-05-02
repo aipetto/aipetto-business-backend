@@ -18,7 +18,14 @@ Deploying container to Cloud Run service [aipetto] in project [aipetto] region [
   ✓ Routing traffic...                                                                                                                                                                                                                 
 Done.                                                                                                                                                                                                                                  
 Service [aipetto] revision [aipetto-00011-sax] has been deployed and is serving 100 percent of traffic.
+```
 
+Unable to enable the API
+Service 'containerregistry.googleapis.com' not found or permission denied.
+```
+gcloud services enable apigateway.googleapis.com
+gcloud services enable servicemanagement.googleapis.com
+gcloud services enable servicecontrol.googleapis.com 
 ```
 
 ### Change permission to storage
