@@ -131,7 +131,7 @@ const ptBR = {
     business: {
       errors: {
         unique: {
-
+          businessID: 'BusinessID deve ser único',
         }
       }
     },
@@ -192,6 +192,69 @@ const ptBR = {
       }
     },
     professionalsServiceAvailability: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    languages: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    currency: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    discounts: {
+      errors: {
+        unique: {
+          codeName: 'CodeName deve ser único',
+        }
+      }
+    },
+    wallet: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    businessCategory: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    providers: {
+      errors: {
+        unique: {
+          providerID: 'ProviderID deve ser único',
+        }
+      }
+    },
+    vaccineTypes: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    petVaccines: {
+      errors: {
+        unique: {
+          uniqueVetVaccineCode: 'UniqueVetVaccineCode deve ser único',
+        }
+      }
+    },
+    placeType: {
       errors: {
         unique: {
 

@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/languages`,
+    require('./languagesCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/languages/:id`,
+    require('./languagesUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/languages/import`,
+    require('./languagesImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/languages`,
+    require('./languagesDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/languages/autocomplete`,
+    require('./languagesAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/languages`,
+    require('./languagesList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/languages/:id`,
+    require('./languagesFind').default,
+  );
+};

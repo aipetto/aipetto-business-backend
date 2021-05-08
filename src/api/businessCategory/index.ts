@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/business-category`,
+    require('./businessCategoryCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/business-category/:id`,
+    require('./businessCategoryUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/business-category/import`,
+    require('./businessCategoryImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/business-category`,
+    require('./businessCategoryDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/business-category/autocomplete`,
+    require('./businessCategoryAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/business-category`,
+    require('./businessCategoryList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/business-category/:id`,
+    require('./businessCategoryFind').default,
+  );
+};

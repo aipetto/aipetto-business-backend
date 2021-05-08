@@ -6,6 +6,7 @@ import { IRepositoryOptions } from './IRepositoryOptions';
 import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
+import PetVaccines from '../models/petVaccines';
 
 class PlaceRepository {
   
@@ -125,6 +126,13 @@ class PlaceRepository {
       'places',
       options,
     );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetVaccines(options.database),
+      'placeTaken',
+      options,
+    );
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -149,6 +157,7 @@ class PlaceRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Place(options.database)
         .findById(id)
+      .populate('placeType')
       .populate('businessId'),
       options,
     );
@@ -192,6 +201,14 @@ class PlaceRepository {
             ),
             $options: 'i',
           },
+        });
+      }
+
+      if (filter.placeType) {
+        criteriaAnd.push({
+          placeType: MongooseQueryUtils.uuid(
+            filter.placeType,
+          ),
         });
       }
 
@@ -355,6 +372,7 @@ class PlaceRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
+      .populate('placeType')
       .populate('businessId');
 
     const count = await Place(

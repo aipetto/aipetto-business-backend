@@ -11,6 +11,8 @@ import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
+import Providers from '../models/providers';
+import PetVaccines from '../models/petVaccines';
 
 class BusinessRepository {
   
@@ -165,6 +167,20 @@ class BusinessRepository {
       'businessId',
       options,
     );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Providers(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetVaccines(options.database),
+      'businessID',
+      options,
+    );
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -190,6 +206,7 @@ class BusinessRepository {
       Business(options.database)
         .findById(id)
       .populate('services')
+      .populate('categories')
       .populate('city')
       .populate('state')
       .populate('country'),
@@ -224,6 +241,17 @@ class BusinessRepository {
       if (filter.id) {
         criteriaAnd.push({
           ['_id']: MongooseQueryUtils.uuid(filter.id),
+        });
+      }
+
+      if (filter.businessID) {
+        criteriaAnd.push({
+          businessID: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.businessID,
+            ),
+            $options: 'i',
+          },
         });
       }
 
@@ -384,6 +412,7 @@ class BusinessRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('services')
+      .populate('categories')
       .populate('city')
       .populate('state')
       .populate('country');
@@ -415,7 +444,7 @@ class BusinessRepository {
             _id: MongooseQueryUtils.uuid(search),
           },
           {
-            name: {
+            businessID: {
               $regex: MongooseQueryUtils.escapeRegExp(search),
               $options: 'i',
             }
@@ -424,7 +453,7 @@ class BusinessRepository {
       });
     }
 
-    const sort = MongooseQueryUtils.sort('name_ASC');
+    const sort = MongooseQueryUtils.sort('businessID_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
@@ -436,7 +465,7 @@ class BusinessRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record.name,
+      label: record.businessID,
     }));
   }
 

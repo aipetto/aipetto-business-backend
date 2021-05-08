@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import State from '../models/state';
 import Business from '../models/business';
+import Providers from '../models/providers';
 
 class StateRepository {
   
@@ -114,6 +115,13 @@ class StateRepository {
     await MongooseRepository.destroyRelationToOne(
       id,
       Business(options.database),
+      'state',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Providers(options.database),
       'state',
       options,
     );

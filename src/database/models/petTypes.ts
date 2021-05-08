@@ -15,6 +15,10 @@ export default (database) => {
         type: String,
       },
       image: [FileSchema],
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
