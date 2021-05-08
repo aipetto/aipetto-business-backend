@@ -1,5 +1,6 @@
 {
   "name": "app-backend",
+  "version": "alpha-v1.0.1",
   "description": "Backend",
   "scripts": {
     "start": "nodemon --watch \"src/**/*.ts\" -e ts,json --exec \"ts-node --transpile-only ./src/server.ts\"",
