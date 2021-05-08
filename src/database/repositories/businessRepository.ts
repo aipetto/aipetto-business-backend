@@ -412,6 +412,7 @@ class BusinessRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('services')
+      .populate('categories')
       .populate('city')
       .populate('state')
       .populate('country');

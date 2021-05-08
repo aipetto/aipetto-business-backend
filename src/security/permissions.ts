@@ -759,6 +759,366 @@ class Permissions {
         id: 'professionalsServiceAvailabilityAutocomplete',
         allowedRoles: [roles.aipettoAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      languagesImport: {
+        id: 'languagesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      languagesCreate: {
+        id: 'languagesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      languagesEdit: {
+        id: 'languagesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      languagesDestroy: {
+        id: 'languagesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      languagesRead: {
+        id: 'languagesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      languagesAutocomplete: {
+        id: 'languagesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      currencyImport: {
+        id: 'currencyImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      currencyCreate: {
+        id: 'currencyCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      currencyEdit: {
+        id: 'currencyEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      currencyDestroy: {
+        id: 'currencyDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      currencyRead: {
+        id: 'currencyRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      currencyAutocomplete: {
+        id: 'currencyAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      discountsImport: {
+        id: 'discountsImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      discountsCreate: {
+        id: 'discountsCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      discountsEdit: {
+        id: 'discountsEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      discountsDestroy: {
+        id: 'discountsDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      discountsRead: {
+        id: 'discountsRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      discountsAutocomplete: {
+        id: 'discountsAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      walletImport: {
+        id: 'walletImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      walletCreate: {
+        id: 'walletCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      walletEdit: {
+        id: 'walletEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      walletDestroy: {
+        id: 'walletDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      walletRead: {
+        id: 'walletRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      walletAutocomplete: {
+        id: 'walletAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      businessCategoryImport: {
+        id: 'businessCategoryImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      businessCategoryCreate: {
+        id: 'businessCategoryCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessCategoryEdit: {
+        id: 'businessCategoryEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessCategoryDestroy: {
+        id: 'businessCategoryDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessCategoryRead: {
+        id: 'businessCategoryRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      businessCategoryAutocomplete: {
+        id: 'businessCategoryAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      providersImport: {
+        id: 'providersImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      providersCreate: {
+        id: 'providersCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      providersEdit: {
+        id: 'providersEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      providersDestroy: {
+        id: 'providersDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      providersRead: {
+        id: 'providersRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      providersAutocomplete: {
+        id: 'providersAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      vaccineTypesImport: {
+        id: 'vaccineTypesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      vaccineTypesCreate: {
+        id: 'vaccineTypesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      vaccineTypesEdit: {
+        id: 'vaccineTypesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      vaccineTypesDestroy: {
+        id: 'vaccineTypesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      vaccineTypesRead: {
+        id: 'vaccineTypesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      vaccineTypesAutocomplete: {
+        id: 'vaccineTypesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      petVaccinesImport: {
+        id: 'petVaccinesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petVaccinesCreate: {
+        id: 'petVaccinesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      petVaccinesEdit: {
+        id: 'petVaccinesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      petVaccinesDestroy: {
+        id: 'petVaccinesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      petVaccinesRead: {
+        id: 'petVaccinesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petVaccinesAutocomplete: {
+        id: 'petVaccinesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      placeTypeImport: {
+        id: 'placeTypeImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      placeTypeCreate: {
+        id: 'placeTypeCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      placeTypeEdit: {
+        id: 'placeTypeEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      placeTypeDestroy: {
+        id: 'placeTypeDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      placeTypeRead: {
+        id: 'placeTypeRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      placeTypeAutocomplete: {
+        id: 'placeTypeAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
       },      
     };
   }
