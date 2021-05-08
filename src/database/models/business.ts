@@ -10,12 +10,20 @@ export default (database) => {
 
   const BusinessSchema = new Schema(
     {
+      businessID: {
+        type: String,
+        required: true,
+      },
       name: {
         type: String,
       },
       services: [{
         type: Schema.Types.ObjectId,
         ref: 'businessServicesTypes',
+      }],
+      categories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'businessCategory',
       }],
       contactName: {
         type: String,
@@ -77,7 +85,15 @@ export default (database) => {
     },
   );
 
-  
+  BusinessSchema.index(
+    { businessID: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        businessID: { $type: 'string' },
+      },
+    },
+  );
 
   BusinessSchema.virtual('id').get(function () {
     // @ts-ignore

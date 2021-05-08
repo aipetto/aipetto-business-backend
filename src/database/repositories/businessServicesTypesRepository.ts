@@ -8,6 +8,7 @@ import Business from '../models/business';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
+import Providers from '../models/providers';
 
 class BusinessServicesTypesRepository {
   
@@ -141,6 +142,13 @@ class BusinessServicesTypesRepository {
       'serviceType',
       options,
     );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Providers(options.database),
+      'serviceTypes',
+      options,
+    );
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -164,7 +172,9 @@ class BusinessServicesTypesRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       BusinessServicesTypes(options.database)
-        .findById(id),
+        .findById(id)
+      .populate('category')
+      .populate('language'),
       options,
     );
 
@@ -207,6 +217,22 @@ class BusinessServicesTypesRepository {
             ),
             $options: 'i',
           },
+        });
+      }
+
+      if (filter.category) {
+        criteriaAnd.push({
+          category: MongooseQueryUtils.uuid(
+            filter.category,
+          ),
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
         });
       }
 
@@ -253,7 +279,9 @@ class BusinessServicesTypesRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('category')
+      .populate('language');
 
     const count = await BusinessServicesTypes(
       options.database,

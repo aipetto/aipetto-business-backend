@@ -149,7 +149,8 @@ class PetTypesRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       PetTypes(options.database)
-        .findById(id),
+        .findById(id)
+      .populate('language'),
       options,
     );
 
@@ -192,6 +193,14 @@ class PetTypesRepository {
             ),
             $options: 'i',
           },
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
         });
       }
 
@@ -238,7 +247,8 @@ class PetTypesRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('language');
 
     const count = await PetTypes(
       options.database,

@@ -13,6 +13,14 @@ export default (database) => {
       name: {
         type: String,
       },
+      category: {
+        type: Schema.Types.ObjectId,
+        ref: 'businessCategory',
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

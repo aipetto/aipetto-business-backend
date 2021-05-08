@@ -84,6 +84,15 @@ require('./city').default(routes);
 require('./state').default(routes);
 require('./messages').default(routes);
 require('./professionalsServiceAvailability').default(routes);
+require('./languages').default(routes);
+require('./currency').default(routes);
+require('./discounts').default(routes);
+require('./wallet').default(routes);
+require('./businessCategory').default(routes);
+require('./providers').default(routes);
+require('./vaccineTypes').default(routes);
+require('./petVaccines').default(routes);
+require('./placeType').default(routes);
 
 // Loads the Tenant if the :tenantId param is passed
 routes.param('tenantId', tenantMiddleware);

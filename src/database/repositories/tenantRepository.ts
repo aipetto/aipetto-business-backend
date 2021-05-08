@@ -21,6 +21,15 @@ import City from '../models/city';
 import State from '../models/state';
 import Messages from '../models/messages';
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
+import Languages from '../models/languages';
+import Currency from '../models/currency';
+import Discounts from '../models/discounts';
+import Wallet from '../models/wallet';
+import BusinessCategory from '../models/businessCategory';
+import Providers from '../models/providers';
+import VaccineTypes from '../models/vaccineTypes';
+import PetVaccines from '../models/petVaccines';
+import PlaceType from '../models/placeType';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
 import { isUserInTenant } from '../utils/userTenantUtils';
@@ -274,6 +283,24 @@ class TenantRepository {
     await Messages(options.database).deleteMany({ tenant: id }, options);
 
     await ProfessionalsServiceAvailability(options.database).deleteMany({ tenant: id }, options);
+
+    await Languages(options.database).deleteMany({ tenant: id }, options);
+
+    await Currency(options.database).deleteMany({ tenant: id }, options);
+
+    await Discounts(options.database).deleteMany({ tenant: id }, options);
+
+    await Wallet(options.database).deleteMany({ tenant: id }, options);
+
+    await BusinessCategory(options.database).deleteMany({ tenant: id }, options);
+
+    await Providers(options.database).deleteMany({ tenant: id }, options);
+
+    await VaccineTypes(options.database).deleteMany({ tenant: id }, options);
+
+    await PetVaccines(options.database).deleteMany({ tenant: id }, options);
+
+    await PlaceType(options.database).deleteMany({ tenant: id }, options);
 
     await Settings(options.database).deleteMany(
       { tenant: id },

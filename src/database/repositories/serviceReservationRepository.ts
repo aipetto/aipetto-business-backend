@@ -138,7 +138,9 @@ class ServiceReservationRepository {
       .populate('businessId')
       .populate('customerId')
       .populate('serviceType')
-      .populate('place'),
+      .populate('serviceProviderIDs')
+      .populate('place')
+      .populate('discountCode'),
       options,
     );
 
@@ -242,6 +244,54 @@ class ServiceReservationRepository {
         });
       }
 
+      if (filter.totalPriceRange) {
+        const [start, end] = filter.totalPriceRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            totalPrice: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            totalPrice: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.totalPriceWithDiscountRange) {
+        const [start, end] = filter.totalPriceWithDiscountRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            totalPriceWithDiscount: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            totalPriceWithDiscount: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.discountCode) {
+        criteriaAnd.push({
+          discountCode: MongooseQueryUtils.uuid(
+            filter.discountCode,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -289,7 +339,9 @@ class ServiceReservationRepository {
       .populate('businessId')
       .populate('customerId')
       .populate('serviceType')
-      .populate('place');
+      .populate('serviceProviderIDs')
+      .populate('place')
+      .populate('discountCode');
 
     const count = await ServiceReservation(
       options.database,

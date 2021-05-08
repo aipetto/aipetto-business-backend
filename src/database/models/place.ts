@@ -14,6 +14,10 @@ export default (database) => {
         type: String,
         required: true,
       },
+      placeType: {
+        type: Schema.Types.ObjectId,
+        ref: 'placeType',
+      },
       businessId: {
         type: Schema.Types.ObjectId,
         ref: 'business',

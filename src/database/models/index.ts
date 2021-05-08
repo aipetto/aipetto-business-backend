@@ -19,6 +19,15 @@ const models = [
   require('./state').default,
   require('./messages').default,
   require('./professionalsServiceAvailability').default,
+  require('./languages').default,
+  require('./currency').default,
+  require('./discounts').default,
+  require('./wallet').default,
+  require('./businessCategory').default,
+  require('./providers').default,
+  require('./vaccineTypes').default,
+  require('./petVaccines').default,
+  require('./placeType').default,
 ];
 
 export default function init(database) {

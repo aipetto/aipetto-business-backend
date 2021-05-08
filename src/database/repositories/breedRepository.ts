@@ -188,6 +188,14 @@ class BreedRepository {
         });
       }
 
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
       if (filter.type) {
         criteriaAnd.push({
           type: MongooseQueryUtils.uuid(

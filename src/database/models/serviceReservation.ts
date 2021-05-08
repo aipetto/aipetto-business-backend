@@ -25,6 +25,10 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'businessServicesTypes',
       }],
+      serviceProviderIDs: [{
+        type: Schema.Types.ObjectId,
+        ref: 'providers',
+      }],
       time: {
         type: String,
         required: true,
@@ -93,6 +97,16 @@ export default (database) => {
           "business_declined",
           null
         ],
+      },
+      totalPrice: {
+        type: Number,
+      },
+      totalPriceWithDiscount: {
+        type: Number,
+      },
+      discountCode: {
+        type: Schema.Types.ObjectId,
+        ref: 'discounts',
       },
       tenant: {
         type: Schema.Types.ObjectId,
