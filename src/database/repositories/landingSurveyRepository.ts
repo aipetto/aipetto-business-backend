@@ -3,10 +3,9 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
-import Discounts from '../models/discounts';
-import ServiceReservation from '../models/serviceReservation';
+import LandingSurvey from '../models/landingSurvey';
 
-class DiscountsRepository {
+class LandingSurveyRepository {
   
   static async create(data, options: IRepositoryOptions) {
     const currentTenant = MongooseRepository.getCurrentTenant(
@@ -17,7 +16,7 @@ class DiscountsRepository {
       options,
     );
 
-    const [record] = await Discounts(
+    const [record] = await LandingSurvey(
       options.database,
     ).create(
       [
@@ -49,7 +48,7 @@ class DiscountsRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Discounts(options.database).findById(id),
+      LandingSurvey(options.database).findById(id),
       options,
     );
 
@@ -60,7 +59,7 @@ class DiscountsRepository {
       throw new Error404();
     }
 
-    await Discounts(options.database).updateOne(
+    await LandingSurvey(options.database).updateOne(
       { _id: id },
       {
         ...data,
@@ -91,7 +90,7 @@ class DiscountsRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Discounts(options.database).findById(id),
+      LandingSurvey(options.database).findById(id),
       options,
     );
 
@@ -102,7 +101,7 @@ class DiscountsRepository {
       throw new Error404();
     }
 
-    await Discounts(options.database).deleteOne({ _id: id }, options);
+    await LandingSurvey(options.database).deleteOne({ _id: id }, options);
 
     await this._createAuditLog(
       AuditLogRepository.DELETE,
@@ -111,12 +110,7 @@ class DiscountsRepository {
       options,
     );
 
-    await MongooseRepository.destroyRelationToOne(
-      id,
-      ServiceReservation(options.database),
-      'discountCode',
-      options,
-    );
+
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -125,7 +119,7 @@ class DiscountsRepository {
     );
 
     return MongooseRepository.wrapWithSessionIfExists(
-      Discounts(options.database).countDocuments({
+      LandingSurvey(options.database).countDocuments({
         ...filter,
         tenant: currentTenant.id,
       }),
@@ -139,9 +133,8 @@ class DiscountsRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Discounts(options.database)
-        .findById(id)
-      .populate('businessID'),
+      LandingSurvey(options.database)
+        .findById(id),
       options,
     );
 
@@ -176,63 +169,54 @@ class DiscountsRepository {
         });
       }
 
-      if (filter.businessID) {
+      if (filter.name) {
         criteriaAnd.push({
-          businessID: MongooseQueryUtils.uuid(
-            filter.businessID,
-          ),
-        });
-      }
-
-      if (filter.codeName) {
-        criteriaAnd.push({
-          codeName: {
+          name: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.codeName,
+              filter.name,
             ),
             $options: 'i',
           },
         });
       }
 
-      if (filter.discountPercentageRange) {
-        const [start, end] = filter.discountPercentageRange;
-
-        if (start !== undefined && start !== null && start !== '') {
-          criteriaAnd.push({
-            discountPercentage: {
-              $gte: start,
-            },
-          });
-        }
-
-        if (end !== undefined && end !== null && end !== '') {
-          criteriaAnd.push({
-            discountPercentage: {
-              $lte: end,
-            },
-          });
-        }
+      if (filter.email) {
+        criteriaAnd.push({
+          email: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.email,
+            ),
+            $options: 'i',
+          },
+        });
       }
 
-      if (filter.expirationDateRange) {
-        const [start, end] = filter.expirationDateRange;
+      if (filter.numberOfPets) {
+        criteriaAnd.push({
+          numberOfPets: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.numberOfPets,
+            ),
+            $options: 'i',
+          },
+        });
+      }
 
-        if (start !== undefined && start !== null && start !== '') {
-          criteriaAnd.push({
-            expirationDate: {
-              $gte: start,
-            },
-          });
-        }
+      if (filter.interests) {
+        criteriaAnd.push({
+          interests: { $all: filter.interests },
+        });
+      }
 
-        if (end !== undefined && end !== null && end !== '') {
-          criteriaAnd.push({
-            expirationDate: {
-              $lte: end,
-            },
-          });
-        }
+      if (filter.extraInfo) {
+        criteriaAnd.push({
+          extraInfo: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.extraInfo,
+            ),
+            $options: 'i',
+          },
+        });
       }
 
       if (filter.createdAtRange) {
@@ -274,14 +258,13 @@ class DiscountsRepository {
       ? { $and: criteriaAnd }
       : null;
 
-    let rows = await Discounts(options.database)
+    let rows = await LandingSurvey(options.database)
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort)
-      .populate('businessID');
+      .sort(sort);
 
-    const count = await Discounts(
+    const count = await LandingSurvey(
       options.database,
     ).countDocuments(criteria);
 
@@ -307,36 +290,31 @@ class DiscountsRepository {
           {
             _id: MongooseQueryUtils.uuid(search),
           },
-          {
-            codeName: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
-              $options: 'i',
-            }
-          },          
+          
         ],
       });
     }
 
-    const sort = MongooseQueryUtils.sort('codeName_ASC');
+    const sort = MongooseQueryUtils.sort('id_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
 
-    const records = await Discounts(options.database)
+    const records = await LandingSurvey(options.database)
       .find(criteria)
       .limit(limitEscaped)
       .sort(sort);
 
     return records.map((record) => ({
       id: record.id,
-      label: record.codeName,
+      label: record.id,
     }));
   }
 
   static async _createAuditLog(action, id, data, options: IRepositoryOptions) {
     await AuditLogRepository.log(
       {
-        entityName: Discounts(options.database).modelName,
+        entityName: LandingSurvey(options.database).modelName,
         entityId: id,
         action,
         values: data,
@@ -360,4 +338,4 @@ class DiscountsRepository {
   }
 }
 
-export default DiscountsRepository;
+export default LandingSurveyRepository;

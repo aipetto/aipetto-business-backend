@@ -3,24 +3,29 @@ const Schema = mongoose.Schema;
 
 export default (database) => {
   try {
-    return database.model('wallet');
+    return database.model('landingSurvey');
   } catch (error) {
     // continue, because model doesnt exist
   }
 
-  const WalletSchema = new Schema(
+  const LandingSurveySchema = new Schema(
     {
-      totalCredits: {
-        type: Number,
-        min: 0,
+      name: {
+        type: String,
+        required: true,
       },
-      aipettoPoints: {
-        type: Number,
-        min: 0,
+      email: {
+        type: String,
+        required: true,
       },
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
+      numberOfPets: {
+        type: String,
+      },
+      interests: [{
+        type: String  
+      }],
+      extraInfo: {
+        type: String,
       },
       tenant: {
         type: Schema.Types.ObjectId,
@@ -39,7 +44,7 @@ export default (database) => {
     { timestamps: true },
   );
 
-  WalletSchema.index(
+  LandingSurveySchema.index(
     { importHash: 1, tenant: 1 },
     {
       unique: true,
@@ -51,18 +56,18 @@ export default (database) => {
 
   
 
-  WalletSchema.virtual('id').get(function () {
+  LandingSurveySchema.virtual('id').get(function () {
     // @ts-ignore
     return this._id.toHexString();
   });
 
-  WalletSchema.set('toJSON', {
+  LandingSurveySchema.set('toJSON', {
     getters: true,
   });
 
-  WalletSchema.set('toObject', {
+  LandingSurveySchema.set('toObject', {
     getters: true,
   });
 
-  return database.model('wallet', WalletSchema);
+  return database.model('landingSurvey', LandingSurveySchema);
 };

@@ -93,6 +93,7 @@ require('./providers').default(routes);
 require('./vaccineTypes').default(routes);
 require('./petVaccines').default(routes);
 require('./placeType').default(routes);
+require('./landingSurvey').default(routes);
 
 // Loads the Tenant if the :tenantId param is passed
 routes.param('tenantId', tenantMiddleware);

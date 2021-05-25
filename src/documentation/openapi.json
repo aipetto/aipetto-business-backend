@@ -13780,6 +13780,10 @@
           "name": {
             "type": "string"
           },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          },
           "type": {
             "type": "string",
             "format": "uuid"
@@ -13880,6 +13884,9 @@
         ],
         "type": "object",
         "properties": {
+          "businessID": {
+            "type": "string"
+          },
           "name": {
             "type": "string"
           },
@@ -13887,6 +13894,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BusinessServicesTypes"
+            }
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessCategory"
             }
           },
           "contactName": {

@@ -261,6 +261,13 @@ const ptBR = {
         }
       }
     },
+    landingSurvey: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 
