@@ -134,7 +134,8 @@ class WalletRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Wallet(options.database)
-        .findById(id),
+        .findById(id)
+      .populate('user'),
       options,
     );
 
@@ -209,6 +210,14 @@ class WalletRepository {
         }
       }
 
+      if (filter.user) {
+        criteriaAnd.push({
+          user: MongooseQueryUtils.uuid(
+            filter.user,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -252,7 +261,8 @@ class WalletRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('user');
 
     const count = await Wallet(
       options.database,

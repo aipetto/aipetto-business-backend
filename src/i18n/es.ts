@@ -265,6 +265,13 @@ const es = {
         }
       }
     },
+    landingSurvey: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 

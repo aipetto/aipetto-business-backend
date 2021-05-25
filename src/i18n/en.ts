@@ -263,6 +263,13 @@ const en = {
         }
       }
     },
+    landingSurvey: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 

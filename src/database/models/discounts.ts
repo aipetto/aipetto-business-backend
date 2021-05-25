@@ -10,6 +10,10 @@ export default (database) => {
 
   const DiscountsSchema = new Schema(
     {
+      businessID: {
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      },
       codeName: {
         type: String,
         required: true,

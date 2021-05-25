@@ -142,6 +142,7 @@ class BreedRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Breed(options.database)
         .findById(id)
+      .populate('language')
       .populate('type'),
       options,
     );
@@ -308,6 +309,7 @@ class BreedRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
+      .populate('language')
       .populate('type');
 
     const count = await Breed(

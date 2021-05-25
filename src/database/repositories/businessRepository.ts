@@ -11,6 +11,7 @@ import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
+import Discounts from '../models/discounts';
 import Providers from '../models/providers';
 import PetVaccines from '../models/petVaccines';
 
@@ -165,6 +166,13 @@ class BusinessRepository {
       id,
       ProfessionalsServiceAvailability(options.database),
       'businessId',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Discounts(options.database),
+      'businessID',
       options,
     );
 
