@@ -1,7 +1,10 @@
-import ProfessionalsServiceAvailabilityRepository from '../database/repositories/professionalsServiceAvailabilityRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import ProfessionalsServiceAvailabilityRepository from '../database/repositories/professionalsServiceAvailabilityRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
+import UserRepository from '../database/repositories/userRepository';
 
 export default class ProfessionalsServiceAvailabilityService {
   options: IServiceOptions;
@@ -16,6 +19,10 @@ export default class ProfessionalsServiceAvailabilityService {
     );
 
     try {
+      data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.serviceType = await BusinessServicesTypesRepository.filterIdInTenant(data.serviceType, { ...this.options, session });
+
       const record = await ProfessionalsServiceAvailabilityRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +50,10 @@ export default class ProfessionalsServiceAvailabilityService {
     );
 
     try {
+      data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.serviceType = await BusinessServicesTypesRepository.filterIdInTenant(data.serviceType, { ...this.options, session });
+
       const record = await ProfessionalsServiceAvailabilityRepository.update(
         id,
         data,

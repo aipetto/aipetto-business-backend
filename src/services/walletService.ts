@@ -1,7 +1,8 @@
-import WalletRepository from '../database/repositories/walletRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import WalletRepository from '../database/repositories/walletRepository';
+import UserRepository from '../database/repositories/userRepository';
 
 export default class WalletService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class WalletService {
     );
 
     try {
+      data.user = await UserRepository.filterIdInTenant(data.user, { ...this.options, session });
+
       const record = await WalletRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class WalletService {
     );
 
     try {
+      data.user = await UserRepository.filterIdInTenant(data.user, { ...this.options, session });
+
       const record = await WalletRepository.update(
         id,
         data,

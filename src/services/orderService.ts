@@ -1,7 +1,11 @@
-import OrderRepository from '../database/repositories/orderRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import OrderRepository from '../database/repositories/orderRepository';
+import CustomerRepository from '../database/repositories/customerRepository';
+import ProductRepository from '../database/repositories/productRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import UserRepository from '../database/repositories/userRepository';
 
 export default class OrderService {
   options: IServiceOptions;
@@ -16,6 +20,11 @@ export default class OrderService {
     );
 
     try {
+      data.customer = await CustomerRepository.filterIdInTenant(data.customer, { ...this.options, session });
+      data.products = await ProductRepository.filterIdsInTenant(data.products, { ...this.options, session });
+      data.employee = await UserRepository.filterIdInTenant(data.employee, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+
       const record = await OrderRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +52,11 @@ export default class OrderService {
     );
 
     try {
+      data.customer = await CustomerRepository.filterIdInTenant(data.customer, { ...this.options, session });
+      data.products = await ProductRepository.filterIdsInTenant(data.products, { ...this.options, session });
+      data.employee = await UserRepository.filterIdInTenant(data.employee, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+
       const record = await OrderRepository.update(
         id,
         data,

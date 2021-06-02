@@ -1,7 +1,8 @@
-import VaccineTypesRepository from '../database/repositories/vaccineTypesRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import VaccineTypesRepository from '../database/repositories/vaccineTypesRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class VaccineTypesService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class VaccineTypesService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await VaccineTypesRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class VaccineTypesService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await VaccineTypesRepository.update(
         id,
         data,

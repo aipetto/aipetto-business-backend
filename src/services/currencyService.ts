@@ -1,7 +1,7 @@
-import CurrencyRepository from '../database/repositories/currencyRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import CurrencyRepository from '../database/repositories/currencyRepository';
 
 export default class CurrencyService {
   options: IServiceOptions;

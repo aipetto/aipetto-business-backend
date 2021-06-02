@@ -27,9 +27,14 @@ export default (database) => {
       extraInfo: {
         type: String,
       },
+      allowReceiveNotifications: {
+        type: Boolean,
+        default: false
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
+        required: true
       },
       createdBy: {
         type: Schema.Types.ObjectId,

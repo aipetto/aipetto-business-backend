@@ -1,7 +1,8 @@
-import DiscountsRepository from '../database/repositories/discountsRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import DiscountsRepository from '../database/repositories/discountsRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
 
 export default class DiscountsService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class DiscountsService {
     );
 
     try {
+      data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
+
       const record = await DiscountsRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class DiscountsService {
     );
 
     try {
+      data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
+
       const record = await DiscountsRepository.update(
         id,
         data,

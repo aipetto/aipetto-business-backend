@@ -1,7 +1,11 @@
-import PetRepository from '../database/repositories/petRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import PetRepository from '../database/repositories/petRepository';
+import BreedRepository from '../database/repositories/breedRepository';
+import PetTypesRepository from '../database/repositories/petTypesRepository';
+import CustomerRepository from '../database/repositories/customerRepository';
+import UserRepository from '../database/repositories/userRepository';
 
 export default class PetService {
   options: IServiceOptions;
@@ -16,6 +20,11 @@ export default class PetService {
     );
 
     try {
+      data.breed = await BreedRepository.filterIdInTenant(data.breed, { ...this.options, session });
+      data.type = await PetTypesRepository.filterIdInTenant(data.type, { ...this.options, session });
+      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
+      data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
+
       const record = await PetRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +52,11 @@ export default class PetService {
     );
 
     try {
+      data.breed = await BreedRepository.filterIdInTenant(data.breed, { ...this.options, session });
+      data.type = await PetTypesRepository.filterIdInTenant(data.type, { ...this.options, session });
+      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
+      data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
+
       const record = await PetRepository.update(
         id,
         data,

@@ -8,7 +8,7 @@ import Error404 from '../../errors/Error404';
 import SettingsRepository from './settingsRepository';
 import { isUserInTenant } from '../utils/userTenantUtils';
 import { IRepositoryOptions } from './IRepositoryOptions';
-
+import lodash from 'lodash';
 export default class UserRepository {
   static async create(data, options: IRepositoryOptions) {
     const currentUser = MongooseRepository.getCurrentUser(
@@ -527,6 +527,42 @@ export default class UserRepository {
     }));
   }
 
+  static async filterIdInTenant(
+    id,
+    options: IRepositoryOptions,
+  ) {
+    return lodash.get(
+      await this.filterIdsInTenant([id], options),
+      '[0]',
+      null,
+    );
+  }
+
+  static async filterIdsInTenant(
+    ids,
+    options: IRepositoryOptions,
+  ) {
+    if (!ids || !ids.length) {
+      return ids;
+    }
+
+    const currentTenant =
+      MongooseRepository.getCurrentTenant(options);
+
+    let users = await User(options.database)
+      .find({
+        _id: {
+          $in: ids,
+        },
+        tenants: {
+          $elemMatch: { tenant: currentTenant.id },
+        },
+      })
+      .select(['_id']);
+
+    return users.map((user) => user._id);
+  }
+
   static async findByIdWithPassword(
     id,
     options: IRepositoryOptions,
@@ -813,5 +849,31 @@ export default class UserRepository {
       ...options,
       bypassPermissionValidation: true,
     });
+  }
+
+  static cleanupForRelationships(userOrUsers) {
+    if (!userOrUsers) {
+      return userOrUsers;
+    }
+
+    if (Array.isArray(userOrUsers)) {
+      return userOrUsers.map((user) =>
+        lodash.pick(user, [
+          '_id',
+          'id',
+          'firstName',
+          'lastName',
+          'email',
+        ]),
+      );
+    }
+
+    return lodash.pick(userOrUsers, [
+      '_id',
+      'id',
+      'firstName',
+      'lastName',
+      'email',
+    ]);
   }
 }

@@ -1,7 +1,9 @@
-import PlaceRepository from '../database/repositories/placeRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import PlaceRepository from '../database/repositories/placeRepository';
+import PlaceTypeRepository from '../database/repositories/placeTypeRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
 
 export default class PlaceService {
   options: IServiceOptions;
@@ -16,6 +18,9 @@ export default class PlaceService {
     );
 
     try {
+      data.placeType = await PlaceTypeRepository.filterIdInTenant(data.placeType, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+
       const record = await PlaceRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +48,9 @@ export default class PlaceService {
     );
 
     try {
+      data.placeType = await PlaceTypeRepository.filterIdInTenant(data.placeType, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+
       const record = await PlaceRepository.update(
         id,
         data,

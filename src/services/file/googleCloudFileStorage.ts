@@ -2,14 +2,23 @@ import { getConfig } from '../../config';
 
 import { Storage } from '@google-cloud/storage';
 
-const serviceAccount = JSON.parse(
-  getConfig().GOOGLE_CLOUD_PLATFORM_CREDENTIALS,
-);
+let bucket;
 
-const bucket = new Storage({
-  projectId: serviceAccount.project_id,
-  credentials: serviceAccount,
-}).bucket(getConfig().FILE_STORAGE_BUCKET);
+if (getConfig().GOOGLE_CLOUD_PLATFORM_CREDENTIALS) {
+  const serviceAccount = JSON.parse(
+    getConfig().GOOGLE_CLOUD_PLATFORM_CREDENTIALS,
+  );
+
+  bucket = new Storage({
+    projectId: serviceAccount.project_id,
+    credentials: serviceAccount,
+  }).bucket(getConfig().FILE_STORAGE_BUCKET);
+} else {
+  bucket = new Storage().bucket(
+    getConfig().FILE_STORAGE_BUCKET,
+  );
+}
+
 export default class GoogleCloudFileStorage {
   /**
    * Creates a signed upload URL that enables

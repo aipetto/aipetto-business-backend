@@ -1,7 +1,13 @@
-import ServiceReservationRepository from '../database/repositories/serviceReservationRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import ServiceReservationRepository from '../database/repositories/serviceReservationRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import CustomerRepository from '../database/repositories/customerRepository';
+import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
+import ProvidersRepository from '../database/repositories/providersRepository';
+import PlaceRepository from '../database/repositories/placeRepository';
+import DiscountsRepository from '../database/repositories/discountsRepository';
 
 export default class ServiceReservationService {
   options: IServiceOptions;
@@ -16,6 +22,13 @@ export default class ServiceReservationService {
     );
 
     try {
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
+      data.serviceType = await BusinessServicesTypesRepository.filterIdsInTenant(data.serviceType, { ...this.options, session });
+      data.serviceProviderIDs = await ProvidersRepository.filterIdsInTenant(data.serviceProviderIDs, { ...this.options, session });
+      data.place = await PlaceRepository.filterIdInTenant(data.place, { ...this.options, session });
+      data.discountCode = await DiscountsRepository.filterIdInTenant(data.discountCode, { ...this.options, session });
+
       const record = await ServiceReservationRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +56,13 @@ export default class ServiceReservationService {
     );
 
     try {
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
+      data.serviceType = await BusinessServicesTypesRepository.filterIdsInTenant(data.serviceType, { ...this.options, session });
+      data.serviceProviderIDs = await ProvidersRepository.filterIdsInTenant(data.serviceProviderIDs, { ...this.options, session });
+      data.place = await PlaceRepository.filterIdInTenant(data.place, { ...this.options, session });
+      data.discountCode = await DiscountsRepository.filterIdInTenant(data.discountCode, { ...this.options, session });
+
       const record = await ServiceReservationRepository.update(
         id,
         data,

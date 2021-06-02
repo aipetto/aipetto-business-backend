@@ -1,7 +1,8 @@
-import BusinessCategoryRepository from '../database/repositories/businessCategoryRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import BusinessCategoryRepository from '../database/repositories/businessCategoryRepository';
+import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class BusinessCategoryService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class BusinessCategoryService {
     );
 
     try {
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+
       const record = await BusinessCategoryRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class BusinessCategoryService {
     );
 
     try {
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+
       const record = await BusinessCategoryRepository.update(
         id,
         data,

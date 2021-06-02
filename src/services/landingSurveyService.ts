@@ -1,7 +1,7 @@
-import LandingSurveyRepository from '../database/repositories/landingSurveyRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import LandingSurveyRepository from '../database/repositories/landingSurveyRepository';
 
 export default class LandingSurveyService {
   options: IServiceOptions;

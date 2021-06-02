@@ -38,6 +38,7 @@ export default (database) => {
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
+        required: true
       },
       createdBy: {
         type: Schema.Types.ObjectId,

@@ -1,7 +1,8 @@
-import StateRepository from '../database/repositories/stateRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import StateRepository from '../database/repositories/stateRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class StateService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class StateService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await StateRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class StateService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await StateRepository.update(
         id,
         data,

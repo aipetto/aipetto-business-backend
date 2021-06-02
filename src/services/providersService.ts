@@ -1,7 +1,13 @@
-import ProvidersRepository from '../database/repositories/providersRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import ProvidersRepository from '../database/repositories/providersRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import BusinessCategoryRepository from '../database/repositories/businessCategoryRepository';
+import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
+import CityRepository from '../database/repositories/cityRepository';
+import StateRepository from '../database/repositories/stateRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class ProvidersService {
   options: IServiceOptions;
@@ -16,6 +22,13 @@ export default class ProvidersService {
     );
 
     try {
+      data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
+      data.category = await BusinessCategoryRepository.filterIdsInTenant(data.category, { ...this.options, session });
+      data.serviceTypes = await BusinessServicesTypesRepository.filterIdsInTenant(data.serviceTypes, { ...this.options, session });
+      data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
+      data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await ProvidersRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +56,13 @@ export default class ProvidersService {
     );
 
     try {
+      data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
+      data.category = await BusinessCategoryRepository.filterIdsInTenant(data.category, { ...this.options, session });
+      data.serviceTypes = await BusinessServicesTypesRepository.filterIdsInTenant(data.serviceTypes, { ...this.options, session });
+      data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
+      data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await ProvidersRepository.update(
         id,
         data,
