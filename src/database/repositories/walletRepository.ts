@@ -3,7 +3,9 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
+import lodash from 'lodash';
 import Wallet from '../models/wallet';
+import UserRepository from './userRepository';
 
 class WalletRepository {
   
@@ -48,14 +50,11 @@ class WalletRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Wallet(options.database).findById(id),
+      Wallet(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -90,14 +89,11 @@ class WalletRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Wallet(options.database).findById(id),
+      Wallet(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -111,6 +107,38 @@ class WalletRepository {
     );
 
 
+  }
+
+  static async filterIdInTenant(
+    id,
+    options: IRepositoryOptions,
+  ) {
+    return lodash.get(
+      await this.filterIdsInTenant([id], options),
+      '[0]',
+      null,
+    );
+  }
+
+  static async filterIdsInTenant(
+    ids,
+    options: IRepositoryOptions,
+  ) {
+    if (!ids || !ids.length) {
+      return [];
+    }
+
+    const currentTenant =
+      MongooseRepository.getCurrentTenant(options);
+
+    const records = await Wallet(options.database)
+      .find({
+        _id: { $in: ids },
+        tenant: currentTenant.id,
+      })
+      .select(['_id']);
+
+    return records.map((record) => record._id);
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -134,19 +162,16 @@ class WalletRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Wallet(options.database)
-        .findById(id)
+        .findOne({_id: id, tenant: currentTenant.id})
       .populate('user'),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
-    return this._fillFileDownloadUrls(record);
+    return this._mapRelationshipsAndFillDownloadUrl(record);
   }
 
   static async findAndCountAll(
@@ -269,7 +294,7 @@ class WalletRepository {
     ).countDocuments(criteria);
 
     rows = await Promise.all(
-      rows.map(this._fillFileDownloadUrls),
+      rows.map(this._mapRelationshipsAndFillDownloadUrl),
     );
 
     return { rows, count };
@@ -323,7 +348,7 @@ class WalletRepository {
     );
   }
 
-  static async _fillFileDownloadUrls(record) {
+  static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {
       return null;
     }
@@ -333,6 +358,8 @@ class WalletRepository {
       : record;
 
 
+
+    output.user = UserRepository.cleanupForRelationships(output.user);
 
     return output;
   }

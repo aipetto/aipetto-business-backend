@@ -6,6 +6,7 @@ const TenantUserSchema = new Schema(
     tenant: {
       type: Schema.Types.ObjectId,
       ref: 'tenant',
+      required: true
     },
     roles: [{ type: String, maxlength: 255 }],
     invitationToken: { type: String, maxlength: 255 },

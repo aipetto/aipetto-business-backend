@@ -1,7 +1,12 @@
-import PetVaccinesRepository from '../database/repositories/petVaccinesRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import PetVaccinesRepository from '../database/repositories/petVaccinesRepository';
+import VaccineTypesRepository from '../database/repositories/vaccineTypesRepository';
+import ProvidersRepository from '../database/repositories/providersRepository';
+import PlaceRepository from '../database/repositories/placeRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class PetVaccinesService {
   options: IServiceOptions;
@@ -16,6 +21,12 @@ export default class PetVaccinesService {
     );
 
     try {
+      data.name = await VaccineTypesRepository.filterIdInTenant(data.name, { ...this.options, session });
+      data.veterinarianID = await ProvidersRepository.filterIdInTenant(data.veterinarianID, { ...this.options, session });
+      data.placeTaken = await PlaceRepository.filterIdInTenant(data.placeTaken, { ...this.options, session });
+      data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await PetVaccinesRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +54,12 @@ export default class PetVaccinesService {
     );
 
     try {
+      data.name = await VaccineTypesRepository.filterIdInTenant(data.name, { ...this.options, session });
+      data.veterinarianID = await ProvidersRepository.filterIdInTenant(data.veterinarianID, { ...this.options, session });
+      data.placeTaken = await PlaceRepository.filterIdInTenant(data.placeTaken, { ...this.options, session });
+      data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await PetVaccinesRepository.update(
         id,
         data,

@@ -3,6 +3,7 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
+import lodash from 'lodash';
 import LandingSurvey from '../models/landingSurvey';
 
 class LandingSurveyRepository {
@@ -48,14 +49,11 @@ class LandingSurveyRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      LandingSurvey(options.database).findById(id),
+      LandingSurvey(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -90,14 +88,11 @@ class LandingSurveyRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      LandingSurvey(options.database).findById(id),
+      LandingSurvey(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -111,6 +106,38 @@ class LandingSurveyRepository {
     );
 
 
+  }
+
+  static async filterIdInTenant(
+    id,
+    options: IRepositoryOptions,
+  ) {
+    return lodash.get(
+      await this.filterIdsInTenant([id], options),
+      '[0]',
+      null,
+    );
+  }
+
+  static async filterIdsInTenant(
+    ids,
+    options: IRepositoryOptions,
+  ) {
+    if (!ids || !ids.length) {
+      return [];
+    }
+
+    const currentTenant =
+      MongooseRepository.getCurrentTenant(options);
+
+    const records = await LandingSurvey(options.database)
+      .find({
+        _id: { $in: ids },
+        tenant: currentTenant.id,
+      })
+      .select(['_id']);
+
+    return records.map((record) => record._id);
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -134,18 +161,15 @@ class LandingSurveyRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       LandingSurvey(options.database)
-        .findById(id),
+        .findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
-    return this._fillFileDownloadUrls(record);
+    return this._mapRelationshipsAndFillDownloadUrl(record);
   }
 
   static async findAndCountAll(
@@ -219,6 +243,19 @@ class LandingSurveyRepository {
         });
       }
 
+      if (
+        filter.allowReceiveNotifications === true ||
+        filter.allowReceiveNotifications === 'true' ||
+        filter.allowReceiveNotifications === false ||
+        filter.allowReceiveNotifications === 'false'
+      ) {
+        criteriaAnd.push({
+          allowReceiveNotifications:
+            filter.allowReceiveNotifications === true ||
+            filter.allowReceiveNotifications === 'true',
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -269,7 +306,7 @@ class LandingSurveyRepository {
     ).countDocuments(criteria);
 
     rows = await Promise.all(
-      rows.map(this._fillFileDownloadUrls),
+      rows.map(this._mapRelationshipsAndFillDownloadUrl),
     );
 
     return { rows, count };
@@ -323,7 +360,7 @@ class LandingSurveyRepository {
     );
   }
 
-  static async _fillFileDownloadUrls(record) {
+  static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {
       return null;
     }
@@ -331,6 +368,8 @@ class LandingSurveyRepository {
     const output = record.toObject
       ? record.toObject()
       : record;
+
+
 
 
 

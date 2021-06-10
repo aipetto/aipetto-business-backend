@@ -1,7 +1,9 @@
-import CustomerRepository from '../database/repositories/customerRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import CustomerRepository from '../database/repositories/customerRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import UserRepository from '../database/repositories/userRepository';
 
 export default class CustomerService {
   options: IServiceOptions;
@@ -16,6 +18,9 @@ export default class CustomerService {
     );
 
     try {
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
+
       const record = await CustomerRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +48,9 @@ export default class CustomerService {
     );
 
     try {
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
+
       const record = await CustomerRepository.update(
         id,
         data,

@@ -3,6 +3,7 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
+import lodash from 'lodash';
 import BusinessCategory from '../models/businessCategory';
 import Business from '../models/business';
 import BusinessServicesTypes from '../models/businessServicesTypes';
@@ -51,14 +52,11 @@ class BusinessCategoryRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      BusinessCategory(options.database).findById(id),
+      BusinessCategory(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -93,14 +91,11 @@ class BusinessCategoryRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      BusinessCategory(options.database).findById(id),
+      BusinessCategory(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -135,6 +130,38 @@ class BusinessCategoryRepository {
     );
   }
 
+  static async filterIdInTenant(
+    id,
+    options: IRepositoryOptions,
+  ) {
+    return lodash.get(
+      await this.filterIdsInTenant([id], options),
+      '[0]',
+      null,
+    );
+  }
+
+  static async filterIdsInTenant(
+    ids,
+    options: IRepositoryOptions,
+  ) {
+    if (!ids || !ids.length) {
+      return [];
+    }
+
+    const currentTenant =
+      MongooseRepository.getCurrentTenant(options);
+
+    const records = await BusinessCategory(options.database)
+      .find({
+        _id: { $in: ids },
+        tenant: currentTenant.id,
+      })
+      .select(['_id']);
+
+    return records.map((record) => record._id);
+  }
+
   static async count(filter, options: IRepositoryOptions) {
     const currentTenant = MongooseRepository.getCurrentTenant(
       options,
@@ -156,19 +183,16 @@ class BusinessCategoryRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       BusinessCategory(options.database)
-        .findById(id)
+        .findOne({_id: id, tenant: currentTenant.id})
       .populate('language'),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
-    return this._fillFileDownloadUrls(record);
+    return this._mapRelationshipsAndFillDownloadUrl(record);
   }
 
   static async findAndCountAll(
@@ -262,7 +286,7 @@ class BusinessCategoryRepository {
     ).countDocuments(criteria);
 
     rows = await Promise.all(
-      rows.map(this._fillFileDownloadUrls),
+      rows.map(this._mapRelationshipsAndFillDownloadUrl),
     );
 
     return { rows, count };
@@ -321,7 +345,7 @@ class BusinessCategoryRepository {
     );
   }
 
-  static async _fillFileDownloadUrls(record) {
+  static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {
       return null;
     }
@@ -329,6 +353,8 @@ class BusinessCategoryRepository {
     const output = record.toObject
       ? record.toObject()
       : record;
+
+
 
 
 

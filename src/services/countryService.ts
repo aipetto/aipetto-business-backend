@@ -1,7 +1,7 @@
-import CountryRepository from '../database/repositories/countryRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class CountryService {
   options: IServiceOptions;

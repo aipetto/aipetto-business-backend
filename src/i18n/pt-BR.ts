@@ -268,6 +268,13 @@ const ptBR = {
         }
       }
     },
+    newBusinessSurvey: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 

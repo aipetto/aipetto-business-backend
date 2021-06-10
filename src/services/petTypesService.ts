@@ -1,7 +1,8 @@
-import PetTypesRepository from '../database/repositories/petTypesRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import PetTypesRepository from '../database/repositories/petTypesRepository';
+import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class PetTypesService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class PetTypesService {
     );
 
     try {
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+
       const record = await PetTypesRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class PetTypesService {
     );
 
     try {
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+
       const record = await PetTypesRepository.update(
         id,
         data,

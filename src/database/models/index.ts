@@ -29,6 +29,7 @@ const models = [
   require('./petVaccines').default,
   require('./placeType').default,
   require('./landingSurvey').default,
+  require('./newBusinessSurvey').default,
 ];
 
 export default function init(database) {

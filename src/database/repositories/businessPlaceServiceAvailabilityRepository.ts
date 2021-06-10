@@ -3,6 +3,7 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
+import lodash from 'lodash';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 
 class BusinessPlaceServiceAvailabilityRepository {
@@ -48,14 +49,11 @@ class BusinessPlaceServiceAvailabilityRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      BusinessPlaceServiceAvailability(options.database).findById(id),
+      BusinessPlaceServiceAvailability(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -90,14 +88,11 @@ class BusinessPlaceServiceAvailabilityRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      BusinessPlaceServiceAvailability(options.database).findById(id),
+      BusinessPlaceServiceAvailability(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -111,6 +106,38 @@ class BusinessPlaceServiceAvailabilityRepository {
     );
 
 
+  }
+
+  static async filterIdInTenant(
+    id,
+    options: IRepositoryOptions,
+  ) {
+    return lodash.get(
+      await this.filterIdsInTenant([id], options),
+      '[0]',
+      null,
+    );
+  }
+
+  static async filterIdsInTenant(
+    ids,
+    options: IRepositoryOptions,
+  ) {
+    if (!ids || !ids.length) {
+      return [];
+    }
+
+    const currentTenant =
+      MongooseRepository.getCurrentTenant(options);
+
+    const records = await BusinessPlaceServiceAvailability(options.database)
+      .find({
+        _id: { $in: ids },
+        tenant: currentTenant.id,
+      })
+      .select(['_id']);
+
+    return records.map((record) => record._id);
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -134,21 +161,18 @@ class BusinessPlaceServiceAvailabilityRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       BusinessPlaceServiceAvailability(options.database)
-        .findById(id)
+        .findOne({_id: id, tenant: currentTenant.id})
       .populate('businessId')
       .populate('serviceType')
       .populate('places'),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
-    return this._fillFileDownloadUrls(record);
+    return this._mapRelationshipsAndFillDownloadUrl(record);
   }
 
   static async findAndCountAll(
@@ -277,7 +301,7 @@ class BusinessPlaceServiceAvailabilityRepository {
     ).countDocuments(criteria);
 
     rows = await Promise.all(
-      rows.map(this._fillFileDownloadUrls),
+      rows.map(this._mapRelationshipsAndFillDownloadUrl),
     );
 
     return { rows, count };
@@ -336,7 +360,7 @@ class BusinessPlaceServiceAvailabilityRepository {
     );
   }
 
-  static async _fillFileDownloadUrls(record) {
+  static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {
       return null;
     }
@@ -344,6 +368,8 @@ class BusinessPlaceServiceAvailabilityRepository {
     const output = record.toObject
       ? record.toObject()
       : record;
+
+
 
 
 

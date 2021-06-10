@@ -272,6 +272,13 @@ const es = {
         }
       }
     },
+    newBusinessSurvey: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 

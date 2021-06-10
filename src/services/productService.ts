@@ -1,7 +1,8 @@
-import ProductRepository from '../database/repositories/productRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import ProductRepository from '../database/repositories/productRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
 
 export default class ProductService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class ProductService {
     );
 
     try {
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+
       const record = await ProductRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class ProductService {
     );
 
     try {
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+
       const record = await ProductRepository.update(
         id,
         data,

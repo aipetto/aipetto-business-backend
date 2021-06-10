@@ -1,7 +1,7 @@
-import LanguagesRepository from '../database/repositories/languagesRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class LanguagesService {
   options: IServiceOptions;

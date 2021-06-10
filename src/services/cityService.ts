@@ -1,7 +1,8 @@
-import CityRepository from '../database/repositories/cityRepository';
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
+import CityRepository from '../database/repositories/cityRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class CityService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class CityService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await CityRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class CityService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await CityRepository.update(
         id,
         data,

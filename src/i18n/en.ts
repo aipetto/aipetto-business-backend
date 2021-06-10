@@ -270,6 +270,13 @@ const en = {
         }
       }
     },
+    newBusinessSurvey: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
   }
 };
 

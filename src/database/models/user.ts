@@ -22,6 +22,7 @@ export default (database) => {
         type: String,
         maxlength: 255,
         index: { unique: true },
+        required: true
       },
       password: {
         type: String,

@@ -3,7 +3,9 @@ import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
+import lodash from 'lodash';
 import Messages from '../models/messages';
+import UserRepository from './userRepository';
 
 class MessagesRepository {
   
@@ -48,14 +50,11 @@ class MessagesRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Messages(options.database).findById(id),
+      Messages(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -90,14 +89,11 @@ class MessagesRepository {
     );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Messages(options.database).findById(id),
+      Messages(options.database).findOne({_id: id, tenant: currentTenant.id}),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
@@ -111,6 +107,38 @@ class MessagesRepository {
     );
 
 
+  }
+
+  static async filterIdInTenant(
+    id,
+    options: IRepositoryOptions,
+  ) {
+    return lodash.get(
+      await this.filterIdsInTenant([id], options),
+      '[0]',
+      null,
+    );
+  }
+
+  static async filterIdsInTenant(
+    ids,
+    options: IRepositoryOptions,
+  ) {
+    if (!ids || !ids.length) {
+      return [];
+    }
+
+    const currentTenant =
+      MongooseRepository.getCurrentTenant(options);
+
+    const records = await Messages(options.database)
+      .find({
+        _id: { $in: ids },
+        tenant: currentTenant.id,
+      })
+      .select(['_id']);
+
+    return records.map((record) => record._id);
   }
 
   static async count(filter, options: IRepositoryOptions) {
@@ -134,20 +162,17 @@ class MessagesRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Messages(options.database)
-        .findById(id)
+        .findOne({_id: id, tenant: currentTenant.id})
       .populate('from')
       .populate('to'),
       options,
     );
 
-    if (
-      !record ||
-      String(record.tenant) !== String(currentTenant.id)
-    ) {
+    if (!record) {
       throw new Error404();
     }
 
-    return this._fillFileDownloadUrls(record);
+    return this._mapRelationshipsAndFillDownloadUrl(record);
   }
 
   static async findAndCountAll(
@@ -250,7 +275,7 @@ class MessagesRepository {
     ).countDocuments(criteria);
 
     rows = await Promise.all(
-      rows.map(this._fillFileDownloadUrls),
+      rows.map(this._mapRelationshipsAndFillDownloadUrl),
     );
 
     return { rows, count };
@@ -309,7 +334,7 @@ class MessagesRepository {
     );
   }
 
-  static async _fillFileDownloadUrls(record) {
+  static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {
       return null;
     }
@@ -319,6 +344,10 @@ class MessagesRepository {
       : record;
 
 
+
+    output.from = UserRepository.cleanupForRelationships(output.from);
+
+    output.to = UserRepository.cleanupForRelationships(output.to);
 
     return output;
   }

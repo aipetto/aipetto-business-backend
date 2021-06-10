@@ -31,6 +31,7 @@ import VaccineTypes from '../models/vaccineTypes';
 import PetVaccines from '../models/petVaccines';
 import PlaceType from '../models/placeType';
 import LandingSurvey from '../models/landingSurvey';
+import NewBusinessSurvey from '../models/newBusinessSurvey';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
 import { isUserInTenant } from '../utils/userTenantUtils';
@@ -304,6 +305,8 @@ class TenantRepository {
     await PlaceType(options.database).deleteMany({ tenant: id }, options);
 
     await LandingSurvey(options.database).deleteMany({ tenant: id }, options);
+
+    await NewBusinessSurvey(options.database).deleteMany({ tenant: id }, options);
 
     await Settings(options.database).deleteMany(
       { tenant: id },

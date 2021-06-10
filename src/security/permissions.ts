@@ -1159,6 +1159,46 @@ class Permissions {
         allowedRoles: [roles.aipettoAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
+
+      newBusinessSurveyImport: {
+        id: 'newBusinessSurveyImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      newBusinessSurveyCreate: {
+        id: 'newBusinessSurveyCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      newBusinessSurveyEdit: {
+        id: 'newBusinessSurveyEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      newBusinessSurveyDestroy: {
+        id: 'newBusinessSurveyDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      newBusinessSurveyRead: {
+        id: 'newBusinessSurveyRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      newBusinessSurveyAutocomplete: {
+        id: 'newBusinessSurveyAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
     };
   }
 

@@ -11,12 +11,13 @@ export default (database) => {
 
   const SettingsSchema = new Schema(
     {
-      theme: { type: String },
+      theme: { type: String, required: true },
       backgroundImages: [FileSchema],
       logos: [FileSchema],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
+        required: true
       },
       createdBy: {
         type: Schema.Types.ObjectId,
