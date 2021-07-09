@@ -17,6 +17,7 @@ export default (database) => {
       nickname: {
         type: String,
       },
+      profileImage: [FileSchema],
       birthdate: {
         type: String,
       },
@@ -29,13 +30,45 @@ export default (database) => {
           "black",
           "white",
           "brown",
-          "black_white",
-          "brown_white",
           "gray",
+          "chocolate",
+          "gold",
+          "blue",
+          "cream",
+          "yellow",
           null
         ],
       },
-      profileImage: [FileSchema],
+      secondColor: {
+        type: String,
+        enum: [
+          "black",
+          "white",
+          "brown",
+          "gray",
+          "chocolate",
+          "gold",
+          "blue",
+          "cream",
+          "yellow",
+          null
+        ],
+      },
+      thirdColor: {
+        type: String,
+        enum: [
+          "black",
+          "white",
+          "brown",
+          "gray",
+          "chocolate",
+          "gold",
+          "blue",
+          "cream",
+          "yellow",
+          null
+        ],
+      },
       sex: {
         type: String,
         enum: [
@@ -45,6 +78,10 @@ export default (database) => {
         ],
       },
       breed: {
+        type: Schema.Types.ObjectId,
+        ref: 'breed',
+      },
+      secondBreedMixed: {
         type: Schema.Types.ObjectId,
         ref: 'breed',
       },
@@ -59,6 +96,95 @@ export default (database) => {
       petOwners: [{
         type: Schema.Types.ObjectId,
         ref: 'user',
+      }],
+      photos: [{
+        type: Schema.Types.ObjectId,
+        ref: 'petPhotos',
+      }],
+      vaccines: [{
+        type: Schema.Types.ObjectId,
+        ref: 'petVaccines',
+      }],
+      maturitySize: {
+        type: String,
+        enum: [
+          "small",
+          "medium",
+          "large",
+          "extra_large",
+          "not_specified",
+          null
+        ],
+      },
+      furLength: {
+        type: String,
+        enum: [
+          "short",
+          "medium",
+          "long",
+          "not_specified",
+          null
+        ],
+      },
+      hasBeenVaccinated: {
+        type: Boolean,
+        default: false
+      },
+      hasBeenDewormed: {
+        type: Boolean,
+        default: false
+      },
+      hasBeenSterilizedSpayed: {
+        type: Boolean,
+        default: false
+      },
+      health: {
+        type: String,
+        enum: [
+          "healthy",
+          "minor_injury",
+          "serious_injury",
+          "not_specified",
+          null
+        ],
+      },
+      isLost: {
+        type: Boolean,
+        default: false
+      },
+      biography: {
+        type: String,
+      },
+      usersAuthorized: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      }],
+      businessAuthorized: [{
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      }],
+      isLookingForMatch: {
+        type: Boolean,
+        default: false
+      },
+      diseases: [{
+        type: Schema.Types.ObjectId,
+        ref: 'petDiseases',
+      }],
+      isGuideDog: {
+        type: Boolean,
+        default: false
+      },
+      numberOfLikes: {
+        type: Number,
+      },
+      matches: [{
+        type: Schema.Types.ObjectId,
+        ref: 'pet',
+      }],
+      petFriends: [{
+        type: Schema.Types.ObjectId,
+        ref: 'pet',
       }],
       tenant: {
         type: Schema.Types.ObjectId,

@@ -95,6 +95,15 @@ require('./petVaccines').default(routes);
 require('./placeType').default(routes);
 require('./landingSurvey').default(routes);
 require('./newBusinessSurvey').default(routes);
+require('./petPhotos').default(routes);
+require('./petDiseases').default(routes);
+require('./businessServicesPrices').default(routes);
+require('./posts').default(routes);
+require('./postCategories').default(routes);
+require('./postComments').default(routes);
+require('./pointsChallenges').default(routes);
+require('./challengesCategories').default(routes);
+require('./productCategory').default(routes);
 
 // Loads the Tenant if the :tenantId param is passed
 routes.param('tenantId', tenantMiddleware);

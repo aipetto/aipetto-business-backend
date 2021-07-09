@@ -219,6 +219,12 @@ class VaccineTypesRepository {
         });
       }
 
+      if (filter.language) {
+        criteriaAnd.push({
+          language: filter.language
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

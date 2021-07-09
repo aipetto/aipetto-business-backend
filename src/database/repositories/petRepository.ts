@@ -7,6 +7,7 @@ import lodash from 'lodash';
 import Pet from '../models/pet';
 import UserRepository from './userRepository';
 import FileRepository from './fileRepository';
+import PetPhotos from '../models/petPhotos';
 
 class PetRepository {
   
@@ -107,7 +108,26 @@ class PetRepository {
       options,
     );
 
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Pet(options.database),
+      'matches',
+      options,
+    );
 
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Pet(options.database),
+      'petFriends',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetPhotos(options.database),
+      'petId',
+      options,
+    );
   }
 
   static async filterIdInTenant(
@@ -165,9 +185,17 @@ class PetRepository {
       Pet(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('breed')
+      .populate('secondBreedMixed')
       .populate('type')
       .populate('customerId')
-      .populate('petOwners'),
+      .populate('petOwners')
+      .populate('photos')
+      .populate('vaccines')
+      .populate('usersAuthorized')
+      .populate('businessAuthorized')
+      .populate('diseases')
+      .populate('matches')
+      .populate('petFriends'),
       options,
     );
 
@@ -267,6 +295,18 @@ class PetRepository {
         });
       }
 
+      if (filter.secondColor) {
+        criteriaAnd.push({
+          secondColor: filter.secondColor
+        });
+      }
+
+      if (filter.thirdColor) {
+        criteriaAnd.push({
+          thirdColor: filter.thirdColor
+        });
+      }
+
       if (filter.sex) {
         criteriaAnd.push({
           sex: filter.sex
@@ -277,6 +317,14 @@ class PetRepository {
         criteriaAnd.push({
           breed: MongooseQueryUtils.uuid(
             filter.breed,
+          ),
+        });
+      }
+
+      if (filter.secondBreedMixed) {
+        criteriaAnd.push({
+          secondBreedMixed: MongooseQueryUtils.uuid(
+            filter.secondBreedMixed,
           ),
         });
       }
@@ -295,6 +343,122 @@ class PetRepository {
             filter.customerId,
           ),
         });
+      }
+
+      if (filter.maturitySize) {
+        criteriaAnd.push({
+          maturitySize: filter.maturitySize
+        });
+      }
+
+      if (filter.furLength) {
+        criteriaAnd.push({
+          furLength: filter.furLength
+        });
+      }
+
+      if (
+        filter.hasBeenVaccinated === true ||
+        filter.hasBeenVaccinated === 'true' ||
+        filter.hasBeenVaccinated === false ||
+        filter.hasBeenVaccinated === 'false'
+      ) {
+        criteriaAnd.push({
+          hasBeenVaccinated:
+            filter.hasBeenVaccinated === true ||
+            filter.hasBeenVaccinated === 'true',
+        });
+      }
+
+      if (
+        filter.hasBeenDewormed === true ||
+        filter.hasBeenDewormed === 'true' ||
+        filter.hasBeenDewormed === false ||
+        filter.hasBeenDewormed === 'false'
+      ) {
+        criteriaAnd.push({
+          hasBeenDewormed:
+            filter.hasBeenDewormed === true ||
+            filter.hasBeenDewormed === 'true',
+        });
+      }
+
+      if (
+        filter.hasBeenSterilizedSpayed === true ||
+        filter.hasBeenSterilizedSpayed === 'true' ||
+        filter.hasBeenSterilizedSpayed === false ||
+        filter.hasBeenSterilizedSpayed === 'false'
+      ) {
+        criteriaAnd.push({
+          hasBeenSterilizedSpayed:
+            filter.hasBeenSterilizedSpayed === true ||
+            filter.hasBeenSterilizedSpayed === 'true',
+        });
+      }
+
+      if (filter.health) {
+        criteriaAnd.push({
+          health: filter.health
+        });
+      }
+
+      if (
+        filter.isLost === true ||
+        filter.isLost === 'true' ||
+        filter.isLost === false ||
+        filter.isLost === 'false'
+      ) {
+        criteriaAnd.push({
+          isLost:
+            filter.isLost === true ||
+            filter.isLost === 'true',
+        });
+      }
+
+      if (
+        filter.isLookingForMatch === true ||
+        filter.isLookingForMatch === 'true' ||
+        filter.isLookingForMatch === false ||
+        filter.isLookingForMatch === 'false'
+      ) {
+        criteriaAnd.push({
+          isLookingForMatch:
+            filter.isLookingForMatch === true ||
+            filter.isLookingForMatch === 'true',
+        });
+      }
+
+      if (
+        filter.isGuideDog === true ||
+        filter.isGuideDog === 'true' ||
+        filter.isGuideDog === false ||
+        filter.isGuideDog === 'false'
+      ) {
+        criteriaAnd.push({
+          isGuideDog:
+            filter.isGuideDog === true ||
+            filter.isGuideDog === 'true',
+        });
+      }
+
+      if (filter.numberOfLikesRange) {
+        const [start, end] = filter.numberOfLikesRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            numberOfLikes: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            numberOfLikes: {
+              $lte: end,
+            },
+          });
+        }
       }
 
       if (filter.createdAtRange) {
@@ -342,9 +506,17 @@ class PetRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('breed')
+      .populate('secondBreedMixed')
       .populate('type')
       .populate('customerId')
-      .populate('petOwners');
+      .populate('petOwners')
+      .populate('photos')
+      .populate('vaccines')
+      .populate('usersAuthorized')
+      .populate('businessAuthorized')
+      .populate('diseases')
+      .populate('matches')
+      .populate('petFriends');
 
     const count = await Pet(
       options.database,
@@ -424,6 +596,8 @@ class PetRepository {
     );
 
     output.petOwners = UserRepository.cleanupForRelationships(output.petOwners);
+
+    output.usersAuthorized = UserRepository.cleanupForRelationships(output.usersAuthorized);
 
     return output;
   }

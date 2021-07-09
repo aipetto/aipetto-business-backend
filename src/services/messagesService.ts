@@ -2,6 +2,7 @@ import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import MessagesRepository from '../database/repositories/messagesRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
 import UserRepository from '../database/repositories/userRepository';
 
 export default class MessagesService {
@@ -19,6 +20,7 @@ export default class MessagesService {
     try {
       data.from = await UserRepository.filterIdInTenant(data.from, { ...this.options, session });
       data.to = await UserRepository.filterIdInTenant(data.to, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
 
       const record = await MessagesRepository.create(data, {
         ...this.options,
@@ -49,6 +51,7 @@ export default class MessagesService {
     try {
       data.from = await UserRepository.filterIdInTenant(data.from, { ...this.options, session });
       data.to = await UserRepository.filterIdInTenant(data.to, { ...this.options, session });
+      data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
 
       const record = await MessagesRepository.update(
         id,

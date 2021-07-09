@@ -1199,6 +1199,369 @@ class Permissions {
         allowedRoles: [roles.aipettoAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
+
+      petPhotosImport: {
+        id: 'petPhotosImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petPhotosCreate: {
+        id: 'petPhotosCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.petPhotosPhoto,
+        ],
+      },
+      petPhotosEdit: {
+        id: 'petPhotosEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.petPhotosPhoto,
+        ],
+      },
+      petPhotosDestroy: {
+        id: 'petPhotosDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.petPhotosPhoto,
+        ],
+      },
+      petPhotosRead: {
+        id: 'petPhotosRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petPhotosAutocomplete: {
+        id: 'petPhotosAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      petDiseasesImport: {
+        id: 'petDiseasesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petDiseasesCreate: {
+        id: 'petDiseasesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      petDiseasesEdit: {
+        id: 'petDiseasesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      petDiseasesDestroy: {
+        id: 'petDiseasesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      petDiseasesRead: {
+        id: 'petDiseasesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petDiseasesAutocomplete: {
+        id: 'petDiseasesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      businessServicesPricesImport: {
+        id: 'businessServicesPricesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      businessServicesPricesCreate: {
+        id: 'businessServicesPricesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessServicesPricesEdit: {
+        id: 'businessServicesPricesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessServicesPricesDestroy: {
+        id: 'businessServicesPricesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessServicesPricesRead: {
+        id: 'businessServicesPricesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      businessServicesPricesAutocomplete: {
+        id: 'businessServicesPricesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      postsImport: {
+        id: 'postsImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      postsCreate: {
+        id: 'postsCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.postsPostHeaderImage,
+          storage.postsPostDocRelated,
+        ],
+      },
+      postsEdit: {
+        id: 'postsEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.postsPostHeaderImage,
+          storage.postsPostDocRelated,
+        ],
+      },
+      postsDestroy: {
+        id: 'postsDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.postsPostHeaderImage,
+          storage.postsPostDocRelated,
+        ],
+      },
+      postsRead: {
+        id: 'postsRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      postsAutocomplete: {
+        id: 'postsAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      postCategoriesImport: {
+        id: 'postCategoriesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      postCategoriesCreate: {
+        id: 'postCategoriesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      postCategoriesEdit: {
+        id: 'postCategoriesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      postCategoriesDestroy: {
+        id: 'postCategoriesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      postCategoriesRead: {
+        id: 'postCategoriesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      postCategoriesAutocomplete: {
+        id: 'postCategoriesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      postCommentsImport: {
+        id: 'postCommentsImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      postCommentsCreate: {
+        id: 'postCommentsCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      postCommentsEdit: {
+        id: 'postCommentsEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      postCommentsDestroy: {
+        id: 'postCommentsDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      postCommentsRead: {
+        id: 'postCommentsRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      postCommentsAutocomplete: {
+        id: 'postCommentsAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      pointsChallengesImport: {
+        id: 'pointsChallengesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      pointsChallengesCreate: {
+        id: 'pointsChallengesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      pointsChallengesEdit: {
+        id: 'pointsChallengesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      pointsChallengesDestroy: {
+        id: 'pointsChallengesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      pointsChallengesRead: {
+        id: 'pointsChallengesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      pointsChallengesAutocomplete: {
+        id: 'pointsChallengesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      challengesCategoriesImport: {
+        id: 'challengesCategoriesImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      challengesCategoriesCreate: {
+        id: 'challengesCategoriesCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      challengesCategoriesEdit: {
+        id: 'challengesCategoriesEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      challengesCategoriesDestroy: {
+        id: 'challengesCategoriesDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      challengesCategoriesRead: {
+        id: 'challengesCategoriesRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      challengesCategoriesAutocomplete: {
+        id: 'challengesCategoriesAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      productCategoryImport: {
+        id: 'productCategoryImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      productCategoryCreate: {
+        id: 'productCategoryCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      productCategoryEdit: {
+        id: 'productCategoryEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      productCategoryDestroy: {
+        id: 'productCategoryDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      productCategoryRead: {
+        id: 'productCategoryRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      productCategoryAutocomplete: {
+        id: 'productCategoryAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
     };
   }
 

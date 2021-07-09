@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -21,6 +22,7 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'languages',
       },
+      serviceImage: [FileSchema],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

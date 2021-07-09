@@ -5,11 +5,14 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import BusinessServicesTypes from '../models/businessServicesTypes';
+import FileRepository from './fileRepository';
 import Business from '../models/business';
+import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 import Providers from '../models/providers';
+import BusinessServicesPrices from '../models/businessServicesPrices';
 
 class BusinessServicesTypesRepository {
   
@@ -119,6 +122,13 @@ class BusinessServicesTypesRepository {
 
     await MongooseRepository.destroyRelationToMany(
       id,
+      Place(options.database),
+      'services',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
       ServiceReservation(options.database),
       'serviceType',
       options,
@@ -142,6 +152,13 @@ class BusinessServicesTypesRepository {
       id,
       Providers(options.database),
       'serviceTypes',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessServicesPrices(options.database),
+      'service',
       options,
     );
   }
@@ -380,7 +397,9 @@ class BusinessServicesTypesRepository {
       ? record.toObject()
       : record;
 
-
+    output.serviceImage = await FileRepository.fillDownloadUrl(
+      output.serviceImage,
+    );
 
 
 

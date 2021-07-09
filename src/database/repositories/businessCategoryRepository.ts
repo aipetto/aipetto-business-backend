@@ -5,7 +5,9 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import BusinessCategory from '../models/businessCategory';
+import FileRepository from './fileRepository';
 import Business from '../models/business';
+import Place from '../models/place';
 import BusinessServicesTypes from '../models/businessServicesTypes';
 import Providers from '../models/providers';
 
@@ -111,6 +113,13 @@ class BusinessCategoryRepository {
     await MongooseRepository.destroyRelationToMany(
       id,
       Business(options.database),
+      'categories',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Place(options.database),
       'categories',
       options,
     );
@@ -235,6 +244,17 @@ class BusinessCategoryRepository {
         });
       }
 
+      if (filter.pageUrl) {
+        criteriaAnd.push({
+          pageUrl: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.pageUrl,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -354,7 +374,9 @@ class BusinessCategoryRepository {
       ? record.toObject()
       : record;
 
-
+    output.categoryImage = await FileRepository.fillDownloadUrl(
+      output.categoryImage,
+    );
 
 
 

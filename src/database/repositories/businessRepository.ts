@@ -8,13 +8,16 @@ import Business from '../models/business';
 import Customer from '../models/customer';
 import Product from '../models/product';
 import Order from '../models/order';
+import Pet from '../models/pet';
 import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
+import Messages from '../models/messages';
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 import Discounts from '../models/discounts';
 import Providers from '../models/providers';
 import PetVaccines from '../models/petVaccines';
+import BusinessServicesPrices from '../models/businessServicesPrices';
 
 class BusinessRepository {
   
@@ -136,6 +139,13 @@ class BusinessRepository {
       options,
     );
 
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Pet(options.database),
+      'businessAuthorized',
+      options,
+    );
+
     await MongooseRepository.destroyRelationToOne(
       id,
       Place(options.database),
@@ -153,6 +163,13 @@ class BusinessRepository {
     await MongooseRepository.destroyRelationToOne(
       id,
       BusinessPlaceServiceAvailability(options.database),
+      'businessId',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Messages(options.database),
       'businessId',
       options,
     );
@@ -182,6 +199,13 @@ class BusinessRepository {
       id,
       PetVaccines(options.database),
       'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessServicesPrices(options.database),
+      'businessId',
       options,
     );
   }

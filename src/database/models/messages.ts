@@ -24,6 +24,10 @@ export default (database) => {
         type: String,
         required: true,
       },
+      businessId: {
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

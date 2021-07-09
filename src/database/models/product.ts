@@ -32,6 +32,13 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'business',
       },
+      acceptPointsToShop: {
+        type: Boolean,
+        default: false
+      },
+      pointsPrice: {
+        type: Number,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

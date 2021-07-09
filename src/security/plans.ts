@@ -60,7 +60,7 @@ class Plans {
       return 'active';
     }
 
-    if (status === 'canceled') {
+    if (status === 'canceled' || status === 'incomplete_expired') {
       return 'canceled';
     }
 

@@ -22,6 +22,14 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'business',
       },
+      services: [{
+        type: Schema.Types.ObjectId,
+        ref: 'businessServicesTypes',
+      }],
+      categories: [{
+        type: Schema.Types.ObjectId,
+        ref: 'businessCategory',
+      }],
       latitude: {
         type: Number,
       },
@@ -37,6 +45,16 @@ export default (database) => {
       addressZipCode: {
         type: String,
       },
+      addressCity: {
+        type: String,
+      },
+      addressState: {
+        type: String,
+      },
+      addressCountry: {
+        type: Schema.Types.ObjectId,
+        ref: 'country',
+      },
       openTime: {
         type: String,
       },
@@ -44,6 +62,13 @@ export default (database) => {
         type: String,
       },
       is24hours: {
+        type: Boolean,
+        default: false
+      },
+      stars: {
+        type: Number,
+      },
+      isOpen: {
         type: Boolean,
         default: false
       },

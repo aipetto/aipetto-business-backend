@@ -66,6 +66,83 @@ export default class Storage {
 
 
 
+      businessServicesTypesServiceImage: {
+        id: 'businessServicesTypesServiceImage',
+        folder: 'tenant/:tenantId/businessServicesTypes/serviceImage',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      businessCategoryCategoryImage: {
+        id: 'businessCategoryCategoryImage',
+        folder: 'tenant/:tenantId/businessCategory/categoryImage',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+
+
+
+
+
+
+      placeTypePlaceTypeImage: {
+        id: 'placeTypePlaceTypeImage',
+        folder: 'tenant/:tenantId/placeType/placeTypeImage',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+
+
+
+
+      petPhotosPhoto: {
+        id: 'petPhotosPhoto',
+        folder: 'tenant/:tenantId/petPhotos/photo',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+
+
+
+
+      postsPostHeaderImage: {
+        id: 'postsPostHeaderImage',
+        folder: 'tenant/:tenantId/posts/postHeaderImage',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+      postsPostDocRelated: {
+        id: 'postsPostDocRelated',
+        folder: 'tenant/:tenantId/posts/postDocRelated',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+
+
+
+
+
+
 
 
 
