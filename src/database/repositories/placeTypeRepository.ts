@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import PlaceType from '../models/placeType';
+import FileRepository from './fileRepository';
 import Place from '../models/place';
 
 class PlaceTypeRepository {
@@ -219,6 +220,19 @@ class PlaceTypeRepository {
         });
       }
 
+      if (
+        filter.isPublicPlace === true ||
+        filter.isPublicPlace === 'true' ||
+        filter.isPublicPlace === false ||
+        filter.isPublicPlace === 'false'
+      ) {
+        criteriaAnd.push({
+          isPublicPlace:
+            filter.isPublicPlace === true ||
+            filter.isPublicPlace === 'true',
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -338,7 +352,9 @@ class PlaceTypeRepository {
       ? record.toObject()
       : record;
 
-
+    output.placeTypeImage = await FileRepository.fillDownloadUrl(
+      output.placeTypeImage,
+    );
 
 
 

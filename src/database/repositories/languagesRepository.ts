@@ -10,6 +10,9 @@ import PetTypes from '../models/petTypes';
 import BusinessServicesTypes from '../models/businessServicesTypes';
 import BusinessCategory from '../models/businessCategory';
 import PlaceType from '../models/placeType';
+import PostCategories from '../models/postCategories';
+import ChallengesCategories from '../models/challengesCategories';
+import ProductCategory from '../models/productCategory';
 
 class LanguagesRepository {
   
@@ -141,6 +144,27 @@ class LanguagesRepository {
     await MongooseRepository.destroyRelationToOne(
       id,
       PlaceType(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PostCategories(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ChallengesCategories(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ProductCategory(options.database),
       'language',
       options,
     );

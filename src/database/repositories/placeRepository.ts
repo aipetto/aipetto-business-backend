@@ -185,7 +185,10 @@ class PlaceRepository {
       Place(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('placeType')
-      .populate('businessId'),
+      .populate('businessId')
+      .populate('services')
+      .populate('categories')
+      .populate('addressCountry'),
       options,
     );
 
@@ -317,6 +320,36 @@ class PlaceRepository {
         });
       }
 
+      if (filter.addressCity) {
+        criteriaAnd.push({
+          addressCity: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressCity,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressState) {
+        criteriaAnd.push({
+          addressState: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressState,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressCountry) {
+        criteriaAnd.push({
+          addressCountry: MongooseQueryUtils.uuid(
+            filter.addressCountry,
+          ),
+        });
+      }
+
       if (filter.openTime) {
         criteriaAnd.push({
           openTime: {
@@ -349,6 +382,39 @@ class PlaceRepository {
           is24hours:
             filter.is24hours === true ||
             filter.is24hours === 'true',
+        });
+      }
+
+      if (filter.starsRange) {
+        const [start, end] = filter.starsRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            stars: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            stars: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (
+        filter.isOpen === true ||
+        filter.isOpen === 'true' ||
+        filter.isOpen === false ||
+        filter.isOpen === 'false'
+      ) {
+        criteriaAnd.push({
+          isOpen:
+            filter.isOpen === true ||
+            filter.isOpen === 'true',
         });
       }
 
@@ -397,7 +463,10 @@ class PlaceRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('placeType')
-      .populate('businessId');
+      .populate('businessId')
+      .populate('services')
+      .populate('categories')
+      .populate('addressCountry');
 
     const count = await Place(
       options.database,

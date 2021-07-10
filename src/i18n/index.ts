@@ -35,7 +35,7 @@ function format(message, args) {
  */
 export const i18nExists = (languageCode, key) => {
   const dictionary =
-    languages[languageCode] || languages['en'];
+    languages[languageCode] || languages['es'];
   const message = _get(dictionary, key);
   return Boolean(message);
 };
@@ -45,7 +45,7 @@ export const i18nExists = (languageCode, key) => {
  */
 export const i18n = (languageCode, key, ...args) => {
   const dictionary =
-    languages[languageCode] || languages['en'];
+    languages[languageCode] || languages['es'];
   const message = _get(dictionary, key);
 
   if (!message) {

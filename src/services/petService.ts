@@ -5,6 +5,10 @@ import PetRepository from '../database/repositories/petRepository';
 import BreedRepository from '../database/repositories/breedRepository';
 import PetTypesRepository from '../database/repositories/petTypesRepository';
 import CustomerRepository from '../database/repositories/customerRepository';
+import PetPhotosRepository from '../database/repositories/petPhotosRepository';
+import PetVaccinesRepository from '../database/repositories/petVaccinesRepository';
+import BusinessRepository from '../database/repositories/businessRepository';
+import PetDiseasesRepository from '../database/repositories/petDiseasesRepository';
 import UserRepository from '../database/repositories/userRepository';
 
 export default class PetService {
@@ -21,9 +25,17 @@ export default class PetService {
 
     try {
       data.breed = await BreedRepository.filterIdInTenant(data.breed, { ...this.options, session });
+      data.secondBreedMixed = await BreedRepository.filterIdInTenant(data.secondBreedMixed, { ...this.options, session });
       data.type = await PetTypesRepository.filterIdInTenant(data.type, { ...this.options, session });
       data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
       data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
+      data.photos = await PetPhotosRepository.filterIdsInTenant(data.photos, { ...this.options, session });
+      data.vaccines = await PetVaccinesRepository.filterIdsInTenant(data.vaccines, { ...this.options, session });
+      data.usersAuthorized = await UserRepository.filterIdsInTenant(data.usersAuthorized, { ...this.options, session });
+      data.businessAuthorized = await BusinessRepository.filterIdsInTenant(data.businessAuthorized, { ...this.options, session });
+      data.diseases = await PetDiseasesRepository.filterIdsInTenant(data.diseases, { ...this.options, session });
+      data.matches = await PetRepository.filterIdsInTenant(data.matches, { ...this.options, session });
+      data.petFriends = await PetRepository.filterIdsInTenant(data.petFriends, { ...this.options, session });
 
       const record = await PetRepository.create(data, {
         ...this.options,
@@ -53,9 +65,17 @@ export default class PetService {
 
     try {
       data.breed = await BreedRepository.filterIdInTenant(data.breed, { ...this.options, session });
+      data.secondBreedMixed = await BreedRepository.filterIdInTenant(data.secondBreedMixed, { ...this.options, session });
       data.type = await PetTypesRepository.filterIdInTenant(data.type, { ...this.options, session });
       data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
       data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
+      data.photos = await PetPhotosRepository.filterIdsInTenant(data.photos, { ...this.options, session });
+      data.vaccines = await PetVaccinesRepository.filterIdsInTenant(data.vaccines, { ...this.options, session });
+      data.usersAuthorized = await UserRepository.filterIdsInTenant(data.usersAuthorized, { ...this.options, session });
+      data.businessAuthorized = await BusinessRepository.filterIdsInTenant(data.businessAuthorized, { ...this.options, session });
+      data.diseases = await PetDiseasesRepository.filterIdsInTenant(data.diseases, { ...this.options, session });
+      data.matches = await PetRepository.filterIdsInTenant(data.matches, { ...this.options, session });
+      data.petFriends = await PetRepository.filterIdsInTenant(data.petFriends, { ...this.options, session });
 
       const record = await PetRepository.update(
         id,

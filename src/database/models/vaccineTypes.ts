@@ -18,6 +18,15 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'country',
       },
+      language: {
+        type: String,
+        enum: [
+          "en",
+          "es",
+          "pt",
+          null
+        ],
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

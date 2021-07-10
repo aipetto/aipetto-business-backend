@@ -240,6 +240,39 @@ class ProductRepository {
         });
       }
 
+      if (
+        filter.acceptPointsToShop === true ||
+        filter.acceptPointsToShop === 'true' ||
+        filter.acceptPointsToShop === false ||
+        filter.acceptPointsToShop === 'false'
+      ) {
+        criteriaAnd.push({
+          acceptPointsToShop:
+            filter.acceptPointsToShop === true ||
+            filter.acceptPointsToShop === 'true',
+        });
+      }
+
+      if (filter.pointsPriceRange) {
+        const [start, end] = filter.pointsPriceRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            pointsPrice: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            pointsPrice: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

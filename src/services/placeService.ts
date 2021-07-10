@@ -4,6 +4,9 @@ import { IServiceOptions } from './IServiceOptions';
 import PlaceRepository from '../database/repositories/placeRepository';
 import PlaceTypeRepository from '../database/repositories/placeTypeRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
+import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
+import BusinessCategoryRepository from '../database/repositories/businessCategoryRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class PlaceService {
   options: IServiceOptions;
@@ -20,6 +23,9 @@ export default class PlaceService {
     try {
       data.placeType = await PlaceTypeRepository.filterIdInTenant(data.placeType, { ...this.options, session });
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.services = await BusinessServicesTypesRepository.filterIdsInTenant(data.services, { ...this.options, session });
+      data.categories = await BusinessCategoryRepository.filterIdsInTenant(data.categories, { ...this.options, session });
+      data.addressCountry = await CountryRepository.filterIdInTenant(data.addressCountry, { ...this.options, session });
 
       const record = await PlaceRepository.create(data, {
         ...this.options,
@@ -50,6 +56,9 @@ export default class PlaceService {
     try {
       data.placeType = await PlaceTypeRepository.filterIdInTenant(data.placeType, { ...this.options, session });
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.services = await BusinessServicesTypesRepository.filterIdsInTenant(data.services, { ...this.options, session });
+      data.categories = await BusinessCategoryRepository.filterIdsInTenant(data.categories, { ...this.options, session });
+      data.addressCountry = await CountryRepository.filterIdInTenant(data.addressCountry, { ...this.options, session });
 
       const record = await PlaceRepository.update(
         id,

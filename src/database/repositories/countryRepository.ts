@@ -6,11 +6,13 @@ import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Country from '../models/country';
 import Business from '../models/business';
+import Place from '../models/place';
 import City from '../models/city';
 import State from '../models/state';
 import Providers from '../models/providers';
 import VaccineTypes from '../models/vaccineTypes';
 import PetVaccines from '../models/petVaccines';
+import PointsChallenges from '../models/pointsChallenges';
 
 class CountryRepository {
   
@@ -120,6 +122,13 @@ class CountryRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Place(options.database),
+      'addressCountry',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       City(options.database),
       'country',
       options,
@@ -149,6 +158,13 @@ class CountryRepository {
     await MongooseRepository.destroyRelationToOne(
       id,
       PetVaccines(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PointsChallenges(options.database),
       'country',
       options,
     );

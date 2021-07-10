@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -17,6 +18,11 @@ export default (database) => {
       language: {
         type: Schema.Types.ObjectId,
         ref: 'languages',
+      },
+      placeTypeImage: [FileSchema],
+      isPublicPlace: {
+        type: Boolean,
+        default: false
       },
       tenant: {
         type: Schema.Types.ObjectId,

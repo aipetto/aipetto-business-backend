@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import PetVaccines from '../models/petVaccines';
+import Pet from '../models/pet';
 
 class PetVaccinesRepository {
   
@@ -105,7 +106,12 @@ class PetVaccinesRepository {
       options,
     );
 
-
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Pet(options.database),
+      'vaccines',
+      options,
+    );
   }
 
   static async filterIdInTenant(

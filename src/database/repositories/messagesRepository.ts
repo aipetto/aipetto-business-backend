@@ -164,7 +164,8 @@ class MessagesRepository {
       Messages(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('from')
-      .populate('to'),
+      .populate('to')
+      .populate('businessId'),
       options,
     );
 
@@ -223,6 +224,14 @@ class MessagesRepository {
         });
       }
 
+      if (filter.businessId) {
+        criteriaAnd.push({
+          businessId: MongooseQueryUtils.uuid(
+            filter.businessId,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -268,7 +277,8 @@ class MessagesRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('from')
-      .populate('to');
+      .populate('to')
+      .populate('businessId');
 
     const count = await Messages(
       options.database,

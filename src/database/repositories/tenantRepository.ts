@@ -32,6 +32,15 @@ import PetVaccines from '../models/petVaccines';
 import PlaceType from '../models/placeType';
 import LandingSurvey from '../models/landingSurvey';
 import NewBusinessSurvey from '../models/newBusinessSurvey';
+import PetPhotos from '../models/petPhotos';
+import PetDiseases from '../models/petDiseases';
+import BusinessServicesPrices from '../models/businessServicesPrices';
+import Posts from '../models/posts';
+import PostCategories from '../models/postCategories';
+import PostComments from '../models/postComments';
+import PointsChallenges from '../models/pointsChallenges';
+import ChallengesCategories from '../models/challengesCategories';
+import ProductCategory from '../models/productCategory';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
 import { isUserInTenant } from '../utils/userTenantUtils';
@@ -307,6 +316,24 @@ class TenantRepository {
     await LandingSurvey(options.database).deleteMany({ tenant: id }, options);
 
     await NewBusinessSurvey(options.database).deleteMany({ tenant: id }, options);
+
+    await PetPhotos(options.database).deleteMany({ tenant: id }, options);
+
+    await PetDiseases(options.database).deleteMany({ tenant: id }, options);
+
+    await BusinessServicesPrices(options.database).deleteMany({ tenant: id }, options);
+
+    await Posts(options.database).deleteMany({ tenant: id }, options);
+
+    await PostCategories(options.database).deleteMany({ tenant: id }, options);
+
+    await PostComments(options.database).deleteMany({ tenant: id }, options);
+
+    await PointsChallenges(options.database).deleteMany({ tenant: id }, options);
+
+    await ChallengesCategories(options.database).deleteMany({ tenant: id }, options);
+
+    await ProductCategory(options.database).deleteMany({ tenant: id }, options);
 
     await Settings(options.database).deleteMany(
       { tenant: id },

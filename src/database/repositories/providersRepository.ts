@@ -175,7 +175,7 @@ class ProvidersRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Providers(options.database)
-        .findById(id)
+        .findOne({_id: id, tenant: currentTenant.id})
       .populate('businessID')
       .populate('category')
       .populate('serviceTypes')

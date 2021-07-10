@@ -30,6 +30,15 @@ const models = [
   require('./placeType').default,
   require('./landingSurvey').default,
   require('./newBusinessSurvey').default,
+  require('./petPhotos').default,
+  require('./petDiseases').default,
+  require('./businessServicesPrices').default,
+  require('./posts').default,
+  require('./postCategories').default,
+  require('./postComments').default,
+  require('./pointsChallenges').default,
+  require('./challengesCategories').default,
+  require('./productCategory').default,
 ];
 
 export default function init(database) {

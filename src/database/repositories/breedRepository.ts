@@ -113,6 +113,13 @@ class BreedRepository {
       'breed',
       options,
     );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Pet(options.database),
+      'secondBreedMixed',
+      options,
+    );
   }
 
   static async filterIdInTenant(

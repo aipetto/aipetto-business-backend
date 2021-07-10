@@ -275,6 +275,69 @@ const ptBR = {
         }
       }
     },
+    petPhotos: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    petDiseases: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    businessServicesPrices: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    posts: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    postCategories: {
+      errors: {
+        unique: {
+          name: 'Name deve ser único',
+        }
+      }
+    },
+    postComments: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    pointsChallenges: {
+      errors: {
+        unique: {
+          name: 'Name deve ser único',
+        }
+      }
+    },
+    challengesCategories: {
+      errors: {
+        unique: {
+          name: 'Name deve ser único',
+        }
+      }
+    },
+    productCategory: {
+      errors: {
+        unique: {
+          name: 'Name deve ser único',
+        }
+      }
+    },
   }
 };
 
