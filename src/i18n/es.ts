@@ -1,6 +1,6 @@
 const es = {
   app: {
-    title: 'AIPETTO',
+    title: 'aipetto',
   },
   auth: {
     userNotFound:

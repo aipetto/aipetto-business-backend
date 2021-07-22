@@ -4,7 +4,7 @@
 
 const en = {
   app: {
-    title: 'AIPETTO',
+    title: 'aipetto',
   },
 
   auth: {
