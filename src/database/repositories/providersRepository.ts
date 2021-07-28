@@ -7,6 +7,7 @@ import lodash from 'lodash';
 import Providers from '../models/providers';
 import ServiceReservation from '../models/serviceReservation';
 import PetVaccines from '../models/petVaccines';
+import PetExamination from '../models/petExamination';
 
 class ProvidersRepository {
   
@@ -120,6 +121,13 @@ class ProvidersRepository {
       'veterinarianID',
       options,
     );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      PetExamination(options.database),
+      'providersID',
+      options,
+    );
   }
 
   static async filterIdInTenant(
@@ -181,7 +189,8 @@ class ProvidersRepository {
       .populate('serviceTypes')
       .populate('city')
       .populate('state')
-      .populate('country'),
+      .populate('country')
+      .populate('currency'),
       options,
     );
 
@@ -333,6 +342,85 @@ class ProvidersRepository {
         });
       }
 
+      if (filter.email) {
+        criteriaAnd.push({
+          email: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.email,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.latitudeRange) {
+        const [start, end] = filter.latitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.longitudeRange) {
+        const [start, end] = filter.longitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.basePricePerServiceRange) {
+        const [start, end] = filter.basePricePerServiceRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            basePricePerService: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            basePricePerService: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -382,7 +470,8 @@ class ProvidersRepository {
       .populate('serviceTypes')
       .populate('city')
       .populate('state')
-      .populate('country');
+      .populate('country')
+      .populate('currency');
 
     const count = await Providers(
       options.database,

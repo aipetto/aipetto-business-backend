@@ -163,7 +163,8 @@ class BusinessServicesPricesRepository {
       BusinessServicesPrices(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('service')
-      .populate('businessId'),
+      .populate('businessId')
+      .populate('currency'),
       options,
     );
 
@@ -231,6 +232,27 @@ class BusinessServicesPricesRepository {
         }
       }
 
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
+      if (
+        filter.isFree === true ||
+        filter.isFree === 'true' ||
+        filter.isFree === false ||
+        filter.isFree === 'false'
+      ) {
+        criteriaAnd.push({
+          isFree:
+            filter.isFree === true ||
+            filter.isFree === 'true',
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -276,7 +298,8 @@ class BusinessServicesPricesRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('service')
-      .populate('businessId');
+      .populate('businessId')
+      .populate('currency');
 
     const count = await BusinessServicesPrices(
       options.database,

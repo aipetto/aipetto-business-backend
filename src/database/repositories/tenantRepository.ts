@@ -41,6 +41,12 @@ import PostComments from '../models/postComments';
 import PointsChallenges from '../models/pointsChallenges';
 import ChallengesCategories from '../models/challengesCategories';
 import ProductCategory from '../models/productCategory';
+import Deals from '../models/deals';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
+import Questions from '../models/questions';
+import Answers from '../models/answers';
+import PetExamination from '../models/petExamination';
+import Contacts from '../models/contacts';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
 import { isUserInTenant } from '../utils/userTenantUtils';
@@ -334,6 +340,18 @@ class TenantRepository {
     await ChallengesCategories(options.database).deleteMany({ tenant: id }, options);
 
     await ProductCategory(options.database).deleteMany({ tenant: id }, options);
+
+    await Deals(options.database).deleteMany({ tenant: id }, options);
+
+    await BusinessPaymentCycle(options.database).deleteMany({ tenant: id }, options);
+
+    await Questions(options.database).deleteMany({ tenant: id }, options);
+
+    await Answers(options.database).deleteMany({ tenant: id }, options);
+
+    await PetExamination(options.database).deleteMany({ tenant: id }, options);
+
+    await Contacts(options.database).deleteMany({ tenant: id }, options);
 
     await Settings(options.database).deleteMany(
       { tenant: id },

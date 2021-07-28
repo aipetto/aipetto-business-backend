@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Place from '../models/place';
+import FileRepository from './fileRepository';
 import ServiceReservation from '../models/serviceReservation';
 import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvailability';
 import PetVaccines from '../models/petVaccines';
@@ -540,6 +541,14 @@ class PlaceRepository {
     const output = record.toObject
       ? record.toObject()
       : record;
+
+    output.photoLogo = await FileRepository.fillDownloadUrl(
+      output.photoLogo,
+    );
+
+    output.photoStore = await FileRepository.fillDownloadUrl(
+      output.photoStore,
+    );
 
 
 

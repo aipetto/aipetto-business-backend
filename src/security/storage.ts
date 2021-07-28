@@ -30,7 +30,11 @@ export default class Storage {
         maxSizeInBytes: 10 * 1024 * 1024,
         publicRead: true,
       },
-
+      customerCustomerProfileImage: {
+        id: 'customerCustomerProfileImage',
+        folder: 'tenant/:tenantId/customer/customerProfileImage',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
 
       productPhotos: {
         id: 'productPhotos',
@@ -62,9 +66,22 @@ export default class Storage {
         maxSizeInBytes: 100 * 1024 * 1024,
       },
 
+      businessBusinessLogo: {
+        id: 'businessBusinessLogo',
+        folder: 'tenant/:tenantId/business/businessLogo',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
 
-
-
+      placePhotoLogo: {
+        id: 'placePhotoLogo',
+        folder: 'tenant/:tenantId/place/photoLogo',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+      placePhotoStore: {
+        id: 'placePhotoStore',
+        folder: 'tenant/:tenantId/place/photoStore',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
 
       businessServicesTypesServiceImage: {
         id: 'businessServicesTypesServiceImage',
@@ -72,7 +89,11 @@ export default class Storage {
         maxSizeInBytes: 100 * 1024 * 1024,
       },
 
-
+      serviceReservationDigitalReservationDoc: {
+        id: 'serviceReservationDigitalReservationDoc',
+        folder: 'tenant/:tenantId/serviceReservation/digitalReservationDoc',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
 
 
 
@@ -146,6 +167,35 @@ export default class Storage {
 
 
 
+
+      dealsDigitalContracts: {
+        id: 'dealsDigitalContracts',
+        folder: 'tenant/:tenantId/deals/digitalContracts',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+
+
+
+
+
+
+      petExaminationExaminationsFiles: {
+        id: 'petExaminationExaminationsFiles',
+        folder: 'tenant/:tenantId/petExamination/examinationsFiles',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+      petExaminationExaminationImages: {
+        id: 'petExaminationExaminationImages',
+        folder: 'tenant/:tenantId/petExamination/examinationImages',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+
+      contactsContactProfilePhoto: {
+        id: 'contactsContactProfilePhoto',
+        folder: 'tenant/:tenantId/contacts/contactProfilePhoto',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
     };
   }
 }

@@ -39,6 +39,15 @@ export default (database) => {
       services: [{
         type: String  
       }],
+      address: {
+        type: String,
+      },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

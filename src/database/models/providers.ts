@@ -60,6 +60,22 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'country',
       },
+      email: {
+        type: String,
+      },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
+      basePricePerService: {
+        type: Number,
+      },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

@@ -2,6 +2,7 @@ import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import LandingSurveyRepository from '../database/repositories/landingSurveyRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class LandingSurveyService {
   options: IServiceOptions;
@@ -16,6 +17,8 @@ export default class LandingSurveyService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await LandingSurveyRepository.create(data, {
         ...this.options,
         session,
@@ -43,6 +46,8 @@ export default class LandingSurveyService {
     );
 
     try {
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+
       const record = await LandingSurveyRepository.update(
         id,
         data,

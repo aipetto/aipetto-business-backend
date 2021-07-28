@@ -1562,6 +1562,249 @@ class Permissions {
         allowedRoles: [roles.aipettoAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
+
+      dealsImport: {
+        id: 'dealsImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      dealsCreate: {
+        id: 'dealsCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.dealsDigitalContracts,
+        ],
+      },
+      dealsEdit: {
+        id: 'dealsEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.dealsDigitalContracts,
+        ],
+      },
+      dealsDestroy: {
+        id: 'dealsDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.dealsDigitalContracts,
+        ],
+      },
+      dealsRead: {
+        id: 'dealsRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      dealsAutocomplete: {
+        id: 'dealsAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      businessPaymentCycleImport: {
+        id: 'businessPaymentCycleImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      businessPaymentCycleCreate: {
+        id: 'businessPaymentCycleCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessPaymentCycleEdit: {
+        id: 'businessPaymentCycleEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessPaymentCycleDestroy: {
+        id: 'businessPaymentCycleDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      businessPaymentCycleRead: {
+        id: 'businessPaymentCycleRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      businessPaymentCycleAutocomplete: {
+        id: 'businessPaymentCycleAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      questionsImport: {
+        id: 'questionsImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      questionsCreate: {
+        id: 'questionsCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      questionsEdit: {
+        id: 'questionsEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      questionsDestroy: {
+        id: 'questionsDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      questionsRead: {
+        id: 'questionsRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      questionsAutocomplete: {
+        id: 'questionsAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      answersImport: {
+        id: 'answersImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      answersCreate: {
+        id: 'answersCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      answersEdit: {
+        id: 'answersEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      answersDestroy: {
+        id: 'answersDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+
+        ],
+      },
+      answersRead: {
+        id: 'answersRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      answersAutocomplete: {
+        id: 'answersAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      petExaminationImport: {
+        id: 'petExaminationImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petExaminationCreate: {
+        id: 'petExaminationCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.petExaminationExaminationsFiles,
+          storage.petExaminationExaminationImages,
+        ],
+      },
+      petExaminationEdit: {
+        id: 'petExaminationEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.petExaminationExaminationsFiles,
+          storage.petExaminationExaminationImages,
+        ],
+      },
+      petExaminationDestroy: {
+        id: 'petExaminationDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.petExaminationExaminationsFiles,
+          storage.petExaminationExaminationImages,
+        ],
+      },
+      petExaminationRead: {
+        id: 'petExaminationRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      petExaminationAutocomplete: {
+        id: 'petExaminationAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+
+      contactsImport: {
+        id: 'contactsImport',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      contactsCreate: {
+        id: 'contactsCreate',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.contactsContactProfilePhoto,
+        ],
+      },
+      contactsEdit: {
+        id: 'contactsEdit',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.contactsContactProfilePhoto,
+        ],
+      },
+      contactsDestroy: {
+        id: 'contactsDestroy',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+        allowedStorage: [
+          storage.contactsContactProfilePhoto,
+        ],
+      },
+      contactsRead: {
+        id: 'contactsRead',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
+      contactsAutocomplete: {
+        id: 'contactsAutocomplete',
+        allowedRoles: [roles.aipettoAdmin],
+        allowedPlans: [plans.free, plans.growth, plans.premium],
+      },
     };
   }
 

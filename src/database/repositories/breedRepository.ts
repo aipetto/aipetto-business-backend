@@ -7,6 +7,8 @@ import lodash from 'lodash';
 import Breed from '../models/breed';
 import FileRepository from './fileRepository';
 import Pet from '../models/pet';
+import VaccineTypes from '../models/vaccineTypes';
+import PetDiseases from '../models/petDiseases';
 
 class BreedRepository {
   
@@ -118,6 +120,20 @@ class BreedRepository {
       id,
       Pet(options.database),
       'secondBreedMixed',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      VaccineTypes(options.database),
+      'specificBreeds',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      PetDiseases(options.database),
+      'specificPetBreeds',
       options,
     );
   }

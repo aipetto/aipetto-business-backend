@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Business from '../models/business';
+import FileRepository from './fileRepository';
 import Customer from '../models/customer';
 import Product from '../models/product';
 import Order from '../models/order';
@@ -18,6 +19,10 @@ import Discounts from '../models/discounts';
 import Providers from '../models/providers';
 import PetVaccines from '../models/petVaccines';
 import BusinessServicesPrices from '../models/businessServicesPrices';
+import Deals from '../models/deals';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
+import PetExamination from '../models/petExamination';
+import Contacts from '../models/contacts';
 
 class BusinessRepository {
   
@@ -206,6 +211,34 @@ class BusinessRepository {
       id,
       BusinessServicesPrices(options.database),
       'businessId',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Deals(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessPaymentCycle(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetExamination(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Contacts(options.database),
+      'businessID',
       options,
     );
   }
@@ -423,6 +456,28 @@ class BusinessRepository {
         });
       }
 
+      if (filter.latitude) {
+        criteriaAnd.push({
+          latitude: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.latitude,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.longitude) {
+        criteriaAnd.push({
+          longitude: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.longitude,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -546,7 +601,9 @@ class BusinessRepository {
       ? record.toObject()
       : record;
 
-
+    output.businessLogo = await FileRepository.fillDownloadUrl(
+      output.businessLogo,
+    );
 
 
 

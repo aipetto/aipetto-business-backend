@@ -114,7 +114,7 @@ const es = {
     pet: {
       errors: {
         unique: {
-
+          governmentUniqueID: 'GovernmentUniqueID debe ser único',
         }
       }
     },
@@ -247,7 +247,7 @@ const es = {
     vaccineTypes: {
       errors: {
         unique: {
-
+          vaccineCustomUniqueID: 'VaccineCustomUniqueID debe ser único',
         }
       }
     },
@@ -339,6 +339,48 @@ const es = {
       errors: {
         unique: {
           name: 'Name debe ser único',
+        }
+      }
+    },
+    deals: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    businessPaymentCycle: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    questions: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    answers: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    petExamination: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    contacts: {
+      errors: {
+        unique: {
+
         }
       }
     },

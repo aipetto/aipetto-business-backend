@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -57,6 +58,13 @@ export default (database) => {
       country: {
         type: Schema.Types.ObjectId,
         ref: 'country',
+      },
+      businessLogo: [FileSchema],
+      latitude: {
+        type: String,
+      },
+      longitude: {
+        type: String,
       },
       tenant: {
         type: Schema.Types.ObjectId,

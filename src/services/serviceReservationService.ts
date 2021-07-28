@@ -8,6 +8,8 @@ import BusinessServicesTypesRepository from '../database/repositories/businessSe
 import ProvidersRepository from '../database/repositories/providersRepository';
 import PlaceRepository from '../database/repositories/placeRepository';
 import DiscountsRepository from '../database/repositories/discountsRepository';
+import CurrencyRepository from '../database/repositories/currencyRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class ServiceReservationService {
   options: IServiceOptions;
@@ -28,6 +30,8 @@ export default class ServiceReservationService {
       data.serviceProviderIDs = await ProvidersRepository.filterIdsInTenant(data.serviceProviderIDs, { ...this.options, session });
       data.place = await PlaceRepository.filterIdInTenant(data.place, { ...this.options, session });
       data.discountCode = await DiscountsRepository.filterIdInTenant(data.discountCode, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await ServiceReservationRepository.create(data, {
         ...this.options,
@@ -62,6 +66,8 @@ export default class ServiceReservationService {
       data.serviceProviderIDs = await ProvidersRepository.filterIdsInTenant(data.serviceProviderIDs, { ...this.options, session });
       data.place = await PlaceRepository.filterIdInTenant(data.place, { ...this.options, session });
       data.discountCode = await DiscountsRepository.filterIdInTenant(data.discountCode, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await ServiceReservationRepository.update(
         id,

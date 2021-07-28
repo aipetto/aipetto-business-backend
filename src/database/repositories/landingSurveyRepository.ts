@@ -161,7 +161,8 @@ class LandingSurveyRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       LandingSurvey(options.database)
-        .findOne({_id: id, tenant: currentTenant.id}),
+        .findOne({_id: id, tenant: currentTenant.id})
+      .populate('country'),
       options,
     );
 
@@ -256,6 +257,71 @@ class LandingSurveyRepository {
         });
       }
 
+      if (filter.latitudeRange) {
+        const [start, end] = filter.latitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.longitudeRange) {
+        const [start, end] = filter.longitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.petProfession) {
+        criteriaAnd.push({
+          petProfession: { $all: filter.petProfession },
+        });
+      }
+
+      if (filter.address) {
+        criteriaAnd.push({
+          address: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.address,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.country) {
+        criteriaAnd.push({
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -299,7 +365,8 @@ class LandingSurveyRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('country');
 
     const count = await LandingSurvey(
       options.database,

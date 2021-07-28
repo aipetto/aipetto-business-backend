@@ -167,7 +167,9 @@ class PetDiseasesRepository {
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       PetDiseases(options.database)
-        .findOne({_id: id, tenant: currentTenant.id}),
+        .findOne({_id: id, tenant: currentTenant.id})
+      .populate('specificPetTypes')
+      .populate('specificPetBreeds'),
       options,
     );
 
@@ -296,7 +298,9 @@ class PetDiseasesRepository {
       .find(criteria)
       .skip(skip)
       .limit(limitEscaped)
-      .sort(sort);
+      .sort(sort)
+      .populate('specificPetTypes')
+      .populate('specificPetBreeds');
 
     const count = await PetDiseases(
       options.database,

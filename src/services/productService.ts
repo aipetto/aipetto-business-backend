@@ -3,6 +3,8 @@ import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import ProductRepository from '../database/repositories/productRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
+import CurrencyRepository from '../database/repositories/currencyRepository';
+import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class ProductService {
   options: IServiceOptions;
@@ -18,6 +20,8 @@ export default class ProductService {
 
     try {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
 
       const record = await ProductRepository.create(data, {
         ...this.options,
@@ -47,6 +51,8 @@ export default class ProductService {
 
     try {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
 
       const record = await ProductRepository.update(
         id,

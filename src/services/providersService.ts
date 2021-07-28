@@ -8,6 +8,7 @@ import BusinessServicesTypesRepository from '../database/repositories/businessSe
 import CityRepository from '../database/repositories/cityRepository';
 import StateRepository from '../database/repositories/stateRepository';
 import CountryRepository from '../database/repositories/countryRepository';
+import CurrencyRepository from '../database/repositories/currencyRepository';
 
 export default class ProvidersService {
   options: IServiceOptions;
@@ -28,6 +29,7 @@ export default class ProvidersService {
       data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
       data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await ProvidersRepository.create(data, {
         ...this.options,
@@ -62,6 +64,7 @@ export default class ProvidersService {
       data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
       data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await ProvidersRepository.update(
         id,

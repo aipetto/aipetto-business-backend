@@ -3,6 +3,8 @@ import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import CustomerRepository from '../database/repositories/customerRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
+import CountryRepository from '../database/repositories/countryRepository';
+import CurrencyRepository from '../database/repositories/currencyRepository';
 import UserRepository from '../database/repositories/userRepository';
 
 export default class CustomerService {
@@ -20,6 +22,8 @@ export default class CustomerService {
     try {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
       data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await CustomerRepository.create(data, {
         ...this.options,
@@ -50,6 +54,8 @@ export default class CustomerService {
     try {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
       data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await CustomerRepository.update(
         id,
