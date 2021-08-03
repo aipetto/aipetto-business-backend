@@ -45,7 +45,7 @@ export default class UserCreator {
       throw error;
     }
 
-    if (this._hasEmailsToInvite) {
+    if (this._hasEmailsToInvite && !process.env.FRONTEND_URL?.includes('localhost')) {
       await this._sendAllInvitationEmails();
     }
   }
