@@ -5,9 +5,6 @@ import PlaceTypeService from '../../services/placeTypeService';
 
 export default async (req, res, next) => {
   try {
-    new PermissionChecker(req).validateHas(
-      Permissions.values.placeTypeRead,
-    );
 
     const payload = await new PlaceTypeService(
       req,

@@ -16,15 +16,15 @@ export default (app) => {
     require('./placeTypeDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/place-type/autocomplete`,
+    `/tenant/place-type/autocomplete`,
     require('./placeTypeAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/place-type`,
+    `/tenant/place-type`,
     require('./placeTypeList').default,
   );
   app.get(
-    `/tenant/:tenantId/place-type/:id`,
+    `/tenant/place-type/:id`,
     require('./placeTypeFind').default,
   );
 };

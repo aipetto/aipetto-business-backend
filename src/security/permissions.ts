@@ -380,7 +380,7 @@ class Permissions {
       },
       businessEdit: {
         id: 'businessEdit',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -396,23 +396,23 @@ class Permissions {
       },
       businessRead: {
         id: 'businessRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       businessAutocomplete: {
         id: 'businessAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
       placeImport: {
         id: 'placeImport',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       placeCreate: {
         id: 'placeCreate',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.placePhotoLogo,
@@ -421,7 +421,7 @@ class Permissions {
       },
       placeEdit: {
         id: 'placeEdit',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.placePhotoLogo,
@@ -430,7 +430,7 @@ class Permissions {
       },
       placeDestroy: {
         id: 'placeDestroy',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.placePhotoLogo,
@@ -439,7 +439,7 @@ class Permissions {
       },
       placeRead: {
         id: 'placeRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.placePhotoLogo,
@@ -487,12 +487,12 @@ class Permissions {
       },
       businessServicesTypesRead: {
         id: 'businessServicesTypesRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       businessServicesTypesAutocomplete: {
         id: 'businessServicesTypesAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
@@ -503,7 +503,7 @@ class Permissions {
       },
       serviceReservationCreate: {
         id: 'serviceReservationCreate',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -527,7 +527,7 @@ class Permissions {
       },
       serviceReservationRead: {
         id: 'serviceReservationRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       serviceReservationAutocomplete: {
@@ -538,12 +538,12 @@ class Permissions {
 
       businessPlaceServiceAvailabilityImport: {
         id: 'businessPlaceServiceAvailabilityImport',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       businessPlaceServiceAvailabilityCreate: {
         id: 'businessPlaceServiceAvailabilityCreate',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -567,7 +567,7 @@ class Permissions {
       },
       businessPlaceServiceAvailabilityRead: {
         id: 'businessPlaceServiceAvailabilityRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       businessPlaceServiceAvailabilityAutocomplete: {
@@ -978,12 +978,12 @@ class Permissions {
 
       providersImport: {
         id: 'providersImport',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       providersCreate: {
         id: 'providersCreate',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -991,7 +991,7 @@ class Permissions {
       },
       providersEdit: {
         id: 'providersEdit',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -1007,12 +1007,12 @@ class Permissions {
       },
       providersRead: {
         id: 'providersRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       providersAutocomplete: {
         id: 'providersAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
@@ -1113,26 +1113,22 @@ class Permissions {
         id: 'placeTypeEdit',
         allowedRoles: [roles.aipettoAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
-        allowedStorage: [
-
-        ],
+        allowedStorage: [],
       },
       placeTypeDestroy: {
         id: 'placeTypeDestroy',
         allowedRoles: [roles.aipettoAdmin],
         allowedPlans: [plans.free, plans.growth, plans.premium],
-        allowedStorage: [
-
-        ],
+        allowedStorage: [],
       },
       placeTypeRead: {
         id: 'placeTypeRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       placeTypeAutocomplete: {
         id: 'placeTypeAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
@@ -1298,12 +1294,12 @@ class Permissions {
 
       businessServicesPricesImport: {
         id: 'businessServicesPricesImport',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       businessServicesPricesCreate: {
         id: 'businessServicesPricesCreate',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -1311,7 +1307,7 @@ class Permissions {
       },
       businessServicesPricesEdit: {
         id: 'businessServicesPricesEdit',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -1319,7 +1315,7 @@ class Permissions {
       },
       businessServicesPricesDestroy: {
         id: 'businessServicesPricesDestroy',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -1327,12 +1323,12 @@ class Permissions {
       },
       businessServicesPricesRead: {
         id: 'businessServicesPricesRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       businessServicesPricesAutocomplete: {
         id: 'businessServicesPricesAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
