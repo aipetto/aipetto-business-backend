@@ -5,14 +5,23 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Languages from '../models/languages';
+import Product from '../models/product';
 import Breed from '../models/breed';
 import PetTypes from '../models/petTypes';
+import Business from '../models/business';
 import BusinessServicesTypes from '../models/businessServicesTypes';
+import Messages from '../models/messages';
 import BusinessCategory from '../models/businessCategory';
+import Providers from '../models/providers';
 import PlaceType from '../models/placeType';
+import Posts from '../models/posts';
 import PostCategories from '../models/postCategories';
 import ChallengesCategories from '../models/challengesCategories';
 import ProductCategory from '../models/productCategory';
+import Questions from '../models/questions';
+import Answers from '../models/answers';
+import PetExamination from '../models/petExamination';
+import Contacts from '../models/contacts';
 
 class LanguagesRepository {
   
@@ -115,6 +124,13 @@ class LanguagesRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Product(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       Breed(options.database),
       'language',
       options,
@@ -129,7 +145,21 @@ class LanguagesRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Business(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       BusinessServicesTypes(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Messages(options.database),
       'language',
       options,
     );
@@ -143,7 +173,21 @@ class LanguagesRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Providers(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       PlaceType(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Posts(options.database),
       'language',
       options,
     );
@@ -165,6 +209,34 @@ class LanguagesRepository {
     await MongooseRepository.destroyRelationToOne(
       id,
       ProductCategory(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Questions(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Answers(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetExamination(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Contacts(options.database),
       'language',
       options,
     );
@@ -276,6 +348,17 @@ class LanguagesRepository {
           active:
             filter.active === true ||
             filter.active === 'true',
+        });
+      }
+
+      if (filter.languageCode) {
+        criteriaAnd.push({
+          languageCode: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.languageCode,
+            ),
+            $options: 'i',
+          },
         });
       }
 

@@ -39,6 +39,12 @@ const models = [
   require('./pointsChallenges').default,
   require('./challengesCategories').default,
   require('./productCategory').default,
+  require('./deals').default,
+  require('./businessPaymentCycle').default,
+  require('./questions').default,
+  require('./answers').default,
+  require('./petExamination').default,
+  require('./contacts').default,
 ];
 
 export default function init(database) {

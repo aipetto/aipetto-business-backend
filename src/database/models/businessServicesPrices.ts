@@ -22,6 +22,14 @@ export default (database) => {
         type: Number,
         required: true,
       },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      isFree: {
+        type: Boolean,
+        default: false
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

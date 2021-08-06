@@ -5,6 +5,13 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Currency from '../models/currency';
+import Customer from '../models/customer';
+import Product from '../models/product';
+import Business from '../models/business';
+import ServiceReservation from '../models/serviceReservation';
+import Providers from '../models/providers';
+import BusinessServicesPrices from '../models/businessServicesPrices';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
 
 class CurrencyRepository {
   
@@ -105,7 +112,61 @@ class CurrencyRepository {
       options,
     );
 
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Customer(options.database),
+      'currency',
+      options,
+    );
 
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Customer(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Product(options.database),
+      'currency',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Business(options.database),
+      'currency',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ServiceReservation(options.database),
+      'currency',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Providers(options.database),
+      'currency',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessServicesPrices(options.database),
+      'currency',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessPaymentCycle(options.database),
+      'currency',
+      options,
+    );
   }
 
   static async filterIdInTenant(

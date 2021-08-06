@@ -18,6 +18,9 @@ export default (database) => {
         type: Boolean,
         default: false
       },
+      languageCode: {
+        type: String,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

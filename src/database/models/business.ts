@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -43,6 +44,9 @@ export default (database) => {
       addressStreetNumber: {
         type: String,
       },
+      streetComplement: {
+        type: String,
+      },
       addressPostCode: {
         type: String,
       },
@@ -57,6 +61,36 @@ export default (database) => {
       country: {
         type: Schema.Types.ObjectId,
         ref: 'country',
+      },
+      businessLogo: [FileSchema],
+      latitude: {
+        type: String,
+      },
+      longitude: {
+        type: String,
+      },
+      website: {
+        type: String,
+      },
+      facebook: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+      notes: {
+        type: String,
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      instagram: {
+        type: String,
       },
       tenant: {
         type: Schema.Types.ObjectId,

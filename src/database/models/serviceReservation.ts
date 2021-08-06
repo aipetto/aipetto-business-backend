@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -107,6 +108,32 @@ export default (database) => {
       discountCode: {
         type: Schema.Types.ObjectId,
         ref: 'discounts',
+      },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      digitalReservationDoc: [FileSchema],
+      totalPriceTransportartion: {
+        type: Number,
+      },
+      ratingFromCustomer: {
+        type: Number,
+      },
+      country: {
+        type: Schema.Types.ObjectId,
+        ref: 'country',
+      },
+      source: {
+        type: String,
+        enum: [
+          "aipetto_app",
+          "aipetto_web",
+          "manual",
+          "external_integration",
+          "facebook_reservation",
+          null
+        ],
       },
       tenant: {
         type: Schema.Types.ObjectId,

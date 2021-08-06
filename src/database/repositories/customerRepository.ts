@@ -6,9 +6,13 @@ import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Customer from '../models/customer';
 import UserRepository from './userRepository';
+import FileRepository from './fileRepository';
 import Order from '../models/order';
 import Pet from '../models/pet';
 import ServiceReservation from '../models/serviceReservation';
+import Deals from '../models/deals';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
+import Contacts from '../models/contacts';
 
 class CustomerRepository {
   
@@ -129,6 +133,27 @@ class CustomerRepository {
       'customerId',
       options,
     );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Deals(options.database),
+      'customer',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessPaymentCycle(options.database),
+      'customerID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Contacts(options.database),
+      'customerID',
+      options,
+    );
   }
 
   static async filterIdInTenant(
@@ -186,7 +211,10 @@ class CustomerRepository {
       Customer(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('businessId')
-      .populate('userId'),
+      .populate('userId')
+      .populate('country')
+      .populate('currency')
+      .populate('language'),
       options,
     );
 
@@ -218,6 +246,17 @@ class CustomerRepository {
         });
       }
 
+      if (filter.name) {
+        criteriaAnd.push({
+          name: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.name,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.businessId) {
         criteriaAnd.push({
           businessId: MongooseQueryUtils.uuid(
@@ -226,9 +265,14 @@ class CustomerRepository {
         });
       }
 
-      if (filter.source) {
+      if (filter.uniqueCustomIdentifier) {
         criteriaAnd.push({
-          source: filter.source
+          uniqueCustomIdentifier: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.uniqueCustomIdentifier,
+            ),
+            $options: 'i',
+          },
         });
       }
 
@@ -240,14 +284,9 @@ class CustomerRepository {
         });
       }
 
-      if (filter.name) {
+      if (filter.source) {
         criteriaAnd.push({
-          name: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
-            ),
-            $options: 'i',
-          },
+          source: filter.source
         });
       }
 
@@ -299,6 +338,17 @@ class CustomerRepository {
         });
       }
 
+      if (filter.smsPhoneNumber) {
+        criteriaAnd.push({
+          smsPhoneNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.smsPhoneNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.phoneNumber) {
         criteriaAnd.push({
           phoneNumber: {
@@ -315,6 +365,17 @@ class CustomerRepository {
           address: {
             $regex: MongooseQueryUtils.escapeRegExp(
               filter.address,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.email) {
+        criteriaAnd.push({
+          email: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.email,
             ),
             $options: 'i',
           },
@@ -356,12 +417,9 @@ class CustomerRepository {
 
       if (filter.country) {
         criteriaAnd.push({
-          country: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.country,
-            ),
-            $options: 'i',
-          },
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
         });
       }
 
@@ -475,6 +533,228 @@ class CustomerRepository {
         });
       }
 
+      if (filter.latitudeRange) {
+        const [start, end] = filter.latitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.longitudeRange) {
+        const [start, end] = filter.longitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.prospectStatus) {
+        criteriaAnd.push({
+          prospectStatus: filter.prospectStatus
+        });
+      }
+
+      if (filter.customerStatus) {
+        criteriaAnd.push({
+          customerStatus: filter.customerStatus
+        });
+      }
+
+      if (
+        filter.wantToReceiveNotifications === true ||
+        filter.wantToReceiveNotifications === 'true' ||
+        filter.wantToReceiveNotifications === false ||
+        filter.wantToReceiveNotifications === 'false'
+      ) {
+        criteriaAnd.push({
+          wantToReceiveNotifications:
+            filter.wantToReceiveNotifications === true ||
+            filter.wantToReceiveNotifications === 'true',
+        });
+      }
+
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
+      if (filter.balanceRange) {
+        const [start, end] = filter.balanceRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            balance: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            balance: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.shippingAddressStreetNumber) {
+        criteriaAnd.push({
+          shippingAddressStreetNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressStreetNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressStreetNumber) {
+        criteriaAnd.push({
+          addressStreetNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressStreetNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressStreetNumber) {
+        criteriaAnd.push({
+          billingAddressStreetNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressStreetNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressStreetComplement) {
+        criteriaAnd.push({
+          addressStreetComplement: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.addressStreetComplement,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.billingAddressStreetComplement) {
+        criteriaAnd.push({
+          billingAddressStreetComplement: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.billingAddressStreetComplement,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.shippingAddressStreetComplement) {
+        criteriaAnd.push({
+          shippingAddressStreetComplement: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.shippingAddressStreetComplement,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.facebook) {
+        criteriaAnd.push({
+          facebook: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.facebook,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.linkedin) {
+        criteriaAnd.push({
+          linkedin: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.linkedin,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.instagram) {
+        criteriaAnd.push({
+          instagram: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.instagram,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.website) {
+        criteriaAnd.push({
+          website: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.website,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (filter.notes) {
+        criteriaAnd.push({
+          notes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.notes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -520,7 +800,10 @@ class CustomerRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('businessId')
-      .populate('userId');
+      .populate('userId')
+      .populate('country')
+      .populate('currency')
+      .populate('language');
 
     const count = await Customer(
       options.database,
@@ -595,7 +878,9 @@ class CustomerRepository {
       ? record.toObject()
       : record;
 
-
+    output.customerProfileImage = await FileRepository.fillDownloadUrl(
+      output.customerProfileImage,
+    );
 
     output.userId = UserRepository.cleanupForRelationships(output.userId);
 

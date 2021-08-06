@@ -289,6 +289,57 @@ class NewBusinessSurveyRepository {
         });
       }
 
+      if (filter.address) {
+        criteriaAnd.push({
+          address: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.address,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.latitudeRange) {
+        const [start, end] = filter.latitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.longitudeRange) {
+        const [start, end] = filter.longitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

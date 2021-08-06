@@ -4,6 +4,7 @@ import { IServiceOptions } from './IServiceOptions';
 import BusinessServicesPricesRepository from '../database/repositories/businessServicesPricesRepository';
 import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
+import CurrencyRepository from '../database/repositories/currencyRepository';
 
 export default class BusinessServicesPricesService {
   options: IServiceOptions;
@@ -20,6 +21,7 @@ export default class BusinessServicesPricesService {
     try {
       data.service = await BusinessServicesTypesRepository.filterIdInTenant(data.service, { ...this.options, session });
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessServicesPricesRepository.create(data, {
         ...this.options,
@@ -50,6 +52,7 @@ export default class BusinessServicesPricesService {
     try {
       data.service = await BusinessServicesTypesRepository.filterIdInTenant(data.service, { ...this.options, session });
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessServicesPricesRepository.update(
         id,

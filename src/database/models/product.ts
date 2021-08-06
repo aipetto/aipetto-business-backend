@@ -39,6 +39,18 @@ export default (database) => {
       pointsPrice: {
         type: Number,
       },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
+      country: {
+        type: Schema.Types.ObjectId,
+        ref: 'country',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

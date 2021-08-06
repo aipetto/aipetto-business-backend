@@ -31,6 +31,22 @@ export default (database) => {
         type: Boolean,
         default: false
       },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
+      petProfession: [{
+        type: String
+      }],
+      address: {
+        type: String,
+      },
+      country: {
+        type: Schema.Types.ObjectId,
+        ref: 'country',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

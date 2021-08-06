@@ -186,6 +186,53 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'pet',
       }],
+      governmentUniqueID: {
+        type: String,
+      },
+      bloodType: {
+        type: String,
+        enum: [
+          "canine_DEA_1_1",
+          "canine_DEA_1_2",
+          "canine_DEA_3",
+          "canine_DEA_4",
+          "canine_DEA_5",
+          "canine_DEA_7",
+          null
+        ],
+      },
+      hasMicrochip: {
+        type: Boolean,
+        default: false
+      },
+      weight: {
+        type: Number,
+      },
+      weightUnit: {
+        type: String,
+        enum: [
+          "kilograms",
+          "pounds",
+          null
+        ],
+      },
+      height: {
+        type: Number,
+      },
+      heightUnit: {
+        type: String,
+        enum: [
+          "meters",
+          "feet",
+          null
+        ],
+      },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -214,7 +261,15 @@ export default (database) => {
     },
   );
 
-  
+  PetSchema.index(
+    { governmentUniqueID: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        governmentUniqueID: { $type: 'string' },
+      },
+    },
+  );
 
   PetSchema.virtual('id').get(function () {
     // @ts-ignore

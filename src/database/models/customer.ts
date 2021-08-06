@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -10,36 +11,42 @@ export default (database) => {
 
   const CustomerSchema = new Schema(
     {
-      businessId: {
-        type: Schema.Types.ObjectId,
-        ref: 'business',
-      },
-      source: {
-        type: String,
-        enum: [
-          "aipetto",
-          "facebook",
-          "twitter",
-          "instagram",
-          "youtube",
-          "telegram",
-          "whatsapp",
-          "email",
-          "phone",
-          "direct",
-          "friend_recomendation",
-          null
-        ],
-      },
-      userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'user',
-      },
       name: {
         type: String,
         required: true,
         minlength: 2,
         maxlength: 255,
+      },
+      businessId: {
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      },
+      uniqueCustomIdentifier: {
+        type: String,
+      },
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+      },
+      source: {
+        type: String,
+        enum: [
+          "facebook",
+          "twitter",
+          "linkedin",
+          "phone_call",
+          "aipetto",
+          "instagram",
+          "email",
+          "reddit",
+          "in_person",
+          "recommended_by_friend",
+          "website",
+          "youtube",
+          "google",
+          "whatsapp",
+          null
+        ],
       },
       surname: {
         type: String,
@@ -58,10 +65,16 @@ export default (database) => {
       whatsApp: {
         type: String,
       },
+      smsPhoneNumber: {
+        type: String,
+      },
       phoneNumber: {
         type: String,
       },
       address: {
+        type: String,
+      },
+      email: {
         type: String,
       },
       zipCode: {
@@ -74,7 +87,8 @@ export default (database) => {
         type: String,
       },
       country: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'country',
       },
       billingAddressStreet: {
         type: String,
@@ -106,6 +120,79 @@ export default (database) => {
       shippingAddressCountry: {
         type: String,
       },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
+      prospectStatus: {
+        type: String,
+        enum: [
+          "current_prospect",
+          "lost_prospect",
+          "non_prospect",
+          null
+        ],
+      },
+      customerStatus: {
+        type: String,
+        enum: [
+          "current_customer",
+          "past_customer",
+          "non_customer",
+          null
+        ],
+      },
+      wantToReceiveNotifications: {
+        type: Boolean,
+        default: false
+      },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      balance: {
+        type: Number,
+      },
+      shippingAddressStreetNumber: {
+        type: String,
+      },
+      addressStreetNumber: {
+        type: String,
+      },
+      billingAddressStreetNumber: {
+        type: String,
+      },
+      addressStreetComplement: {
+        type: String,
+      },
+      billingAddressStreetComplement: {
+        type: String,
+      },
+      shippingAddressStreetComplement: {
+        type: String,
+      },
+      customerProfileImage: [FileSchema],
+      facebook: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+      instagram: {
+        type: String,
+      },
+      website: {
+        type: String,
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      notes: {
+        type: String,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -134,7 +221,15 @@ export default (database) => {
     },
   );
 
-  
+  CustomerSchema.index(
+    { uniqueCustomIdentifier: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        uniqueCustomIdentifier: { $type: 'string' },
+      },
+    },
+  );
 
   CustomerSchema.virtual('id').get(function () {
     // @ts-ignore

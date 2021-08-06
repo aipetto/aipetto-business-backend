@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -59,6 +60,32 @@ export default (database) => {
       country: {
         type: Schema.Types.ObjectId,
         ref: 'country',
+      },
+      email: {
+        type: String,
+      },
+      latitude: {
+        type: Number,
+      },
+      longitude: {
+        type: Number,
+      },
+      basePricePerService: {
+        type: Number,
+      },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      profileImage: [FileSchema],
+      attachedDoc: [FileSchema],
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
+      isIndependent: {
+        type: Boolean,
+        default: false
       },
       tenant: {
         type: Schema.Types.ObjectId,

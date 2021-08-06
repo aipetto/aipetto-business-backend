@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Business from '../models/business';
+import FileRepository from './fileRepository';
 import Customer from '../models/customer';
 import Product from '../models/product';
 import Order from '../models/order';
@@ -18,6 +19,10 @@ import Discounts from '../models/discounts';
 import Providers from '../models/providers';
 import PetVaccines from '../models/petVaccines';
 import BusinessServicesPrices from '../models/businessServicesPrices';
+import Deals from '../models/deals';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
+import PetExamination from '../models/petExamination';
+import Contacts from '../models/contacts';
 
 class BusinessRepository {
   
@@ -208,6 +213,34 @@ class BusinessRepository {
       'businessId',
       options,
     );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Deals(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessPaymentCycle(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetExamination(options.database),
+      'businessID',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Contacts(options.database),
+      'businessID',
+      options,
+    );
   }
 
   static async filterIdInTenant(
@@ -268,7 +301,9 @@ class BusinessRepository {
       .populate('categories')
       .populate('city')
       .populate('state')
-      .populate('country'),
+      .populate('country')
+      .populate('language')
+      .populate('currency'),
       options,
     );
 
@@ -388,6 +423,17 @@ class BusinessRepository {
         });
       }
 
+      if (filter.streetComplement) {
+        criteriaAnd.push({
+          streetComplement: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.streetComplement,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.addressPostCode) {
         criteriaAnd.push({
           addressPostCode: {
@@ -420,6 +466,99 @@ class BusinessRepository {
           country: MongooseQueryUtils.uuid(
             filter.country,
           ),
+        });
+      }
+
+      if (filter.latitude) {
+        criteriaAnd.push({
+          latitude: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.latitude,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.longitude) {
+        criteriaAnd.push({
+          longitude: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.longitude,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.website) {
+        criteriaAnd.push({
+          website: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.website,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.facebook) {
+        criteriaAnd.push({
+          facebook: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.facebook,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.linkedin) {
+        criteriaAnd.push({
+          linkedin: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.linkedin,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.notes) {
+        criteriaAnd.push({
+          notes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.notes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
+      if (filter.instagram) {
+        criteriaAnd.push({
+          instagram: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.instagram,
+            ),
+            $options: 'i',
+          },
         });
       }
 
@@ -471,7 +610,9 @@ class BusinessRepository {
       .populate('categories')
       .populate('city')
       .populate('state')
-      .populate('country');
+      .populate('country')
+      .populate('language')
+      .populate('currency');
 
     const count = await Business(
       options.database,
@@ -546,7 +687,9 @@ class BusinessRepository {
       ? record.toObject()
       : record;
 
-
+    output.businessLogo = await FileRepository.fillDownloadUrl(
+      output.businessLogo,
+    );
 
 
 

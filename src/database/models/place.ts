@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import FileSchema from './schemas/fileSchema';
 const Schema = mongoose.Schema;
 
 export default (database) => {
@@ -72,6 +73,8 @@ export default (database) => {
         type: Boolean,
         default: false
       },
+      photoLogo: [FileSchema],
+      photoStore: [FileSchema],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

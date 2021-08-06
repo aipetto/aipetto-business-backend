@@ -104,6 +104,12 @@ require('./postComments').default(routes);
 require('./pointsChallenges').default(routes);
 require('./challengesCategories').default(routes);
 require('./productCategory').default(routes);
+require('./deals').default(routes);
+require('./businessPaymentCycle').default(routes);
+require('./questions').default(routes);
+require('./answers').default(routes);
+require('./petExamination').default(routes);
+require('./contacts').default(routes);
 
 // Loads the Tenant if the :tenantId param is passed
 routes.param('tenantId', tenantMiddleware);

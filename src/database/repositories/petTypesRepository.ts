@@ -8,6 +8,8 @@ import PetTypes from '../models/petTypes';
 import FileRepository from './fileRepository';
 import Pet from '../models/pet';
 import Breed from '../models/breed';
+import VaccineTypes from '../models/vaccineTypes';
+import PetDiseases from '../models/petDiseases';
 
 class PetTypesRepository {
   
@@ -119,6 +121,20 @@ class PetTypesRepository {
       id,
       Breed(options.database),
       'type',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      VaccineTypes(options.database),
+      'petSpecificType',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      PetDiseases(options.database),
+      'specificPetTypes',
       options,
     );
   }

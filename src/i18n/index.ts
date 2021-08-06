@@ -35,7 +35,7 @@ function format(message, args) {
  */
 export const i18nExists = (languageCode, key) => {
   const dictionary =
-    languages[languageCode] || languages['es'];
+    languages[languageCode] || languages['pt-BR'];
   const message = _get(dictionary, key);
   return Boolean(message);
 };

@@ -28,6 +28,10 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'business',
       },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

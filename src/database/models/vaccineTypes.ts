@@ -27,6 +27,34 @@ export default (database) => {
           null
         ],
       },
+      frequencyShotDosis: {
+        type: String,
+        enum: [
+          "one_time",
+          "every_month",
+          "every_six_months",
+          "every_year",
+          null
+        ],
+      },
+      petSpecificType: [{
+        type: Schema.Types.ObjectId,
+        ref: 'petTypes',
+      }],
+      vaccineCustomUniqueID: {
+        type: String,
+      },
+      isMandatory: {
+        type: Boolean,
+        default: false
+      },
+      specificBreeds: [{
+        type: Schema.Types.ObjectId,
+        ref: 'breed',
+      }],
+      vaccinePetTargetAgeInMonths: {
+        type: Number,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -55,7 +83,15 @@ export default (database) => {
     },
   );
 
-  
+  VaccineTypesSchema.index(
+    { vaccineCustomUniqueID: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        vaccineCustomUniqueID: { $type: 'string' },
+      },
+    },
+  );
 
   VaccineTypesSchema.virtual('id').get(function () {
     // @ts-ignore

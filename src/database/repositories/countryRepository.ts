@@ -5,14 +5,23 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Country from '../models/country';
+import Customer from '../models/customer';
+import Product from '../models/product';
 import Business from '../models/business';
 import Place from '../models/place';
+import ServiceReservation from '../models/serviceReservation';
 import City from '../models/city';
 import State from '../models/state';
 import Providers from '../models/providers';
 import VaccineTypes from '../models/vaccineTypes';
 import PetVaccines from '../models/petVaccines';
+import LandingSurvey from '../models/landingSurvey';
+import Posts from '../models/posts';
 import PointsChallenges from '../models/pointsChallenges';
+import Deals from '../models/deals';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
+import Questions from '../models/questions';
+import Contacts from '../models/contacts';
 
 class CountryRepository {
   
@@ -115,6 +124,20 @@ class CountryRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Customer(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Product(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       Business(options.database),
       'country',
       options,
@@ -124,6 +147,13 @@ class CountryRepository {
       id,
       Place(options.database),
       'addressCountry',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ServiceReservation(options.database),
+      'country',
       options,
     );
 
@@ -164,7 +194,49 @@ class CountryRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      LandingSurvey(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Posts(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       PointsChallenges(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Deals(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      BusinessPaymentCycle(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Questions(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Contacts(options.database),
       'country',
       options,
     );

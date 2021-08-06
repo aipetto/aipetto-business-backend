@@ -169,7 +169,10 @@ class ProductRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Product(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
-      .populate('businessId'),
+      .populate('businessId')
+      .populate('currency')
+      .populate('language')
+      .populate('country'),
       options,
     );
 
@@ -273,6 +276,30 @@ class ProductRepository {
         }
       }
 
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (filter.country) {
+        criteriaAnd.push({
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -317,7 +344,10 @@ class ProductRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('businessId');
+      .populate('businessId')
+      .populate('currency')
+      .populate('language')
+      .populate('country');
 
     const count = await Product(
       options.database,

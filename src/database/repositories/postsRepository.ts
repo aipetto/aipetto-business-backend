@@ -172,7 +172,9 @@ class PostsRepository {
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('authors')
       .populate('postCategory')
-      .populate('comments'),
+      .populate('comments')
+      .populate('language')
+      .populate('country'),
       options,
     );
 
@@ -237,6 +239,33 @@ class PostsRepository {
         });
       }
 
+      if (filter.source) {
+        criteriaAnd.push({
+          source: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.source,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (filter.country) {
+        criteriaAnd.push({
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -283,7 +312,9 @@ class PostsRepository {
       .sort(sort)
       .populate('authors')
       .populate('postCategory')
-      .populate('comments');
+      .populate('comments')
+      .populate('language')
+      .populate('country');
 
     const count = await Posts(
       options.database,

@@ -4,7 +4,7 @@
 
 const en = {
   app: {
-    title: 'AIPETTO',
+    title: 'aipetto',
   },
 
   auth: {
@@ -91,7 +91,7 @@ const en = {
     customer: {
       errors: {
         unique: {
-
+          uniqueCustomIdentifier: 'UniqueCustomIdentifier must be unique',
         }
       }
     },
@@ -112,7 +112,7 @@ const en = {
     pet: {
       errors: {
         unique: {
-
+          governmentUniqueID: 'GovernmentUniqueID must be unique',
         }
       }
     },
@@ -245,7 +245,7 @@ const en = {
     vaccineTypes: {
       errors: {
         unique: {
-
+          vaccineCustomUniqueID: 'VaccineCustomUniqueID must be unique',
         }
       }
     },
@@ -337,6 +337,48 @@ const en = {
       errors: {
         unique: {
           name: 'Name must be unique',
+        }
+      }
+    },
+    deals: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    businessPaymentCycle: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    questions: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    answers: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    petExamination: {
+      errors: {
+        unique: {
+
+        }
+      }
+    },
+    contacts: {
+      errors: {
+        unique: {
+
         }
       }
     },

@@ -5,6 +5,8 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import ServiceReservation from '../models/serviceReservation';
+import FileRepository from './fileRepository';
+import BusinessPaymentCycle from '../models/businessPaymentCycle';
 
 class ServiceReservationRepository {
   
@@ -105,7 +107,12 @@ class ServiceReservationRepository {
       options,
     );
 
-
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      BusinessPaymentCycle(options.database),
+      'businessServiceReservationsUsed',
+      options,
+    );
   }
 
   static async filterIdInTenant(
@@ -167,7 +174,9 @@ class ServiceReservationRepository {
       .populate('serviceType')
       .populate('serviceProviderIDs')
       .populate('place')
-      .populate('discountCode'),
+      .populate('discountCode')
+      .populate('currency')
+      .populate('country'),
       options,
     );
 
@@ -316,6 +325,68 @@ class ServiceReservationRepository {
         });
       }
 
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
+      if (filter.totalPriceTransportartionRange) {
+        const [start, end] = filter.totalPriceTransportartionRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            totalPriceTransportartion: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            totalPriceTransportartion: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.ratingFromCustomerRange) {
+        const [start, end] = filter.ratingFromCustomerRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            ratingFromCustomer: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            ratingFromCustomer: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.country) {
+        criteriaAnd.push({
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
+        });
+      }
+
+      if (filter.source) {
+        criteriaAnd.push({
+          source: filter.source
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -365,7 +436,9 @@ class ServiceReservationRepository {
       .populate('serviceType')
       .populate('serviceProviderIDs')
       .populate('place')
-      .populate('discountCode');
+      .populate('discountCode')
+      .populate('currency')
+      .populate('country');
 
     const count = await ServiceReservation(
       options.database,
@@ -434,6 +507,10 @@ class ServiceReservationRepository {
     const output = record.toObject
       ? record.toObject()
       : record;
+
+    output.digitalReservationDoc = await FileRepository.fillDownloadUrl(
+      output.digitalReservationDoc,
+    );
 
 
 

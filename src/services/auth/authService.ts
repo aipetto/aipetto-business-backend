@@ -276,7 +276,7 @@ class AuthService {
     }
   }
 
-  static async handleOnboard(
+  static async  handleOnboard(
     currentUser,
     invitationToken,
     tenantId,

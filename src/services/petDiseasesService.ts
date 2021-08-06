@@ -2,6 +2,8 @@ import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import PetDiseasesRepository from '../database/repositories/petDiseasesRepository';
+import PetTypesRepository from '../database/repositories/petTypesRepository';
+import BreedRepository from '../database/repositories/breedRepository';
 
 export default class PetDiseasesService {
   options: IServiceOptions;
@@ -16,7 +18,8 @@ export default class PetDiseasesService {
     );
 
     try {
-
+      data.specificPetTypes = await PetTypesRepository.filterIdsInTenant(data.specificPetTypes, { ...this.options, session });
+      data.specificPetBreeds = await BreedRepository.filterIdsInTenant(data.specificPetBreeds, { ...this.options, session });
 
       const record = await PetDiseasesRepository.create(data, {
         ...this.options,
@@ -45,7 +48,8 @@ export default class PetDiseasesService {
     );
 
     try {
-
+      data.specificPetTypes = await PetTypesRepository.filterIdsInTenant(data.specificPetTypes, { ...this.options, session });
+      data.specificPetBreeds = await BreedRepository.filterIdsInTenant(data.specificPetBreeds, { ...this.options, session });
 
       const record = await PetDiseasesRepository.update(
         id,

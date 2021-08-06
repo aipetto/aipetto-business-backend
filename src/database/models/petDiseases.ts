@@ -33,6 +33,14 @@ export default (database) => {
           null
         ],
       },
+      specificPetTypes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'petTypes',
+      }],
+      specificPetBreeds: [{
+        type: Schema.Types.ObjectId,
+        ref: 'breed',
+      }],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

@@ -8,6 +8,7 @@ import Pet from '../models/pet';
 import UserRepository from './userRepository';
 import FileRepository from './fileRepository';
 import PetPhotos from '../models/petPhotos';
+import PetExamination from '../models/petExamination';
 
 class PetRepository {
   
@@ -126,6 +127,13 @@ class PetRepository {
       id,
       PetPhotos(options.database),
       'petId',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      PetExamination(options.database),
+      'petID',
       options,
     );
   }
@@ -455,6 +463,128 @@ class PetRepository {
         if (end !== undefined && end !== null && end !== '') {
           criteriaAnd.push({
             numberOfLikes: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.governmentUniqueID) {
+        criteriaAnd.push({
+          governmentUniqueID: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.governmentUniqueID,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.bloodType) {
+        criteriaAnd.push({
+          bloodType: filter.bloodType
+        });
+      }
+
+      if (
+        filter.hasMicrochip === true ||
+        filter.hasMicrochip === 'true' ||
+        filter.hasMicrochip === false ||
+        filter.hasMicrochip === 'false'
+      ) {
+        criteriaAnd.push({
+          hasMicrochip:
+            filter.hasMicrochip === true ||
+            filter.hasMicrochip === 'true',
+        });
+      }
+
+      if (filter.weightRange) {
+        const [start, end] = filter.weightRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            weight: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            weight: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.weightUnit) {
+        criteriaAnd.push({
+          weightUnit: filter.weightUnit
+        });
+      }
+
+      if (filter.heightRange) {
+        const [start, end] = filter.heightRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            height: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            height: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.heightUnit) {
+        criteriaAnd.push({
+          heightUnit: filter.heightUnit
+        });
+      }
+
+      if (filter.latitudeRange) {
+        const [start, end] = filter.latitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.longitudeRange) {
+        const [start, end] = filter.longitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            longitude: {
               $lte: end,
             },
           });

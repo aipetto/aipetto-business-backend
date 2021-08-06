@@ -34,6 +34,17 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'postComments',
       }],
+      source: {
+        type: String,
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
+      country: {
+        type: Schema.Types.ObjectId,
+        ref: 'country',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

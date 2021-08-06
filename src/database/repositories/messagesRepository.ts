@@ -165,7 +165,8 @@ class MessagesRepository {
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('from')
       .populate('to')
-      .populate('businessId'),
+      .populate('businessId')
+      .populate('language'),
       options,
     );
 
@@ -232,6 +233,14 @@ class MessagesRepository {
         });
       }
 
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -278,7 +287,8 @@ class MessagesRepository {
       .sort(sort)
       .populate('from')
       .populate('to')
-      .populate('businessId');
+      .populate('businessId')
+      .populate('language');
 
     const count = await Messages(
       options.database,
