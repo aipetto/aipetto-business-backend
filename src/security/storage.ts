@@ -121,7 +121,16 @@ export default class Storage {
         maxSizeInBytes: 100 * 1024 * 1024,
       },
 
-
+      providersProfileImage: {
+        id: 'providersProfileImage',
+        folder: 'tenant/:tenantId/providers/profileImage',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
+      providersAttachedDoc: {
+        id: 'providersAttachedDoc',
+        folder: 'tenant/:tenantId/providers/attachedDoc',
+        maxSizeInBytes: 100 * 1024 * 1024,
+      },
 
 
 

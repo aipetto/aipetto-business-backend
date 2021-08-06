@@ -168,7 +168,9 @@ class VaccineTypesRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       VaccineTypes(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
-      .populate('country'),
+      .populate('country')
+      .populate('petSpecificType')
+      .populate('specificBreeds'),
       options,
     );
 
@@ -225,6 +227,56 @@ class VaccineTypesRepository {
         });
       }
 
+      if (filter.frequencyShotDosis) {
+        criteriaAnd.push({
+          frequencyShotDosis: filter.frequencyShotDosis
+        });
+      }
+
+      if (filter.vaccineCustomUniqueID) {
+        criteriaAnd.push({
+          vaccineCustomUniqueID: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.vaccineCustomUniqueID,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (
+        filter.isMandatory === true ||
+        filter.isMandatory === 'true' ||
+        filter.isMandatory === false ||
+        filter.isMandatory === 'false'
+      ) {
+        criteriaAnd.push({
+          isMandatory:
+            filter.isMandatory === true ||
+            filter.isMandatory === 'true',
+        });
+      }
+
+      if (filter.vaccinePetTargetAgeInMonthsRange) {
+        const [start, end] = filter.vaccinePetTargetAgeInMonthsRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            vaccinePetTargetAgeInMonths: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            vaccinePetTargetAgeInMonths: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -269,7 +321,9 @@ class VaccineTypesRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('country');
+      .populate('country')
+      .populate('petSpecificType')
+      .populate('specificBreeds');
 
     const count = await VaccineTypes(
       options.database,

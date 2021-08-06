@@ -381,6 +381,12 @@ class ServiceReservationRepository {
         });
       }
 
+      if (filter.source) {
+        criteriaAnd.push({
+          source: filter.source
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

@@ -514,6 +514,13 @@
           },
           {
             "in": "query",
+            "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[businessId]",
             "schema": {
               "type": "string",
@@ -522,10 +529,9 @@
           },
           {
             "in": "query",
-            "name": "filter[source]",
+            "name": "filter[uniqueCustomIdentifier]",
             "schema": {
-              "type": "string",
-              "enum": ["aipetto","facebook","twitter","instagram","youtube","telegram","whatsapp","email","phone","direct","friend_recomendation"]
+              "type": "string"
             }
           },
           {
@@ -538,9 +544,10 @@
           },
           {
             "in": "query",
-            "name": "filter[name]",
+            "name": "filter[source]",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "enum": ["facebook","twitter","linkedin","phone_call","aipetto","instagram","email","reddit","in_person","recommended_by_friend","website","youtube","google","whatsapp"]
             }
           },
           {
@@ -578,6 +585,13 @@
           },
           {
             "in": "query",
+            "name": "filter[smsPhoneNumber]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[phoneNumber]",
             "schema": {
               "type": "string"
@@ -586,6 +600,13 @@
           {
             "in": "query",
             "name": "filter[address]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[email]",
             "schema": {
               "type": "string"
             }
@@ -615,7 +636,8 @@
             "in": "query",
             "name": "filter[country]",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -684,6 +706,152 @@
           {
             "in": "query",
             "name": "filter[shippingAddressCountry]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[latitudeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[longitudeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[prospectStatus]",
+            "schema": {
+              "type": "string",
+              "enum": ["current_prospect","lost_prospect","non_prospect"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[customerStatus]",
+            "schema": {
+              "type": "string",
+              "enum": ["current_customer","past_customer","non_customer"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[wantToReceiveNotifications]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[currency]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[balanceRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressStreetNumber]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressStreetNumber]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressStreetNumber]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressStreetComplement]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[billingAddressStreetComplement]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[shippingAddressStreetComplement]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[facebook]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[linkedin]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[instagram]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[website]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[language]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[notes]",
             "schema": {
               "type": "string"
             }
@@ -1125,6 +1293,47 @@
           {
             "in": "query",
             "name": "filter[businessId]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[acceptPointsToShop]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[pointsPriceRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[currency]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[language]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[country]",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -2028,7 +2237,23 @@
             "name": "filter[color]",
             "schema": {
               "type": "string",
-              "enum": ["black","white","brown","black_white","brown_white","gray"]
+              "enum": ["black","white","brown","gray","chocolate","gold","blue","cream","yellow"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[secondColor]",
+            "schema": {
+              "type": "string",
+              "enum": ["black","white","brown","gray","chocolate","gold","blue","cream","yellow"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[thirdColor]",
+            "schema": {
+              "type": "string",
+              "enum": ["black","white","brown","gray","chocolate","gold","blue","cream","yellow"]
             }
           },
           {
@@ -2042,6 +2267,14 @@
           {
             "in": "query",
             "name": "filter[breed]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[secondBreedMixed]",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -2063,6 +2296,160 @@
               "format": "uuid"
             }
           },      
+          {
+            "in": "query",
+            "name": "filter[maturitySize]",
+            "schema": {
+              "type": "string",
+              "enum": ["small","medium","large","extra_large","not_specified"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[furLength]",
+            "schema": {
+              "type": "string",
+              "enum": ["short","medium","long","not_specified"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[hasBeenVaccinated]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[hasBeenDewormed]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[hasBeenSterilizedSpayed]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[health]",
+            "schema": {
+              "type": "string",
+              "enum": ["healthy","minor_injury","serious_injury","not_specified"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[isLost]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[isLookingForMatch]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[isGuideDog]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[numberOfLikesRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[governmentUniqueID]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[bloodType]",
+            "schema": {
+              "type": "string",
+              "enum": ["canine_DEA_1_1","canine_DEA_1_2","canine_DEA_3","canine_DEA_4","canine_DEA_5","canine_DEA_7."]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[hasMicrochip]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[weightRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[weightUnit]",
+            "schema": {
+              "type": "string",
+              "enum": ["kilograms","pounds"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[heightRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[heightUnit]",
+            "schema": {
+              "type": "string",
+              "enum": ["meters","feet"]
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[latitudeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[longitudeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
           {
             "in": "query",
             "name": "filter[createdAtRange][]",
@@ -4941,6 +5328,50 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[currency]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[totalPriceTransportartionRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[ratingFromCustomerRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[country]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[source]",
+            "schema": {
+              "type": "string",
+              "enum": ["aipetto_app","aipetto_web","manual","external_integration","facebook_reservation"]
             }
           },
           {
@@ -21367,6 +21798,9 @@
           "address": {
             "type": "string"
           },
+          "email": {
+            "type": "string"
+          },
           "zipCode": {
             "type": "string"
           },
@@ -23309,6 +23743,746 @@
           },
           "categoryUrl": {
             "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PostComments": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          },
+          "postId": {
+            "$ref": "#/components/schemas/Posts"
+          }
+        }
+      },
+      "PostCommentsInput": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string"
+          },
+          "postId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PointsChallenges": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "points": {
+            "type": "integer"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          }
+        }
+      },
+      "PointsChallengesInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "points": {
+            "type": "integer"
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ChallengesCategories": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Languages"
+          }
+        }
+      },
+      "ChallengesCategoriesInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "ProductCategory": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Languages"
+          }
+        }
+      },
+      "ProductCategoryInput": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Deals": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["open","in_progress","closed"]
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "digitalContracts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "dateStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateEnded": {
+            "type": "string",
+            "format": "date"
+          },
+          "salesManagerResponsible": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
+          "businessID": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          }
+        }
+      },
+      "DealsInput": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["open","in_progress","closed"]
+          },
+          "customer": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "digitalContracts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileInput"
+            }
+          },
+          "dateStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "dateEnded": {
+            "type": "string",
+            "format": "date"
+          },
+          "salesManagerResponsible": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "businessID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "BusinessPaymentCycle": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "businessID": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "cycleStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "cycleEnd": {
+            "type": "string",
+            "format": "date"
+          },
+          "statusPayment": {
+            "type": "string",
+            "enum": ["requires_payment_method","requires_confirmation","requires_action","processing","requires_capture","canceled","succeeded"]
+          },
+          "totalBusinessServiceReservationPeriod": {
+            "type": "number"
+          },
+          "totalCommisionCalculated": {
+            "type": "number"
+          },
+          "commisionRateUsedOnCalculation": {
+            "type": "number"
+          },
+          "businessServiceReservationsUsed": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceReservation"
+            }
+          },
+          "statusCyclePayment": {
+            "type": "string",
+            "enum": ["opened","closed","canceled"]
+          },
+          "customerID": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "enum": ["acss_debit","afterpay_clearpay","alipay","au_becs_debit","bacs_debit","bancontact","boleto","card","card_present","eps","fpx","giropay","grabpay","ideal","interac_present","oxxo","p24","sepa_debit","sofort","wechat_pay"]
+          },
+          "paymentGatewayReferenceCode": {
+            "type": "string"
+          },
+          "paymentGatewayType": {
+            "type": "string",
+            "enum": ["mercadopago","stripe","paypal"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "currency": {
+            "$ref": "#/components/schemas/Currency"
+          }
+        }
+      },
+      "BusinessPaymentCycleInput": {
+        "type": "object",
+        "properties": {
+          "businessID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "cycleStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "cycleEnd": {
+            "type": "string",
+            "format": "date"
+          },
+          "statusPayment": {
+            "type": "string",
+            "enum": ["requires_payment_method","requires_confirmation","requires_action","processing","requires_capture","canceled","succeeded"]
+          },
+          "totalBusinessServiceReservationPeriod": {
+            "type": "number"
+          },
+          "totalCommisionCalculated": {
+            "type": "number"
+          },
+          "commisionRateUsedOnCalculation": {
+            "type": "number"
+          },
+          "businessServiceReservationsUsed": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "statusCyclePayment": {
+            "type": "string",
+            "enum": ["opened","closed","canceled"]
+          },
+          "customerID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "paymentMethod": {
+            "type": "string",
+            "enum": ["acss_debit","afterpay_clearpay","alipay","au_becs_debit","bacs_debit","bancontact","boleto","card","card_present","eps","fpx","giropay","grabpay","ideal","interac_present","oxxo","p24","sepa_debit","sofort","wechat_pay"]
+          },
+          "paymentGatewayReferenceCode": {
+            "type": "string"
+          },
+          "paymentGatewayType": {
+            "type": "string",
+            "enum": ["mercadopago","stripe","paypal"]
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "currency": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Questions": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["dynamic_from_user","static_system_faq","static_system_pet_info","static_system_pet_health","static_system_pet_grooming","static_system_pet_curiosities"]
+          },
+          "userID": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Languages"
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          }
+        }
+      },
+      "QuestionsInput": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["dynamic_from_user","static_system_faq","static_system_pet_info","static_system_pet_health","static_system_pet_grooming","static_system_pet_curiosities"]
+          },
+          "userID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "Answers": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string"
+          },
+          "userID": {
+            "$ref": "#/components/schemas/UserRelated"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["dynamic_from_user","static_system_faq","static_system_pet_info","static_system_pet_health","static_system_pet_grooming","static_system_pet_curiosities"]
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "questionID": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Questions"
+            }
+          },
+          "language": {
+            "$ref": "#/components/schemas/Languages"
+          }
+        }
+      },
+      "AnswersInput": {
+        "type": "object",
+        "properties": {
+          "answer": {
+            "type": "string"
+          },
+          "userID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["dynamic_from_user","static_system_faq","static_system_pet_info","static_system_pet_health","static_system_pet_grooming","static_system_pet_curiosities"]
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "questionID": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "PetExamination": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "petID": {
+            "$ref": "#/components/schemas/Pet"
+          },
+          "examinationInternalCode": {
+            "type": "string"
+          },
+          "veterinariesResponsibleDiagnostic": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserRelated"
+            }
+          },
+          "businessID": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "language": {
+            "$ref": "#/components/schemas/Languages"
+          },
+          "providersID": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Providers"
+            }
+          },
+          "statusExamination": {
+            "type": "string",
+            "enum": ["open","in_progress","closed","canceled"]
+          },
+          "examinationsFiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "examinationImages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          }
+        }
+      },
+      "PetExaminationInput": {
+        "type": "object",
+        "properties": {
+          "petID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "examinationInternalCode": {
+            "type": "string"
+          },
+          "veterinariesResponsibleDiagnostic": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "businessID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "language": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "providersID": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "statusExamination": {
+            "type": "string",
+            "enum": ["open","in_progress","closed","canceled"]
+          },
+          "examinationsFiles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileInput"
+            }
+          },
+          "examinationImages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileInput"
+            }
+          }
+        }
+      },
+      "Contacts": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenericEntity"
+          }
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cellphone": {
+            "type": "string"
+          },
+          "whatsapp": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["facebook","twitter","linkedin","phone_call","aipetto","instagram","email","reddit","in_person","recommended_by_friend","website","youtube","google","whatsapp"]
+          },
+          "country": {
+            "$ref": "#/components/schemas/Country"
+          },
+          "city": {
+            "type": "string"
+          },
+          "addressStreetName": {
+            "type": "string"
+          },
+          "addressStreetNumber": {
+            "type": "string"
+          },
+          "addressStreetComplement": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "statusContact": {
+            "type": "boolean"
+          },
+          "contactType": {
+            "type": "string",
+            "enum": ["is_customer_prospect","is_customer","is_pet_professional_provider","is_pet_owner"]
+          },
+          "customerID": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Customer"
+            }
+          },
+          "businessID": {
+            "$ref": "#/components/schemas/Business"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "linkedinProfile": {
+            "type": "string"
+          },
+          "instagramProfile": {
+            "type": "string"
+          },
+          "facebookProfile": {
+            "type": "string"
+          },
+          "isDeveloper": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "contactProfilePhoto": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/File"
+            }
+          },
+          "language": {
+            "$ref": "#/components/schemas/Languages"
+          }
+        }
+      },
+      "ContactsInput": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "cellphone": {
+            "type": "string"
+          },
+          "whatsapp": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": ["facebook","twitter","linkedin","phone_call","aipetto","instagram","email","reddit","in_person","recommended_by_friend","website","youtube","google","whatsapp"]
+          },
+          "country": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "city": {
+            "type": "string"
+          },
+          "addressStreetName": {
+            "type": "string"
+          },
+          "addressStreetNumber": {
+            "type": "string"
+          },
+          "addressStreetComplement": {
+            "type": "string"
+          },
+          "latitude": {
+            "type": "number"
+          },
+          "longitude": {
+            "type": "number"
+          },
+          "statusContact": {
+            "type": "boolean"
+          },
+          "contactType": {
+            "type": "string",
+            "enum": ["is_customer_prospect","is_customer","is_pet_professional_provider","is_pet_owner"]
+          },
+          "customerID": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "businessID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "companyName": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "linkedinProfile": {
+            "type": "string"
+          },
+          "instagramProfile": {
+            "type": "string"
+          },
+          "facebookProfile": {
+            "type": "string"
+          },
+          "isDeveloper": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "contactProfilePhoto": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FileInput"
+            }
           },
           "language": {
             "type": "string",

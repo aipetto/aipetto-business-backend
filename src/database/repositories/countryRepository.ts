@@ -6,6 +6,7 @@ import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Country from '../models/country';
 import Customer from '../models/customer';
+import Product from '../models/product';
 import Business from '../models/business';
 import Place from '../models/place';
 import ServiceReservation from '../models/serviceReservation';
@@ -124,6 +125,13 @@ class CountryRepository {
     await MongooseRepository.destroyRelationToOne(
       id,
       Customer(options.database),
+      'country',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Product(options.database),
       'country',
       options,
     );

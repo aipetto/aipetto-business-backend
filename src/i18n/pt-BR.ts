@@ -89,7 +89,7 @@ const ptBR = {
     customer: {
       errors: {
         unique: {
-
+          uniqueCustomIdentifier: 'UniqueCustomIdentifier deve ser único',
         }
       }
     },

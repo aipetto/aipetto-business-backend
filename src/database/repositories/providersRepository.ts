@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Providers from '../models/providers';
+import FileRepository from './fileRepository';
 import ServiceReservation from '../models/serviceReservation';
 import PetVaccines from '../models/petVaccines';
 import PetExamination from '../models/petExamination';
@@ -190,7 +191,8 @@ class ProvidersRepository {
       .populate('city')
       .populate('state')
       .populate('country')
-      .populate('currency'),
+      .populate('currency')
+      .populate('language'),
       options,
     );
 
@@ -421,6 +423,27 @@ class ProvidersRepository {
         });
       }
 
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (
+        filter.isIndependent === true ||
+        filter.isIndependent === 'true' ||
+        filter.isIndependent === false ||
+        filter.isIndependent === 'false'
+      ) {
+        criteriaAnd.push({
+          isIndependent:
+            filter.isIndependent === true ||
+            filter.isIndependent === 'true',
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -471,7 +494,8 @@ class ProvidersRepository {
       .populate('city')
       .populate('state')
       .populate('country')
-      .populate('currency');
+      .populate('currency')
+      .populate('language');
 
     const count = await Providers(
       options.database,
@@ -546,7 +570,13 @@ class ProvidersRepository {
       ? record.toObject()
       : record;
 
+    output.profileImage = await FileRepository.fillDownloadUrl(
+      output.profileImage,
+    );
 
+    output.attachedDoc = await FileRepository.fillDownloadUrl(
+      output.attachedDoc,
+    );
 
 
 

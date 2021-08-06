@@ -213,7 +213,8 @@ class CustomerRepository {
       .populate('businessId')
       .populate('userId')
       .populate('country')
-      .populate('currency'),
+      .populate('currency')
+      .populate('language'),
       options,
     );
 
@@ -691,6 +692,69 @@ class CustomerRepository {
         });
       }
 
+      if (filter.facebook) {
+        criteriaAnd.push({
+          facebook: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.facebook,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.linkedin) {
+        criteriaAnd.push({
+          linkedin: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.linkedin,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.instagram) {
+        criteriaAnd.push({
+          instagram: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.instagram,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.website) {
+        criteriaAnd.push({
+          website: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.website,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (filter.notes) {
+        criteriaAnd.push({
+          notes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.notes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -738,7 +802,8 @@ class CustomerRepository {
       .populate('businessId')
       .populate('userId')
       .populate('country')
-      .populate('currency');
+      .populate('currency')
+      .populate('language');
 
     const count = await Customer(
       options.database,

@@ -124,6 +124,17 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'country',
       },
+      source: {
+        type: String,
+        enum: [
+          "aipetto_app",
+          "aipetto_web",
+          "manual",
+          "external_integration",
+          "facebook_reservation",
+          null
+        ],
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

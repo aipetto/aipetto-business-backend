@@ -7,6 +7,7 @@ import lodash from 'lodash';
 import Currency from '../models/currency';
 import Customer from '../models/customer';
 import Product from '../models/product';
+import Business from '../models/business';
 import ServiceReservation from '../models/serviceReservation';
 import Providers from '../models/providers';
 import BusinessServicesPrices from '../models/businessServicesPrices';
@@ -120,7 +121,21 @@ class CurrencyRepository {
 
     await MongooseRepository.destroyRelationToOne(
       id,
+      Customer(options.database),
+      'language',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
       Product(options.database),
+      'currency',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      Business(options.database),
       'currency',
       options,
     );

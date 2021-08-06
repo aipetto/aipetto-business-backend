@@ -9,6 +9,7 @@ import CityRepository from '../database/repositories/cityRepository';
 import StateRepository from '../database/repositories/stateRepository';
 import CountryRepository from '../database/repositories/countryRepository';
 import CurrencyRepository from '../database/repositories/currencyRepository';
+import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class ProvidersService {
   options: IServiceOptions;

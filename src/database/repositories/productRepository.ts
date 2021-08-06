@@ -171,7 +171,8 @@ class ProductRepository {
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('businessId')
       .populate('currency')
-      .populate('language'),
+      .populate('language')
+      .populate('country'),
       options,
     );
 
@@ -291,6 +292,14 @@ class ProductRepository {
         });
       }
 
+      if (filter.country) {
+        criteriaAnd.push({
+          country: MongooseQueryUtils.uuid(
+            filter.country,
+          ),
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -337,7 +346,8 @@ class ProductRepository {
       .sort(sort)
       .populate('businessId')
       .populate('currency')
-      .populate('language');
+      .populate('language')
+      .populate('country');
 
     const count = await Product(
       options.database,

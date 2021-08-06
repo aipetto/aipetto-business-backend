@@ -24,6 +24,7 @@ export default class CustomerService {
       data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
       data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
+      data.language = await CurrencyRepository.filterIdInTenant(data.language, { ...this.options, session });
 
       const record = await CustomerRepository.create(data, {
         ...this.options,
@@ -56,6 +57,7 @@ export default class CustomerService {
       data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
       data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
+      data.language = await CurrencyRepository.filterIdInTenant(data.language, { ...this.options, session });
 
       const record = await CustomerRepository.update(
         id,

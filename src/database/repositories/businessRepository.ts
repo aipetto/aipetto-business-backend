@@ -301,7 +301,9 @@ class BusinessRepository {
       .populate('categories')
       .populate('city')
       .populate('state')
-      .populate('country'),
+      .populate('country')
+      .populate('language')
+      .populate('currency'),
       options,
     );
 
@@ -421,6 +423,17 @@ class BusinessRepository {
         });
       }
 
+      if (filter.streetComplement) {
+        criteriaAnd.push({
+          streetComplement: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.streetComplement,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.addressPostCode) {
         criteriaAnd.push({
           addressPostCode: {
@@ -478,6 +491,77 @@ class BusinessRepository {
         });
       }
 
+      if (filter.website) {
+        criteriaAnd.push({
+          website: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.website,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.facebook) {
+        criteriaAnd.push({
+          facebook: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.facebook,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.linkedin) {
+        criteriaAnd.push({
+          linkedin: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.linkedin,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.notes) {
+        criteriaAnd.push({
+          notes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.notes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.language) {
+        criteriaAnd.push({
+          language: MongooseQueryUtils.uuid(
+            filter.language,
+          ),
+        });
+      }
+
+      if (filter.currency) {
+        criteriaAnd.push({
+          currency: MongooseQueryUtils.uuid(
+            filter.currency,
+          ),
+        });
+      }
+
+      if (filter.instagram) {
+        criteriaAnd.push({
+          instagram: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.instagram,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -526,7 +610,9 @@ class BusinessRepository {
       .populate('categories')
       .populate('city')
       .populate('state')
-      .populate('country');
+      .populate('country')
+      .populate('language')
+      .populate('currency');
 
     const count = await Business(
       options.database,

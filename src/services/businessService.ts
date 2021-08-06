@@ -7,6 +7,8 @@ import BusinessCategoryRepository from '../database/repositories/businessCategor
 import CityRepository from '../database/repositories/cityRepository';
 import StateRepository from '../database/repositories/stateRepository';
 import CountryRepository from '../database/repositories/countryRepository';
+import LanguagesRepository from '../database/repositories/languagesRepository';
+import CurrencyRepository from '../database/repositories/currencyRepository';
 
 export default class BusinessService {
   options: IServiceOptions;
@@ -26,6 +28,8 @@ export default class BusinessService {
       data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
       data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessRepository.create(data, {
         ...this.options,
@@ -59,6 +63,8 @@ export default class BusinessService {
       data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
       data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
+      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessRepository.update(
         id,

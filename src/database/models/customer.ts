@@ -23,7 +23,6 @@ export default (database) => {
       },
       uniqueCustomIdentifier: {
         type: String,
-        required: true,
       },
       userId: {
         type: Schema.Types.ObjectId,
@@ -175,6 +174,25 @@ export default (database) => {
         type: String,
       },
       customerProfileImage: [FileSchema],
+      facebook: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+      instagram: {
+        type: String,
+      },
+      website: {
+        type: String,
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      notes: {
+        type: String,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -203,7 +221,15 @@ export default (database) => {
     },
   );
 
-  
+  CustomerSchema.index(
+    { uniqueCustomIdentifier: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        uniqueCustomIdentifier: { $type: 'string' },
+      },
+    },
+  );
 
   CustomerSchema.virtual('id').get(function () {
     // @ts-ignore

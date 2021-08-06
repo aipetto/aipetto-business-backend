@@ -44,6 +44,9 @@ export default (database) => {
       addressStreetNumber: {
         type: String,
       },
+      streetComplement: {
+        type: String,
+      },
       addressPostCode: {
         type: String,
       },
@@ -64,6 +67,29 @@ export default (database) => {
         type: String,
       },
       longitude: {
+        type: String,
+      },
+      website: {
+        type: String,
+      },
+      facebook: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+      notes: {
+        type: String,
+      },
+      language: {
+        type: Schema.Types.ObjectId,
+        ref: 'languages',
+      },
+      currency: {
+        type: Schema.Types.ObjectId,
+        ref: 'currency',
+      },
+      instagram: {
         type: String,
       },
       tenant: {

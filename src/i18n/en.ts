@@ -91,7 +91,7 @@ const en = {
     customer: {
       errors: {
         unique: {
-
+          uniqueCustomIdentifier: 'UniqueCustomIdentifier must be unique',
         }
       }
     },

@@ -5,6 +5,7 @@ import ProductRepository from '../database/repositories/productRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
 import CurrencyRepository from '../database/repositories/currencyRepository';
 import LanguagesRepository from '../database/repositories/languagesRepository';
+import CountryRepository from '../database/repositories/countryRepository';
 
 export default class ProductService {
   options: IServiceOptions;
@@ -22,6 +23,7 @@ export default class ProductService {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
       data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
       data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await ProductRepository.create(data, {
         ...this.options,
@@ -53,6 +55,7 @@ export default class ProductService {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
       data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
       data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await ProductRepository.update(
         id,
