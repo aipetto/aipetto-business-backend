@@ -16,11 +16,11 @@ export default (app) => {
     require('./placeTypeDestroy').default,
   );
   app.get(
-    `/tenant/place-type/autocomplete`,
+    `/place-type/autocomplete`,
     require('./placeTypeAutocomplete').default,
   );
   app.get(
-    `/tenant/place-type`,
+    `/place-type`,
     require('./placeTypeList').default,
   );
   app.get(

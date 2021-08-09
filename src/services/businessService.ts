@@ -63,7 +63,7 @@ export default class BusinessService {
       data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
       data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
+      //data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
       data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessRepository.update(

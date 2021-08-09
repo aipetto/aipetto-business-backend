@@ -208,15 +208,10 @@ class PetTypesRepository {
     { filter, limit = 0, offset = 0, orderBy = '' },
     options: IRepositoryOptions,
   ) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let criteriaAnd: any = [];
     
-    criteriaAnd.push({
-      tenant: currentTenant.id,
-    });
+    criteriaAnd.push({});
 
     if (filter) {
       if (filter.id) {
@@ -302,13 +297,8 @@ class PetTypesRepository {
   }
 
   static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
-    let criteriaAnd: Array<any> = [{
-      tenant: currentTenant.id,
-    }];
+    let criteriaAnd: Array<any> = [{}];
 
     if (search) {
       criteriaAnd.push({

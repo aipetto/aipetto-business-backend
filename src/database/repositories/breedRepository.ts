@@ -371,13 +371,8 @@ class BreedRepository {
   }
 
   static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
-    let criteriaAnd: Array<any> = [{
-      tenant: currentTenant.id,
-    }];
+    let criteriaAnd: Array<any> = [{}];
 
     if (search) {
       criteriaAnd.push({

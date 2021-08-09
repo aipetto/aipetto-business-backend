@@ -5,10 +5,6 @@ import PetDiseasesService from '../../services/petDiseasesService';
 
 export default async (req, res, next) => {
   try {
-    new PermissionChecker(req).validateHas(
-      Permissions.values.petDiseasesAutocomplete,
-    );
-
     const payload = await new PetDiseasesService(
       req,
     ).findAllAutocomplete(req.query.query, req.query.limit);

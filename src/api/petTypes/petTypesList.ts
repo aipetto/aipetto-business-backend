@@ -5,10 +5,6 @@ import PetTypesService from '../../services/petTypesService';
 
 export default async (req, res, next) => {
   try {
-    new PermissionChecker(req).validateHas(
-      Permissions.values.petTypesRead,
-    );
-
     const payload = await new PetTypesService(
       req,
     ).findAndCountAll(req.query);

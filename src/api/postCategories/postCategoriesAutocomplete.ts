@@ -5,10 +5,6 @@ import PostCategoriesService from '../../services/postCategoriesService';
 
 export default async (req, res, next) => {
   try {
-    new PermissionChecker(req).validateHas(
-      Permissions.values.postCategoriesAutocomplete,
-    );
-
     const payload = await new PostCategoriesService(
       req,
     ).findAllAutocomplete(req.query.query, req.query.limit);

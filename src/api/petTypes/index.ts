@@ -16,11 +16,11 @@ export default (app) => {
     require('./petTypesDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/pet-types/autocomplete`,
+    `/pet-types/autocomplete`,
     require('./petTypesAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/pet-types`,
+    `/pet-types`,
     require('./petTypesList').default,
   );
   app.get(

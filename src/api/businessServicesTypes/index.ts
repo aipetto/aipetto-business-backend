@@ -16,7 +16,7 @@ export default (app) => {
     require('./businessServicesTypesDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/business-services-types/autocomplete`,
+    `/business-services-types/autocomplete`,
     require('./businessServicesTypesAutocomplete').default,
   );
   app.get(

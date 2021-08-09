@@ -16,11 +16,11 @@ export default (app) => {
     require('./countryDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/country/autocomplete`,
+    `/country/autocomplete`,
     require('./countryAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/country`,
+    `/country`,
     require('./countryList').default,
   );
   app.get(

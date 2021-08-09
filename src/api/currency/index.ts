@@ -16,11 +16,11 @@ export default (app) => {
     require('./currencyDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/currency/autocomplete`,
+    `/currency/autocomplete`,
     require('./currencyAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/currency`,
+    `/currency`,
     require('./currencyList').default,
   );
   app.get(

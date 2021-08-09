@@ -16,11 +16,11 @@ export default (app) => {
     require('./cityDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/city/autocomplete`,
+    `/city/autocomplete`,
     require('./cityAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/city`,
+    `/city`,
     require('./cityList').default,
   );
   app.get(

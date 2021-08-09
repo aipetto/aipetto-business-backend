@@ -16,7 +16,7 @@ export default (app) => {
     require('./productCategoryDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/product-category/autocomplete`,
+    `/product-category/autocomplete`,
     require('./productCategoryAutocomplete').default,
   );
   app.get(

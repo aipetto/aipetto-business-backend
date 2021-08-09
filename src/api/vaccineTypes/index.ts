@@ -16,11 +16,11 @@ export default (app) => {
     require('./vaccineTypesDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/vaccine-types/autocomplete`,
+    `/vaccine-types/autocomplete`,
     require('./vaccineTypesAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/vaccine-types`,
+    `/vaccine-types`,
     require('./vaccineTypesList').default,
   );
   app.get(
