@@ -183,15 +183,10 @@ class PostCategoriesRepository {
     { filter, limit = 0, offset = 0, orderBy = '' },
     options: IRepositoryOptions,
   ) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let criteriaAnd: any = [];
     
-    criteriaAnd.push({
-      tenant: currentTenant.id,
-    });
+    criteriaAnd.push({});
 
     if (filter) {
       if (filter.id) {

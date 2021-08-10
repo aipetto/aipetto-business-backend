@@ -20,7 +20,7 @@ export default (app) => {
     require('./businessServicesTypesAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/business-services-types`,
+    `/business-services-types`,
     require('./businessServicesTypesList').default,
   );
   app.get(

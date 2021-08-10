@@ -1,6 +1,4 @@
-import PermissionChecker from '../../services/user/permissionChecker';
 import ApiResponseHandler from '../apiResponseHandler';
-import Permissions from '../../security/permissions';
 import PetDiseasesService from '../../services/petDiseasesService';
 
 export default async (req, res, next) => {

@@ -20,7 +20,7 @@ export default (app) => {
     require('./productCategoryAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/product-category`,
+    `/product-category`,
     require('./productCategoryList').default,
   );
   app.get(
