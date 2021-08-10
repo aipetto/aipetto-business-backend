@@ -16,11 +16,11 @@ export default (app) => {
     require('./breedDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/breed/autocomplete`,
+    `/breed/autocomplete`,
     require('./breedAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/breed`,
+    `/breed`,
     require('./breedList').default,
   );
   app.get(
