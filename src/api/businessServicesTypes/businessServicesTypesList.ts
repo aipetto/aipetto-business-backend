@@ -1,14 +1,8 @@
-import PermissionChecker from '../../services/user/permissionChecker';
 import ApiResponseHandler from '../apiResponseHandler';
-import Permissions from '../../security/permissions';
 import BusinessServicesTypesService from '../../services/businessServicesTypesService';
 
 export default async (req, res, next) => {
   try {
-    new PermissionChecker(req).validateHas(
-      Permissions.values.businessServicesTypesRead,
-    );
-
     const payload = await new BusinessServicesTypesService(
       req,
     ).findAndCountAll(req.query);

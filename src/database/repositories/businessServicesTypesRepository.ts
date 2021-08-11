@@ -13,6 +13,7 @@ import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvai
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 import Providers from '../models/providers';
 import BusinessServicesPrices from '../models/businessServicesPrices';
+import LanguagesRepository from "./languagesRepository";
 
 class BusinessServicesTypesRepository {
   
@@ -45,8 +46,6 @@ class BusinessServicesTypesRepository {
       data,
       options,
     );
-
-    
 
     return this.findById(record.id, options);
   }
@@ -233,15 +232,10 @@ class BusinessServicesTypesRepository {
     { filter, limit = 0, offset = 0, orderBy = '' },
     options: IRepositoryOptions,
   ) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let criteriaAnd: any = [];
     
-    criteriaAnd.push({
-      tenant: currentTenant.id,
-    });
+    criteriaAnd.push({});
 
     if (filter) {
       if (filter.id) {
@@ -336,27 +330,15 @@ class BusinessServicesTypesRepository {
   }
 
   static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
-    let criteriaAnd: Array<any> = [{
-      tenant: currentTenant.id,
-    }];
+    let criteriaAnd: Array<any> = [{}];
 
-    if (search) {
+    if(search.language){
+
       criteriaAnd.push({
-        $or: [
-          {
-            _id: MongooseQueryUtils.uuid(search),
-          },
-          {
-            name: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
-              $options: 'i',
-            }
-          },          
-        ],
+        language: MongooseQueryUtils.uuid(
+            search.language
+        )
       });
     }
 

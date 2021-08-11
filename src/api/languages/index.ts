@@ -16,11 +16,11 @@ export default (app) => {
     require('./languagesDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/languages/autocomplete`,
+    `/languages/autocomplete`,
     require('./languagesAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/languages`,
+    `/languages`,
     require('./languagesList').default,
   );
   app.get(
