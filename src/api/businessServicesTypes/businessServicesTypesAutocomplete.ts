@@ -3,6 +3,7 @@ import BusinessServicesTypesService from '../../services/businessServicesTypesSe
 
 export default async (req, res, next) => {
   try {
+
     const payload = await new BusinessServicesTypesService(
       req,
     ).findAllAutocomplete(req.query.query, req.query.limit);

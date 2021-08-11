@@ -414,7 +414,6 @@ class LanguagesRepository {
   }
 
   static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
-
     let criteriaAnd: Array<any> = [{}];
 
     if (search) {

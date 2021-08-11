@@ -3,7 +3,6 @@ import LanguagesService from '../../services/languagesService';
 
 export default async (req, res, next) => {
   try {
-
     const payload = await new LanguagesService(
       req,
     ).findAndCountAll(req.query);
