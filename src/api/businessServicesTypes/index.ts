@@ -24,7 +24,7 @@ export default (app) => {
     require('./businessServicesTypesList').default,
   );
   app.get(
-    `/tenant/:tenantId/business-services-types/:id`,
+    `/business-services-types/:id`,
     require('./businessServicesTypesFind').default,
   );
 };

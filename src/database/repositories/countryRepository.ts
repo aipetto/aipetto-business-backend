@@ -289,13 +289,10 @@ class CountryRepository {
   }
 
   static async findById(id, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Country(options.database)
-        .findOne({_id: id, tenant: currentTenant.id}),
+        .findOne({_id: id}),
       options,
     );
 
@@ -310,15 +307,9 @@ class CountryRepository {
     { filter, limit = 0, offset = 0, orderBy = '' },
     options: IRepositoryOptions,
   ) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
-
     let criteriaAnd: any = [];
     
-    criteriaAnd.push({
-      tenant: currentTenant.id,
-    });
+    criteriaAnd.push({});
 
     if (filter) {
       if (filter.id) {
@@ -406,13 +397,7 @@ class CountryRepository {
   }
 
   static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
-
-    let criteriaAnd: Array<any> = [{
-      tenant: currentTenant.id,
-    }];
+    let criteriaAnd: Array<any> = [{}];
 
     if (search) {
       criteriaAnd.push({
