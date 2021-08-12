@@ -20,7 +20,6 @@ export default class BusinessPlaceServiceAvailabilityService {
 
     try {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
-      data.serviceType = await BusinessServicesTypesRepository.filterIdInTenant(data.serviceType, { ...this.options, session });
       data.places = await PlaceRepository.filterIdsInTenant(data.places, { ...this.options, session });
 
       const record = await BusinessPlaceServiceAvailabilityRepository.create(data, {
@@ -51,7 +50,6 @@ export default class BusinessPlaceServiceAvailabilityService {
 
     try {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
-      data.serviceType = await BusinessServicesTypesRepository.filterIdInTenant(data.serviceType, { ...this.options, session });
       data.places = await PlaceRepository.filterIdsInTenant(data.places, { ...this.options, session });
 
       const record = await BusinessPlaceServiceAvailabilityRepository.update(

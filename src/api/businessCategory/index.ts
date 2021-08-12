@@ -16,11 +16,11 @@ export default (app) => {
     require('./businessCategoryDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/business-category/autocomplete`,
+    `/business-category/autocomplete`,
     require('./businessCategoryAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/business-category`,
+    `/business-category`,
     require('./businessCategoryList').default,
   );
   app.get(

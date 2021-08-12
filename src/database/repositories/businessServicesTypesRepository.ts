@@ -13,7 +13,6 @@ import BusinessPlaceServiceAvailability from '../models/businessPlaceServiceAvai
 import ProfessionalsServiceAvailability from '../models/professionalsServiceAvailability';
 import Providers from '../models/providers';
 import BusinessServicesPrices from '../models/businessServicesPrices';
-import LanguagesRepository from "./languagesRepository";
 
 class BusinessServicesTypesRepository {
   
@@ -46,6 +45,8 @@ class BusinessServicesTypesRepository {
       data,
       options,
     );
+
+    
 
     return this.findById(record.id, options);
   }
@@ -334,7 +335,6 @@ class BusinessServicesTypesRepository {
     let criteriaAnd: Array<any> = [{}];
 
     if(search.language){
-
       criteriaAnd.push({
         language: MongooseQueryUtils.uuid(
             search.language

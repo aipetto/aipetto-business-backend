@@ -5,10 +5,6 @@ import VaccineTypesService from '../../services/vaccineTypesService';
 
 export default async (req, res, next) => {
   try {
-    new PermissionChecker(req).validateHas(
-      Permissions.values.vaccineTypesRead,
-    );
-
     const payload = await new VaccineTypesService(
       req,
     ).findAndCountAll(req.query);

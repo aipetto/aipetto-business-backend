@@ -20,7 +20,7 @@ export default (app) => {
     require('./postCategoriesAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/post-categories`,
+    `/post-categories`,
     require('./postCategoriesList').default,
   );
   app.get(

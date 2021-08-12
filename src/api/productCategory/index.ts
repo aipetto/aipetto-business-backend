@@ -16,11 +16,11 @@ export default (app) => {
     require('./productCategoryDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/product-category/autocomplete`,
+    `/product-category/autocomplete`,
     require('./productCategoryAutocomplete').default,
   );
   app.get(
-    `/tenant/:tenantId/product-category`,
+    `/product-category`,
     require('./productCategoryList').default,
   );
   app.get(

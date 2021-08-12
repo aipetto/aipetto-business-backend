@@ -16,7 +16,7 @@ export default (app) => {
     require('./stateDestroy').default,
   );
   app.get(
-    `/tenant/:tenantId/state/autocomplete`,
+    `/state/autocomplete`,
     require('./stateAutocomplete').default,
   );
   app.get(

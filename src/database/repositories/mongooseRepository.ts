@@ -38,6 +38,15 @@ export default class MongooseRepository {
   }
 
   /**
+   * Returns the current language
+   */
+  static getCurrentLanguage(options: IRepositoryOptions) {
+    return (
+        (options && options.language)
+    );
+  }
+
+  /**
    * Returns the session if it exists on the options.
    */
   static getSession(options: IRepositoryOptions) {
