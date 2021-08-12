@@ -300,19 +300,11 @@ class PetTypesRepository {
 
     let criteriaAnd: Array<any> = [{}];
 
-    if (search) {
+    if(search.language){
       criteriaAnd.push({
-        $or: [
-          {
-            _id: MongooseQueryUtils.uuid(search),
-          },
-          {
-            name: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
-              $options: 'i',
-            }
-          },          
-        ],
+        language: MongooseQueryUtils.uuid(
+            search.language
+        )
       });
     }
 

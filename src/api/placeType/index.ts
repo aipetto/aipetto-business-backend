@@ -24,7 +24,7 @@ export default (app) => {
     require('./placeTypeList').default,
   );
   app.get(
-    `/tenant/place-type/:id`,
+    `/place-type/:id`,
     require('./placeTypeFind').default,
   );
 };

@@ -590,7 +590,7 @@ class Permissions {
       },
       businessPlaceServiceAvailabilityEdit: {
         id: 'businessPlaceServiceAvailabilityEdit',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -611,7 +611,7 @@ class Permissions {
       },
       businessPlaceServiceAvailabilityAutocomplete: {
         id: 'businessPlaceServiceAvailabilityAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
@@ -731,7 +731,7 @@ class Permissions {
       },
       stateAutocomplete: {
         id: 'stateAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 
@@ -742,7 +742,7 @@ class Permissions {
       },
       messagesCreate: {
         id: 'messagesCreate',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin,roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -750,7 +750,7 @@ class Permissions {
       },
       messagesEdit: {
         id: 'messagesEdit',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
@@ -766,7 +766,7 @@ class Permissions {
       },
       messagesRead: {
         id: 'messagesRead',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       messagesAutocomplete: {
@@ -851,7 +851,7 @@ class Permissions {
       },
       languagesAutocomplete: {
         id: 'languagesAutocomplete',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 

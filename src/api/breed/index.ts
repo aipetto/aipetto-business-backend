@@ -24,7 +24,7 @@ export default (app) => {
     require('./breedList').default,
   );
   app.get(
-    `/tenant/:tenantId/breed/:id`,
+    `/breed/:id`,
     require('./breedFind').default,
   );
 };
