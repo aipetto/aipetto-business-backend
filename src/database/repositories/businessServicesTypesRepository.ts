@@ -335,7 +335,6 @@ class BusinessServicesTypesRepository {
     let criteriaAnd: Array<any> = [{}];
 
     if(search.language){
-
       criteriaAnd.push({
         language: MongooseQueryUtils.uuid(
             search.language

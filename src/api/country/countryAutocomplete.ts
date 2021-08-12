@@ -3,6 +3,7 @@ import CountryService from '../../services/countryService';
 
 export default async (req, res, next) => {
   try {
+
     const payload = await new CountryService(
       req,
     ).findAllAutocomplete(req.query.query, req.query.limit);

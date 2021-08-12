@@ -24,7 +24,7 @@ export default (app) => {
     require('./currencyList').default,
   );
   app.get(
-    `/tenant/:tenantId/currency/:id`,
+    `/currency/:id`,
     require('./currencyFind').default,
   );
 };

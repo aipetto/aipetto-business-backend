@@ -2,7 +2,7 @@ import MongooseRepository from './mongooseRepository';
 import MongooseQueryUtils from '../utils/mongooseQueryUtils';
 import AuditLogRepository from './auditLogRepository';
 import Error404 from '../../errors/Error404';
-import { IRepositoryOptions } from './IRepositoryOptions';
+import {IRepositoryOptions} from './IRepositoryOptions';
 import lodash from 'lodash';
 import City from '../models/city';
 import Business from '../models/business';

@@ -1,14 +1,7 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import BusinessRepository from '../database/repositories/businessRepository';
-import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
-import BusinessCategoryRepository from '../database/repositories/businessCategoryRepository';
-import CityRepository from '../database/repositories/cityRepository';
-import StateRepository from '../database/repositories/stateRepository';
-import CountryRepository from '../database/repositories/countryRepository';
-import LanguagesRepository from '../database/repositories/languagesRepository';
-import CurrencyRepository from '../database/repositories/currencyRepository';
 
 export default class BusinessService {
   options: IServiceOptions;
@@ -23,14 +16,6 @@ export default class BusinessService {
     );
 
     try {
-      data.services = await BusinessServicesTypesRepository.filterIdsInTenant(data.services, { ...this.options, session });
-      data.categories = await BusinessCategoryRepository.filterIdsInTenant(data.categories, { ...this.options, session });
-      data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
-      data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
-
       const record = await BusinessRepository.create(data, {
         ...this.options,
         session,
@@ -58,14 +43,6 @@ export default class BusinessService {
     );
 
     try {
-      data.services = await BusinessServicesTypesRepository.filterIdsInTenant(data.services, { ...this.options, session });
-      data.categories = await BusinessCategoryRepository.filterIdsInTenant(data.categories, { ...this.options, session });
-      data.city = await CityRepository.filterIdInTenant(data.city, { ...this.options, session });
-      data.state = await StateRepository.filterIdInTenant(data.state, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      //data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
-
       const record = await BusinessRepository.update(
         id,
         data,

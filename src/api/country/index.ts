@@ -24,7 +24,7 @@ export default (app) => {
     require('./countryList').default,
   );
   app.get(
-    `/tenant/:tenantId/country/:id`,
+    `/country/:id`,
     require('./countryFind').default,
   );
 };
