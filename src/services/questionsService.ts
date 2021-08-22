@@ -1,9 +1,7 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import QuestionsRepository from '../database/repositories/questionsRepository';
-import LanguagesRepository from '../database/repositories/languagesRepository';
-import CountryRepository from '../database/repositories/countryRepository';
 import UserRepository from '../database/repositories/userRepository';
 
 export default class QuestionsService {
@@ -20,8 +18,6 @@ export default class QuestionsService {
 
     try {
       data.userID = await UserRepository.filterIdInTenant(data.userID, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await QuestionsRepository.create(data, {
         ...this.options,
@@ -51,8 +47,6 @@ export default class QuestionsService {
 
     try {
       data.userID = await UserRepository.filterIdInTenant(data.userID, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await QuestionsRepository.update(
         id,

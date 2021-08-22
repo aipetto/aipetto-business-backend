@@ -25,7 +25,6 @@ export default class PetVaccinesService {
       data.veterinarianID = await ProvidersRepository.filterIdInTenant(data.veterinarianID, { ...this.options, session });
       data.placeTaken = await PlaceRepository.filterIdInTenant(data.placeTaken, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await PetVaccinesRepository.create(data, {
         ...this.options,
@@ -58,7 +57,6 @@ export default class PetVaccinesService {
       data.veterinarianID = await ProvidersRepository.filterIdInTenant(data.veterinarianID, { ...this.options, session });
       data.placeTaken = await PlaceRepository.filterIdInTenant(data.placeTaken, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await PetVaccinesRepository.update(
         id,

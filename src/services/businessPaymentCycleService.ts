@@ -1,12 +1,10 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import BusinessPaymentCycleRepository from '../database/repositories/businessPaymentCycleRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
 import ServiceReservationRepository from '../database/repositories/serviceReservationRepository';
 import CustomerRepository from '../database/repositories/customerRepository';
-import CountryRepository from '../database/repositories/countryRepository';
-import CurrencyRepository from '../database/repositories/currencyRepository';
 
 export default class BusinessPaymentCycleService {
   options: IServiceOptions;
@@ -24,8 +22,6 @@ export default class BusinessPaymentCycleService {
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
       data.businessServiceReservationsUsed = await ServiceReservationRepository.filterIdsInTenant(data.businessServiceReservationsUsed, { ...this.options, session });
       data.customerID = await CustomerRepository.filterIdInTenant(data.customerID, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessPaymentCycleRepository.create(data, {
         ...this.options,
@@ -57,8 +53,6 @@ export default class BusinessPaymentCycleService {
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
       data.businessServiceReservationsUsed = await ServiceReservationRepository.filterIdsInTenant(data.businessServiceReservationsUsed, { ...this.options, session });
       data.customerID = await CustomerRepository.filterIdInTenant(data.customerID, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      data.currency = await CurrencyRepository.filterIdInTenant(data.currency, { ...this.options, session });
 
       const record = await BusinessPaymentCycleRepository.update(
         id,

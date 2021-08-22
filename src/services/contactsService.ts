@@ -1,11 +1,10 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import ContactsRepository from '../database/repositories/contactsRepository';
 import CountryRepository from '../database/repositories/countryRepository';
 import CustomerRepository from '../database/repositories/customerRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
-import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class ContactsService {
   options: IServiceOptions;
@@ -23,7 +22,6 @@ export default class ContactsService {
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
       data.customerID = await CustomerRepository.filterIdsInTenant(data.customerID, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
 
       const record = await ContactsRepository.create(data, {
         ...this.options,
@@ -55,7 +53,6 @@ export default class ContactsService {
       data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
       data.customerID = await CustomerRepository.filterIdsInTenant(data.customerID, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
 
       const record = await ContactsRepository.update(
         id,

@@ -1,11 +1,9 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import PostsRepository from '../database/repositories/postsRepository';
 import PostCategoriesRepository from '../database/repositories/postCategoriesRepository';
 import PostCommentsRepository from '../database/repositories/postCommentsRepository';
-import LanguagesRepository from '../database/repositories/languagesRepository';
-import CountryRepository from '../database/repositories/countryRepository';
 import UserRepository from '../database/repositories/userRepository';
 
 export default class PostsService {
@@ -24,8 +22,6 @@ export default class PostsService {
       data.authors = await UserRepository.filterIdsInTenant(data.authors, { ...this.options, session });
       data.postCategory = await PostCategoriesRepository.filterIdsInTenant(data.postCategory, { ...this.options, session });
       data.comments = await PostCommentsRepository.filterIdsInTenant(data.comments, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await PostsRepository.create(data, {
         ...this.options,
@@ -57,8 +53,6 @@ export default class PostsService {
       data.authors = await UserRepository.filterIdsInTenant(data.authors, { ...this.options, session });
       data.postCategory = await PostCategoriesRepository.filterIdsInTenant(data.postCategory, { ...this.options, session });
       data.comments = await PostCommentsRepository.filterIdsInTenant(data.comments, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await PostsRepository.update(
         id,

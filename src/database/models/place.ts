@@ -31,11 +31,16 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'businessCategory',
       }],
-      latitude: {
-        type: Number,
-      },
-      longitude: {
-        type: Number,
+      location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
       },
       address: {
         type: String,
@@ -95,6 +100,9 @@ export default (database) => {
 
   PlaceSchema.index(
     { importHash: 1, tenant: 1 },
+    {
+        'location': '2dsphere'
+    },
     {
       unique: true,
       partialFilterExpression: {

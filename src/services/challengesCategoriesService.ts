@@ -1,8 +1,7 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import ChallengesCategoriesRepository from '../database/repositories/challengesCategoriesRepository';
-import LanguagesRepository from '../database/repositories/languagesRepository';
 
 export default class ChallengesCategoriesService {
   options: IServiceOptions;
@@ -17,8 +16,6 @@ export default class ChallengesCategoriesService {
     );
 
     try {
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-
       const record = await ChallengesCategoriesRepository.create(data, {
         ...this.options,
         session,
@@ -46,8 +43,6 @@ export default class ChallengesCategoriesService {
     );
 
     try {
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
-
       const record = await ChallengesCategoriesRepository.update(
         id,
         data,

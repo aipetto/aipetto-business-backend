@@ -1,10 +1,9 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import DealsRepository from '../database/repositories/dealsRepository';
 import CustomerRepository from '../database/repositories/customerRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
-import CountryRepository from '../database/repositories/countryRepository';
 import UserRepository from '../database/repositories/userRepository';
 
 export default class DealsService {
@@ -23,7 +22,6 @@ export default class DealsService {
       data.customer = await CustomerRepository.filterIdInTenant(data.customer, { ...this.options, session });
       data.salesManagerResponsible = await UserRepository.filterIdInTenant(data.salesManagerResponsible, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await DealsRepository.create(data, {
         ...this.options,
@@ -55,7 +53,6 @@ export default class DealsService {
       data.customer = await CustomerRepository.filterIdInTenant(data.customer, { ...this.options, session });
       data.salesManagerResponsible = await UserRepository.filterIdInTenant(data.salesManagerResponsible, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
 
       const record = await DealsRepository.update(
         id,

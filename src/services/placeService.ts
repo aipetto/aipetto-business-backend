@@ -21,11 +21,7 @@ export default class PlaceService {
     );
 
     try {
-      data.placeType = await PlaceTypeRepository.filterIdInTenant(data.placeType, { ...this.options, session });
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
-      data.services = await BusinessServicesTypesRepository.filterIdsInTenant(data.services, { ...this.options, session });
-      data.categories = await BusinessCategoryRepository.filterIdsInTenant(data.categories, { ...this.options, session });
-      data.addressCountry = await CountryRepository.filterIdInTenant(data.addressCountry, { ...this.options, session });
 
       const record = await PlaceRepository.create(data, {
         ...this.options,
@@ -54,11 +50,7 @@ export default class PlaceService {
     );
 
     try {
-      data.placeType = await PlaceTypeRepository.filterIdInTenant(data.placeType, { ...this.options, session });
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
-      data.services = await BusinessServicesTypesRepository.filterIdsInTenant(data.services, { ...this.options, session });
-      data.categories = await BusinessCategoryRepository.filterIdsInTenant(data.categories, { ...this.options, session });
-      data.addressCountry = await CountryRepository.filterIdInTenant(data.addressCountry, { ...this.options, session });
 
       const record = await PlaceRepository.update(
         id,

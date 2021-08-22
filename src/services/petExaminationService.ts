@@ -1,10 +1,9 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import PetExaminationRepository from '../database/repositories/petExaminationRepository';
 import PetRepository from '../database/repositories/petRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
-import LanguagesRepository from '../database/repositories/languagesRepository';
 import ProvidersRepository from '../database/repositories/providersRepository';
 import UserRepository from '../database/repositories/userRepository';
 
@@ -24,7 +23,6 @@ export default class PetExaminationService {
       data.petID = await PetRepository.filterIdInTenant(data.petID, { ...this.options, session });
       data.veterinariesResponsibleDiagnostic = await UserRepository.filterIdsInTenant(data.veterinariesResponsibleDiagnostic, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
       data.providersID = await ProvidersRepository.filterIdsInTenant(data.providersID, { ...this.options, session });
 
       const record = await PetExaminationRepository.create(data, {
@@ -57,7 +55,6 @@ export default class PetExaminationService {
       data.petID = await PetRepository.filterIdInTenant(data.petID, { ...this.options, session });
       data.veterinariesResponsibleDiagnostic = await UserRepository.filterIdsInTenant(data.veterinariesResponsibleDiagnostic, { ...this.options, session });
       data.businessID = await BusinessRepository.filterIdInTenant(data.businessID, { ...this.options, session });
-      data.language = await LanguagesRepository.filterIdInTenant(data.language, { ...this.options, session });
       data.providersID = await ProvidersRepository.filterIdsInTenant(data.providersID, { ...this.options, session });
 
       const record = await PetExaminationRepository.update(
