@@ -116,6 +116,13 @@ export default class PlaceService {
     );
   }
 
+  async findPlacesNearbyByGeolocation (args) {
+    return PlaceRepository.findPlacesNearby(
+        args,
+        this.options,
+    );
+  }
+
   async import(data, importHash) {
     if (!importHash) {
       throw new Error400(

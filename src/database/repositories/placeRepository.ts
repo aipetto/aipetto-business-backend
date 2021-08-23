@@ -42,8 +42,6 @@ class PlaceRepository {
       options,
     );
 
-    
-
     return this.findById(record.id, options);
   }
 
@@ -80,8 +78,6 @@ class PlaceRepository {
     );
 
     record = await this.findById(id, options);
-
-
 
     return record;
   }
@@ -141,6 +137,7 @@ class PlaceRepository {
       null,
     );
   }
+
 
   static async filterIdsInTenant(
     ids,
@@ -218,25 +215,6 @@ class PlaceRepository {
       if (filter.id) {
         criteriaAnd.push({
           ['_id']: MongooseQueryUtils.uuid(filter.id),
-        });
-      }
-
-      if (filter.name) {
-        criteriaAnd.push({
-          name: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.name,
-            ),
-            $options: 'i',
-          },
-        });
-      }
-
-      if (filter.placeType) {
-        criteriaAnd.push({
-          placeType: MongooseQueryUtils.uuid(
-            filter.placeType,
-          ),
         });
       }
 
@@ -480,6 +458,257 @@ class PlaceRepository {
     return { rows, count };
   }
 
+  static async findPlacesNearby(
+      { filter, limit = 0, offset = 0, orderBy = '' },
+      options: IRepositoryOptions,
+  ) {
+
+    let criteriaAnd: any = [];
+
+    criteriaAnd.push({});
+
+    if (filter) {
+      console.log(filter);
+      /**
+      if (filter.id) {
+        criteriaAnd.push({
+          ['_id']: MongooseQueryUtils.uuid(filter.id),
+        });
+      }
+
+      if (filter.latitudeRange) {
+        const [start, end] = filter.latitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            latitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.longitudeRange) {
+        const [start, end] = filter.longitudeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            longitude: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.address) {
+        criteriaAnd.push({
+          address: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.address,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressNumber) {
+        criteriaAnd.push({
+          addressNumber: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.addressNumber,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressZipCode) {
+        criteriaAnd.push({
+          addressZipCode: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.addressZipCode,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressCity) {
+        criteriaAnd.push({
+          addressCity: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.addressCity,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressState) {
+        criteriaAnd.push({
+          addressState: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.addressState,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.addressCountry) {
+        criteriaAnd.push({
+          addressCountry: MongooseQueryUtils.uuid(
+              filter.addressCountry,
+          ),
+        });
+      }
+
+      if (filter.openTime) {
+        criteriaAnd.push({
+          openTime: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.openTime,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.closeTime) {
+        criteriaAnd.push({
+          closeTime: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.closeTime,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (
+          filter.is24hours === true ||
+          filter.is24hours === 'true' ||
+          filter.is24hours === false ||
+          filter.is24hours === 'false'
+      ) {
+        criteriaAnd.push({
+          is24hours:
+              filter.is24hours === true ||
+              filter.is24hours === 'true',
+        });
+      }
+
+      if (filter.starsRange) {
+        const [start, end] = filter.starsRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            stars: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            stars: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (
+          filter.isOpen === true ||
+          filter.isOpen === 'true' ||
+          filter.isOpen === false ||
+          filter.isOpen === 'false'
+      ) {
+        criteriaAnd.push({
+          isOpen:
+              filter.isOpen === true ||
+              filter.isOpen === 'true',
+        });
+      }
+
+      if (filter.createdAtRange) {
+        const [start, end] = filter.createdAtRange;
+
+        if (
+            start !== undefined &&
+            start !== null &&
+            start !== ''
+        ) {
+          criteriaAnd.push({
+            ['createdAt']: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (
+            end !== undefined &&
+            end !== null &&
+            end !== ''
+        ) {
+          criteriaAnd.push({
+            ['createdAt']: {
+              $lte: end,
+            },
+          });
+        }
+      }
+      **/
+    }
+
+    const sort = MongooseQueryUtils.sort(
+        orderBy || 'createdAt_DESC',
+    );
+
+    const skip = Number(offset || 0) || undefined;
+    const limitEscaped = Number(limit || 0) || undefined;
+    const criteria = criteriaAnd.length
+        ? { $and: criteriaAnd }
+        : null;
+
+    let rows = await Place(options.database)
+        .find(criteria)
+        .skip(skip)
+        .limit(limitEscaped)
+        .sort(sort)
+        .populate('placeType')
+        .populate('businessId')
+        .populate('services')
+        .populate('categories')
+        .populate('addressCountry');
+
+    const count = await Place(
+        options.database,
+    ).countDocuments(criteria);
+
+    rows = await Promise.all(
+        rows.map(this._mapRelationshipsAndFillDownloadUrl),
+    );
+
+    return { rows, count };
+  }
+
   static async findAllAutocomplete(search, limit, options: IRepositoryOptions) {
     const currentTenant = MongooseRepository.getCurrentTenant(
       options,
@@ -532,6 +761,7 @@ class PlaceRepository {
       options,
     );
   }
+
 
   static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {

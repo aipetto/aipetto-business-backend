@@ -24,6 +24,10 @@ export default (app) => {
     require('./placeList').default,
   );
   app.get(
+      `/place/geolocation`,
+      require('./findPlacesNearbyByGeolocation').default,
+  );
+  app.get(
     `/tenant/:tenantId/place/:id`,
     require('./placeFind').default,
   );
