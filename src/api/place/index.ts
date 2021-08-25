@@ -24,7 +24,7 @@ export default (app) => {
     require('./placeList').default,
   );
   app.get(
-      `/place/geolocation`,
+      `/place/nearby`,
       require('./findPlacesNearbyByGeolocation').default,
   );
   app.get(
