@@ -63,11 +63,16 @@ export default (database) => {
         ref: 'country',
       },
       businessLogo: [FileSchema],
-      latitude: {
-        type: String,
-      },
-      longitude: {
-        type: String,
+      location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
       },
       website: {
         type: String,
@@ -111,7 +116,7 @@ export default (database) => {
   );
 
   BusinessSchema.index(
-    { importHash: 1, tenant: 1 },
+    { importHash: 1, tenant: 1, location: '2dsphere' },
     {
       unique: true,
       partialFilterExpression: {

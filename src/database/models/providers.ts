@@ -64,11 +64,16 @@ export default (database) => {
       email: {
         type: String,
       },
-      latitude: {
-        type: Number,
-      },
-      longitude: {
-        type: Number,
+      location: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            required: true
+        },
+        coordinates: {
+            type: [Number],
+            required: true
+        }
       },
       basePricePerService: {
         type: Number,
@@ -116,7 +121,7 @@ export default (database) => {
   );
 
   ProvidersSchema.index(
-    { providerID: 1, tenant: 1 },
+    { providerID: 1, tenant: 1, location: '2dsphere' },
     {
       unique: true,
       partialFilterExpression: {

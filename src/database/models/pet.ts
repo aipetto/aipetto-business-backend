@@ -227,11 +227,16 @@ export default (database) => {
           null
         ],
       },
-      latitude: {
-        type: Number,
-      },
-      longitude: {
-        type: Number,
+      location: {
+            type: {
+                type: String,
+                enum: ['Point'],
+                required: true
+            },
+            coordinates: {
+                type: [Number],
+                required: true
+            }
       },
       tenant: {
         type: Schema.Types.ObjectId,
@@ -252,7 +257,7 @@ export default (database) => {
   );
 
   PetSchema.index(
-    { importHash: 1, tenant: 1 },
+    { importHash: 1, tenant: 1, location: '2dsphere' },
     {
       unique: true,
       partialFilterExpression: {

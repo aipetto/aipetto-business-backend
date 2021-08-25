@@ -99,10 +99,7 @@ export default (database) => {
   );
 
   PlaceSchema.index(
-    { importHash: 1, tenant: 1 },
-    {
-        'location': '2dsphere'
-    },
+    { importHash: 1, tenant: 1, location: '2dsphere' },
     {
       unique: true,
       partialFilterExpression: {
@@ -110,8 +107,6 @@ export default (database) => {
       },
     },
   );
-
-  
 
   PlaceSchema.virtual('id').get(function () {
     // @ts-ignore
