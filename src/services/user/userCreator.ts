@@ -148,7 +148,7 @@ export default class UserCreator {
       this.emailsToInvite.map((emailToInvite) => {
         const link = `${tenantSubdomain.frontendUrl(
           this.options.currentTenant,
-        )}/auth/invitation?token=${emailToInvite.token}&email=${emailToInvite}`;
+        )}/auth/invitation?token=${emailToInvite.token}&email=${emailToInvite.email}`;
 
 
         return new EmailSender(
