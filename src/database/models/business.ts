@@ -116,7 +116,7 @@ export default (database) => {
   );
 
   BusinessSchema.index(
-    { importHash: 1, tenant: 1, location: '2dsphere' },
+    { importHash: 1, tenant: 1 },
     {
       unique: true,
       partialFilterExpression: {
@@ -124,6 +124,8 @@ export default (database) => {
       },
     },
   );
+
+  BusinessSchema.index({ location: '2dsphere' });
 
   BusinessSchema.index(
     { businessID: 1, tenant: 1 },

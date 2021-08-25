@@ -50,7 +50,6 @@ export default (database) => {
       },
     },
   );
-
   
 
   CitySchema.virtual('id').get(function () {

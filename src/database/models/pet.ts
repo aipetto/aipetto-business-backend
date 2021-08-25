@@ -257,7 +257,7 @@ export default (database) => {
   );
 
   PetSchema.index(
-    { importHash: 1, tenant: 1, location: '2dsphere' },
+    { importHash: 1, tenant: 1 },
     {
       unique: true,
       partialFilterExpression: {
@@ -265,6 +265,8 @@ export default (database) => {
       },
     },
   );
+
+  PetSchema.index({ location: '2dsphere' });
 
   PetSchema.index(
     { governmentUniqueID: 1, tenant: 1 },

@@ -143,7 +143,7 @@ export default (database) => {
   );
 
   ContactsSchema.index(
-    { importHash: 1, tenant: 1, location: '2dsphere' },
+    { importHash: 1, tenant: 1 },
     {
       unique: true,
       partialFilterExpression: {
@@ -152,7 +152,7 @@ export default (database) => {
     },
   );
 
-  
+  ContactsSchema.index({ location: '2dsphere' });
 
   ContactsSchema.virtual('id').get(function () {
     // @ts-ignore

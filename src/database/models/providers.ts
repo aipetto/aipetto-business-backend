@@ -121,14 +121,16 @@ export default (database) => {
   );
 
   ProvidersSchema.index(
-    { providerID: 1, tenant: 1, location: '2dsphere' },
+    { providerID: 1, tenant: 1 },
     {
       unique: true,
       partialFilterExpression: {
         providerID: { $type: 'string' },
       },
     },
-  );  
+  );
+
+  ProvidersSchema.index({ location: '2dsphere' });
 
   ProvidersSchema.virtual('id').get(function () {
     // @ts-ignore

@@ -227,7 +227,7 @@ export default (database) => {
   );
 
   CustomerSchema.index(
-    { uniqueCustomIdentifier: 1, tenant: 1, location: '2dsphere' },
+    { uniqueCustomIdentifier: 1, tenant: 1 },
     {
       unique: true,
       partialFilterExpression: {
@@ -235,6 +235,8 @@ export default (database) => {
       },
     },
   );
+
+  CustomerSchema.index({ location: '2dsphere' });
 
   CustomerSchema.virtual('id').get(function () {
     // @ts-ignore
