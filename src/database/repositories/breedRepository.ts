@@ -185,13 +185,9 @@ class BreedRepository {
   }
 
   static async findById(id, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
-
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Breed(options.database)
-        .findOne({_id: id, tenant: currentTenant.id})
+        .findOne({_id: id})
       .populate('language')
       .populate('type'),
       options,
