@@ -4,7 +4,7 @@ export default (app) => {
     require('./breedCreate').default,
   );
   app.put(
-    `/breed/:id`,
+    `/tenant/:tenantId/breed/:id`,
     require('./breedUpdate').default,
   );
   app.post(
