@@ -48,12 +48,9 @@ class BreedRepository {
   }
 
   static async update(id, data, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      Breed(options.database).findOne({_id: id, tenant: currentTenant.id}),
+      Breed(options.database).findOne({_id: id}),
       options,
     );
 
