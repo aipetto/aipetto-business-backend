@@ -3,8 +3,8 @@ import AuthService from '../../services/auth/authService';
 import GoogleStrategy from 'passport-google-oauth20';
 import FacebookStrategy from 'passport-facebook';
 import ApiResponseHandler from '../apiResponseHandler';
-import { databaseInit } from '../../database/databaseConnection';
-import { get } from 'lodash';
+import {databaseInit} from '../../database/databaseConnection';
+import {get} from 'lodash';
 
 export default (app, routes) => {
   app.use(passport.initialize());
@@ -102,7 +102,7 @@ export default (app, routes) => {
     );
 
     routes.get(
-      '/auth/social/google/callback',
+          '/auth/social/google/callback',
       function (req, res, next) {
         passport.authenticate('google', (err, jwtToken) => {
           handleCallback(res, err, jwtToken);

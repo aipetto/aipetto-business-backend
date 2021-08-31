@@ -37,6 +37,11 @@ export default (app) => {
     require('./authSignIn').default,
   );
 
+  app.post(
+    '/auth/mobile/google',
+    require('./authGoogle').default,
+  );
+
   const signUpRateLimiter = createRateLimiter({
     max: 20,
     windowMs: 60 * 60 * 1000,
