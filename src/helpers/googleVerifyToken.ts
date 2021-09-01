@@ -20,14 +20,14 @@ export const validateGoogleIdToken = async ( token) => {
 
         const payload = ticket.getPayload();
 
-        databaseInit()
+        return databaseInit()
             .then((database) => {
                 if (payload) {
                 const {firstName, lastName} = splitFullName(
                     payload['name'],
                 );
 
-                AuthService.signinFromSocial(
+                return AuthService.signinFromSocial(
                     'google',
                     '',
                     payload['email'],
@@ -36,16 +36,7 @@ export const validateGoogleIdToken = async ( token) => {
                     lastName,
                     { database }
                 );
-
-                return {
-                    name: payload['name'],
-                    picture: payload['picture'],
-                    email: payload['email'],
-                }
               }
-            })
-            .then((jwtToken) => {
-                console.log(jwtToken);
             })
             .catch((error) => {
                 console.error(error);

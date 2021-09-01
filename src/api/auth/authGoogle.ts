@@ -10,18 +10,19 @@ export default async (req, res) => {
                 ok: false,
                 msg: 'Token missing'
             });
+            await ApiResponseHandler.error(req, res, error);
         }
 
-        const googleUser = await validateGoogleIdToken( token );
+        const jwt = await validateGoogleIdToken( token );
 
-        if(!googleUser){
+        if(!jwt){
             const payload = res.status(400).json({
                 ok: false
             });
             await ApiResponseHandler.error(req, res, payload);
         }
 
-        await ApiResponseHandler.success(req, res, googleUser);
+        await ApiResponseHandler.success(req, res, jwt);
     } catch (error) {
         await ApiResponseHandler.error(req, res, error);
     }
