@@ -817,6 +817,7 @@ export default class UserRepository {
     emailVerified,
     firstName,
     lastName,
+    avatars,
     options,
   ) {
     let data = {
@@ -826,6 +827,7 @@ export default class UserRepository {
       provider,
       firstName,
       lastName,
+      avatars
     };
 
     data = this._preSave(data);

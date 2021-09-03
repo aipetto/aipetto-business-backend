@@ -27,6 +27,11 @@ export const validateGoogleIdToken = async ( token) => {
                     payload['name'],
                 );
 
+                const avatars = [{
+                        name: "google_account_profile_image.jpg",
+                        publicUrl: payload["picture"]
+                }];
+
                 return AuthService.signinFromSocial(
                     'google',
                     '',
@@ -34,6 +39,7 @@ export const validateGoogleIdToken = async ( token) => {
                     payload['email_verified'],
                     firstName,
                     lastName,
+                    avatars,
                     { database }
                 );
               }

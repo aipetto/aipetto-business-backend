@@ -588,6 +588,7 @@ class AuthService {
     emailVerified,
     firstName,
     lastName,
+    avatars,
     options: any = {},
   ) {
     if (!email) {
@@ -621,6 +622,7 @@ class AuthService {
           emailVerified,
           firstName,
           lastName,
+          avatars,
           options,
         );
       }
