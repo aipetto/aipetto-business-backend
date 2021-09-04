@@ -80,9 +80,6 @@ class PetRepository {
     );
 
     record = await this.findById(id, options);
-
-
-
     return record;
   }
 
