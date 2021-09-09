@@ -20,13 +20,6 @@ export default class PetService {
     );
 
     try {
-      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
-      data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
-      data.photos = await PetPhotosRepository.filterIdsInTenant(data.photos, { ...this.options, session });
-      data.usersAuthorized = await UserRepository.filterIdsInTenant(data.usersAuthorized, { ...this.options, session });
-      data.businessAuthorized = await BusinessRepository.filterIdsInTenant(data.businessAuthorized, { ...this.options, session });
-      data.petFriends = await PetRepository.filterIdsInTenant(data.petFriends, { ...this.options, session });
-
       const record = await PetRepository.create(data, {
         ...this.options,
         session,
@@ -54,13 +47,6 @@ export default class PetService {
     );
 
     try {
-      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
-      data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
-      data.photos = await PetPhotosRepository.filterIdsInTenant(data.photos, { ...this.options, session });
-      data.usersAuthorized = await UserRepository.filterIdsInTenant(data.usersAuthorized, { ...this.options, session });
-      data.businessAuthorized = await BusinessRepository.filterIdsInTenant(data.businessAuthorized, { ...this.options, session });
-      data.petFriends = await PetRepository.filterIdsInTenant(data.petFriends, { ...this.options, session });
-
       const record = await PetRepository.update(
         id,
         data,
