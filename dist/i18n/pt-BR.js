@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const ptBR = {
     app: {
-        title: 'Aplicação',
+        title: 'aipetto',
     },
     auth: {
         userNotFound: `Desculpe, não reconhecemos suas credenciais`,
@@ -75,7 +75,9 @@ const ptBR = {
     entities: {
         customer: {
             errors: {
-                unique: {}
+                unique: {
+                    uniqueCustomIdentifier: 'UniqueCustomIdentifier deve ser único',
+                }
             }
         },
         product: {
@@ -90,7 +92,9 @@ const ptBR = {
         },
         pet: {
             errors: {
-                unique: {}
+                unique: {
+                    governmentUniqueID: 'GovernmentUniqueID deve ser único',
+                }
             }
         },
         breed: {
@@ -105,7 +109,9 @@ const ptBR = {
         },
         business: {
             errors: {
-                unique: {}
+                unique: {
+                    businessID: 'BusinessID deve ser único',
+                }
             }
         },
         place: {
@@ -119,6 +125,182 @@ const ptBR = {
             }
         },
         serviceReservation: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessPlaceServiceAvailability: {
+            errors: {
+                unique: {}
+            }
+        },
+        country: {
+            errors: {
+                unique: {}
+            }
+        },
+        city: {
+            errors: {
+                unique: {}
+            }
+        },
+        state: {
+            errors: {
+                unique: {}
+            }
+        },
+        messages: {
+            errors: {
+                unique: {}
+            }
+        },
+        professionalsServiceAvailability: {
+            errors: {
+                unique: {}
+            }
+        },
+        languages: {
+            errors: {
+                unique: {}
+            }
+        },
+        currency: {
+            errors: {
+                unique: {}
+            }
+        },
+        discounts: {
+            errors: {
+                unique: {
+                    codeName: 'CodeName deve ser único',
+                }
+            }
+        },
+        wallet: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessCategory: {
+            errors: {
+                unique: {}
+            }
+        },
+        providers: {
+            errors: {
+                unique: {
+                    providerID: 'ProviderID deve ser único',
+                }
+            }
+        },
+        vaccineTypes: {
+            errors: {
+                unique: {
+                    vaccineCustomUniqueID: 'VaccineCustomUniqueID deve ser único',
+                }
+            }
+        },
+        petVaccines: {
+            errors: {
+                unique: {
+                    uniqueVetVaccineCode: 'UniqueVetVaccineCode deve ser único',
+                }
+            }
+        },
+        placeType: {
+            errors: {
+                unique: {}
+            }
+        },
+        landingSurvey: {
+            errors: {
+                unique: {}
+            }
+        },
+        newBusinessSurvey: {
+            errors: {
+                unique: {}
+            }
+        },
+        petPhotos: {
+            errors: {
+                unique: {}
+            }
+        },
+        petDiseases: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessServicesPrices: {
+            errors: {
+                unique: {}
+            }
+        },
+        posts: {
+            errors: {
+                unique: {}
+            }
+        },
+        postCategories: {
+            errors: {
+                unique: {
+                    name: 'Name deve ser único',
+                }
+            }
+        },
+        postComments: {
+            errors: {
+                unique: {}
+            }
+        },
+        pointsChallenges: {
+            errors: {
+                unique: {
+                    name: 'Name deve ser único',
+                }
+            }
+        },
+        challengesCategories: {
+            errors: {
+                unique: {
+                    name: 'Name deve ser único',
+                }
+            }
+        },
+        productCategory: {
+            errors: {
+                unique: {
+                    name: 'Name deve ser único',
+                }
+            }
+        },
+        deals: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessPaymentCycle: {
+            errors: {
+                unique: {}
+            }
+        },
+        questions: {
+            errors: {
+                unique: {}
+            }
+        },
+        answers: {
+            errors: {
+                unique: {}
+            }
+        },
+        petExamination: {
+            errors: {
+                unique: {}
+            }
+        },
+        contacts: {
             errors: {
                 unique: {}
             }

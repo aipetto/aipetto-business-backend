@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const breedRepository_1 = __importDefault(require("../database/repositories/breedRepository"));
 const Error400_1 = __importDefault(require("../errors/Error400"));
 const mongooseRepository_1 = __importDefault(require("../database/repositories/mongooseRepository"));
+const breedRepository_1 = __importDefault(require("../database/repositories/breedRepository"));
 class BreedService {
     constructor(options) {
         this.options = options;

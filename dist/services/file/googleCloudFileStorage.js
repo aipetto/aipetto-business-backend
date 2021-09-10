@@ -11,11 +11,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("../../config");
 const storage_1 = require("@google-cloud/storage");
-const serviceAccount = JSON.parse(config_1.getConfig().GOOGLE_CLOUD_PLATFORM_CREDENTIALS);
-const bucket = new storage_1.Storage({
-    projectId: serviceAccount.project_id,
-    credentials: serviceAccount,
-}).bucket(config_1.getConfig().FILE_STORAGE_BUCKET);
+let bucket;
+if (config_1.getConfig().GOOGLE_CLOUD_PLATFORM_CREDENTIALS) {
+    const serviceAccount = JSON.parse(config_1.getConfig().GOOGLE_CLOUD_PLATFORM_CREDENTIALS);
+    bucket = new storage_1.Storage({
+        projectId: serviceAccount.project_id,
+        credentials: serviceAccount,
+    }).bucket(config_1.getConfig().FILE_STORAGE_BUCKET);
+}
+else {
+    bucket = new storage_1.Storage().bucket(config_1.getConfig().FILE_STORAGE_BUCKET);
+}
 class GoogleCloudFileStorage {
     /**
      * Creates a signed upload URL that enables

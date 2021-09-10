@@ -41,6 +41,33 @@ export default class PetService {
     }
   }
 
+  async createWitTenantOnPayload(data) {
+    const session = await MongooseRepository.createSession(
+        this.options.database,
+    );
+
+    try {
+      const record = await PetRepository.createWithTenantAndCurrentUserFromRequest(data, {
+        ...this.options,
+        session,
+      });
+
+      await MongooseRepository.commitTransaction(session);
+
+      return record;
+    } catch (error) {
+      await MongooseRepository.abortTransaction(session);
+
+      MongooseRepository.handleUniqueFieldError(
+          error,
+          this.options.language,
+          'pet',
+      );
+
+      throw error;
+    }
+  }
+
   async update(id, data) {
     const session = await MongooseRepository.createSession(
       this.options.database,

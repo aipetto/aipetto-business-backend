@@ -12,9 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const placeRepository_1 = __importDefault(require("../database/repositories/placeRepository"));
 const Error400_1 = __importDefault(require("../errors/Error400"));
 const mongooseRepository_1 = __importDefault(require("../database/repositories/mongooseRepository"));
+const placeRepository_1 = __importDefault(require("../database/repositories/placeRepository"));
+const businessRepository_1 = __importDefault(require("../database/repositories/businessRepository"));
 class PlaceService {
     constructor(options) {
         this.options = options;
@@ -23,6 +24,7 @@ class PlaceService {
         return __awaiter(this, void 0, void 0, function* () {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
+                data.businessId = yield businessRepository_1.default.filterIdInTenant(data.businessId, Object.assign(Object.assign({}, this.options), { session }));
                 const record = yield placeRepository_1.default.create(data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
@@ -38,6 +40,7 @@ class PlaceService {
         return __awaiter(this, void 0, void 0, function* () {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
+                data.businessId = yield businessRepository_1.default.filterIdInTenant(data.businessId, Object.assign(Object.assign({}, this.options), { session }));
                 const record = yield placeRepository_1.default.update(id, data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
@@ -77,6 +80,11 @@ class PlaceService {
     findAndCountAll(args) {
         return __awaiter(this, void 0, void 0, function* () {
             return placeRepository_1.default.findAndCountAll(args, this.options);
+        });
+    }
+    findPlacesNearbyByGeolocation(args) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return placeRepository_1.default.findPlacesNearby(args, this.options);
         });
     }
     import(data, importHash) {

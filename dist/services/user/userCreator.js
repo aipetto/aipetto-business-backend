@@ -30,6 +30,7 @@ class UserCreator {
      * Sends Invitation Emails if flagged.
      */
     execute(data, sendInvitationEmails = true) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             this.data = data;
             this.sendInvitationEmails = sendInvitationEmails;
@@ -43,7 +44,7 @@ class UserCreator {
                 yield mongooseRepository_1.default.abortTransaction(this.session);
                 throw error;
             }
-            if (this._hasEmailsToInvite) {
+            if (this._hasEmailsToInvite && !((_a = process.env.FRONTEND_URL) === null || _a === void 0 ? void 0 : _a.includes('localhost'))) {
                 yield this._sendAllInvitationEmails();
             }
         });
@@ -107,7 +108,7 @@ class UserCreator {
                 return;
             }
             return Promise.all(this.emailsToInvite.map((emailToInvite) => {
-                const link = `${tenantSubdomain_1.tenantSubdomain.frontendUrl(this.options.currentTenant)}/auth/invitation?token=${emailToInvite.token}`;
+                const link = `${tenantSubdomain_1.tenantSubdomain.frontendUrl(this.options.currentTenant)}/auth/invitation?token=${emailToInvite.token}&email=${emailToInvite.email}`;
                 return new emailSender_1.default(emailSender_1.default.TEMPLATES.INVITATION, {
                     tenant: this.options.currentTenant,
                     link,

@@ -3,7 +3,6 @@ import PetService from '../../services/petService';
 
 export default async (req, res, next) => {
   try {
-
     const payload = await new PetService(req).create(
       req.body.data,
     );

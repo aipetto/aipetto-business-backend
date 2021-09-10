@@ -47,6 +47,7 @@ class EmailSender {
             const msg = {
                 to: recipient,
                 from: config_1.getConfig().SENDGRID_EMAIL_FROM,
+                subject: 'Aipetto Team',
                 templateId: this.templateId,
                 dynamicTemplateData: this.variables,
             };

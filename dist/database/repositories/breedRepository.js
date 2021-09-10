@@ -16,49 +16,70 @@ const mongooseRepository_1 = __importDefault(require("./mongooseRepository"));
 const mongooseQueryUtils_1 = __importDefault(require("../utils/mongooseQueryUtils"));
 const auditLogRepository_1 = __importDefault(require("./auditLogRepository"));
 const Error404_1 = __importDefault(require("../../errors/Error404"));
+const lodash_1 = __importDefault(require("lodash"));
 const breed_1 = __importDefault(require("../models/breed"));
-const petTypes_1 = __importDefault(require("../models/petTypes"));
+const fileRepository_1 = __importDefault(require("./fileRepository"));
 const pet_1 = __importDefault(require("../models/pet"));
+const vaccineTypes_1 = __importDefault(require("../models/vaccineTypes"));
+const petDiseases_1 = __importDefault(require("../models/petDiseases"));
 class BreedRepository {
     static create(data, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
             const currentUser = mongooseRepository_1.default.getCurrentUser(options);
             const [record] = yield breed_1.default(options.database).create([
-                Object.assign(Object.assign({}, data), { tenant: currentTenant.id, createdBy: currentUser.id, updatedBy: currentUser.id }),
-            ], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+                Object.assign(Object.assign({}, data), { tenant: currentTenant.id, createdBy: currentUser.id, updatedBy: currentUser.id })
+            ], options);
             yield this._createAuditLog(auditLogRepository_1.default.CREATE, record.id, data, options);
-            yield mongooseRepository_1.default.refreshTwoWayRelationOneToMany(record, 'type', petTypes_1.default(options.database), 'breeds', options);
             return this.findById(record.id, options);
         });
     }
     static update(id, data, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
-            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database).findById(id), options);
-            if (!record ||
-                String(record.tenant) !== String(currentTenant.id)) {
+            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database).findOne({ _id: id, tenant: currentTenant.id }), options);
+            if (!record) {
                 throw new Error404_1.default();
             }
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database).updateOne({ _id: id }, Object.assign(Object.assign({}, data), { updatedBy: mongooseRepository_1.default.getCurrentUser(options).id })), options);
+            yield breed_1.default(options.database).updateOne({ _id: id }, Object.assign(Object.assign({}, data), { updatedBy: mongooseRepository_1.default.getCurrentUser(options).id }), options);
             yield this._createAuditLog(auditLogRepository_1.default.UPDATE, id, data, options);
             record = yield this.findById(id, options);
-            yield mongooseRepository_1.default.refreshTwoWayRelationOneToMany(record, 'type', petTypes_1.default(options.database), 'breeds', options);
             return record;
         });
     }
     static destroy(id, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
-            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database).findById(id), options);
-            if (!record ||
-                String(record.tenant) !== String(currentTenant.id)) {
+            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database).findOne({ _id: id, tenant: currentTenant.id }), options);
+            if (!record) {
                 throw new Error404_1.default();
             }
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database).deleteOne({ _id: id }), options);
+            yield breed_1.default(options.database).deleteOne({ _id: id }, options);
             yield this._createAuditLog(auditLogRepository_1.default.DELETE, id, record, options);
             yield mongooseRepository_1.default.destroyRelationToOne(id, pet_1.default(options.database), 'breed', options);
-            yield mongooseRepository_1.default.destroyRelationToMany(id, petTypes_1.default(options.database), 'breeds', options);
+            yield mongooseRepository_1.default.destroyRelationToOne(id, pet_1.default(options.database), 'secondBreedMixed', options);
+            yield mongooseRepository_1.default.destroyRelationToMany(id, vaccineTypes_1.default(options.database), 'specificBreeds', options);
+            yield mongooseRepository_1.default.destroyRelationToMany(id, petDiseases_1.default(options.database), 'specificPetBreeds', options);
+        });
+    }
+    static filterIdInTenant(id, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return lodash_1.default.get(yield this.filterIdsInTenant([id], options), '[0]', null);
+        });
+    }
+    static filterIdsInTenant(ids, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!ids || !ids.length) {
+                return [];
+            }
+            const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
+            const records = yield breed_1.default(options.database)
+                .find({
+                _id: { $in: ids },
+                tenant: currentTenant.id,
+            })
+                .select(['_id']);
+            return records.map((record) => record._id);
         });
     }
     static count(filter, options) {
@@ -69,24 +90,20 @@ class BreedRepository {
     }
     static findById(id, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
             let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(breed_1.default(options.database)
-                .findById(id)
+                .findOne({ _id: id })
+                .populate('language')
                 .populate('type'), options);
-            if (!record ||
-                String(record.tenant) !== String(currentTenant.id)) {
+            if (!record) {
                 throw new Error404_1.default();
             }
-            return this._fillFileDownloadUrls(record);
+            return this._mapRelationshipsAndFillDownloadUrl(record);
         });
     }
     static findAndCountAll({ filter, limit = 0, offset = 0, orderBy = '' }, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
             let criteriaAnd = [];
-            criteriaAnd.push({
-                tenant: currentTenant.id,
-            });
+            criteriaAnd.push({});
             if (filter) {
                 if (filter.id) {
                     criteriaAnd.push({
@@ -101,9 +118,64 @@ class BreedRepository {
                         },
                     });
                 }
+                if (filter.language) {
+                    criteriaAnd.push({
+                        language: mongooseQueryUtils_1.default.uuid(filter.language),
+                    });
+                }
                 if (filter.type) {
                     criteriaAnd.push({
                         type: mongooseQueryUtils_1.default.uuid(filter.type),
+                    });
+                }
+                if (filter.size) {
+                    criteriaAnd.push({
+                        size: filter.size
+                    });
+                }
+                if (filter.exercise) {
+                    criteriaAnd.push({
+                        exercise: filter.exercise
+                    });
+                }
+                if (filter.sizeOfHome) {
+                    criteriaAnd.push({
+                        sizeOfHome: filter.sizeOfHome
+                    });
+                }
+                if (filter.grooming) {
+                    criteriaAnd.push({
+                        grooming: filter.grooming
+                    });
+                }
+                if (filter.coatLength) {
+                    criteriaAnd.push({
+                        coatLength: filter.coatLength
+                    });
+                }
+                if (filter.sheds) {
+                    criteriaAnd.push({
+                        sheds: filter.sheds
+                    });
+                }
+                if (filter.lifespan) {
+                    criteriaAnd.push({
+                        lifespan: filter.lifespan
+                    });
+                }
+                if (filter.vulnerableNativeBreed) {
+                    criteriaAnd.push({
+                        vulnerableNativeBreed: filter.vulnerableNativeBreed
+                    });
+                }
+                if (filter.townOrCountry) {
+                    criteriaAnd.push({
+                        townOrCountry: filter.townOrCountry
+                    });
+                }
+                if (filter.sizeOfGarden) {
+                    criteriaAnd.push({
+                        sizeOfGarden: filter.sizeOfGarden
                     });
                 }
                 if (filter.createdAtRange) {
@@ -139,31 +211,19 @@ class BreedRepository {
                 .skip(skip)
                 .limit(limitEscaped)
                 .sort(sort)
+                .populate('language')
                 .populate('type');
             const count = yield breed_1.default(options.database).countDocuments(criteria);
-            rows = yield Promise.all(rows.map(this._fillFileDownloadUrls));
+            rows = yield Promise.all(rows.map(this._mapRelationshipsAndFillDownloadUrl));
             return { rows, count };
         });
     }
     static findAllAutocomplete(search, limit, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
-            let criteriaAnd = [{
-                    tenant: currentTenant.id,
-                }];
-            if (search) {
+            let criteriaAnd = [{}];
+            if (search.language) {
                 criteriaAnd.push({
-                    $or: [
-                        {
-                            _id: mongooseQueryUtils_1.default.uuid(search),
-                        },
-                        {
-                            name: {
-                                $regex: mongooseQueryUtils_1.default.escapeRegExp(search),
-                                $options: 'i',
-                            }
-                        },
-                    ],
+                    language: mongooseQueryUtils_1.default.uuid(search.language)
                 });
             }
             const sort = mongooseQueryUtils_1.default.sort('name_ASC');
@@ -189,7 +249,7 @@ class BreedRepository {
             }, options);
         });
     }
-    static _fillFileDownloadUrls(record) {
+    static _mapRelationshipsAndFillDownloadUrl(record) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!record) {
                 return null;
@@ -197,6 +257,7 @@ class BreedRepository {
             const output = record.toObject
                 ? record.toObject()
                 : record;
+            output.image = yield fileRepository_1.default.fillDownloadUrl(output.image);
             return output;
         });
     }

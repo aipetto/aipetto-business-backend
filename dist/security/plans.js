@@ -12,13 +12,13 @@ class Plans {
     static selectPlanByStripePriceId(stripePriceId) {
         const growthStripePriceId = config_1.getConfig()
             .PLAN_STRIPE_PRICES_GROWTH;
-        const enterpriseStripePriceId = config_1.getConfig()
+        const premiumStripePriceId = config_1.getConfig()
             .PLAN_STRIPE_PRICES_PREMIUM;
         if (growthStripePriceId === stripePriceId) {
             return Plans.values.growth;
         }
-        if (enterpriseStripePriceId === stripePriceId) {
-            return Plans.values.enterprise;
+        if (premiumStripePriceId === stripePriceId) {
+            return Plans.values.premium;
         }
         return Plans.values.free;
     }
@@ -49,7 +49,7 @@ class Plans {
             }
             return 'active';
         }
-        if (status === 'canceled') {
+        if (status === 'canceled' || status === 'incomplete_expired') {
             return 'canceled';
         }
         return 'error';

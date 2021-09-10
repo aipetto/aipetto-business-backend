@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const fileSchema_1 = __importDefault(require("./schemas/fileSchema"));
 const Schema = mongoose_1.default.Schema;
 exports.default = (database) => {
     try {
@@ -13,15 +14,36 @@ exports.default = (database) => {
         // continue, because model doesnt exist
     }
     const PlaceSchema = new Schema({
+        name: {
+            type: String,
+            required: true,
+        },
+        placeType: {
+            type: Schema.Types.ObjectId,
+            ref: 'placeType',
+        },
         businessId: {
             type: Schema.Types.ObjectId,
             ref: 'business',
         },
-        latitude: {
-            type: Number,
-        },
-        longitude: {
-            type: Number,
+        services: [{
+                type: Schema.Types.ObjectId,
+                ref: 'businessServicesTypes',
+            }],
+        categories: [{
+                type: Schema.Types.ObjectId,
+                ref: 'businessCategory',
+            }],
+        location: {
+            type: {
+                type: String,
+                enum: ['Point'],
+                required: true
+            },
+            coordinates: {
+                type: [Number],
+                required: true
+            }
         },
         address: {
             type: String,
@@ -31,6 +53,16 @@ exports.default = (database) => {
         },
         addressZipCode: {
             type: String,
+        },
+        addressCity: {
+            type: String,
+        },
+        addressState: {
+            type: String,
+        },
+        addressCountry: {
+            type: Schema.Types.ObjectId,
+            ref: 'country',
         },
         openTime: {
             type: String,
@@ -42,9 +74,19 @@ exports.default = (database) => {
             type: Boolean,
             default: false
         },
+        stars: {
+            type: Number,
+        },
+        isOpen: {
+            type: Boolean,
+            default: false
+        },
+        photoLogo: [fileSchema_1.default],
+        photoStore: [fileSchema_1.default],
         tenant: {
             type: Schema.Types.ObjectId,
             ref: 'tenant',
+            required: true
         },
         createdBy: {
             type: Schema.Types.ObjectId,
@@ -62,6 +104,7 @@ exports.default = (database) => {
             importHash: { $type: 'string' },
         },
     });
+    PlaceSchema.index({ location: '2dsphere' });
     PlaceSchema.virtual('id').get(function () {
         // @ts-ignore
         return this._id.toHexString();

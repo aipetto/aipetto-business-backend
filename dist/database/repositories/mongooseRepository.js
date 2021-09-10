@@ -43,6 +43,12 @@ class MongooseRepository {
         return ((options && options.currentTenant) || { id: null });
     }
     /**
+     * Returns the current language
+     */
+    static getCurrentLanguage(options) {
+        return ((options && options.language));
+    }
+    /**
      * Returns the session if it exists on the options.
      */
     static getSession(options) {
@@ -69,7 +75,8 @@ class MongooseRepository {
             if (config_1.getConfig().DATABASE_TRANSACTIONS !== 'true') {
                 return;
             }
-            return session.commitTransaction();
+            yield session.commitTransaction();
+            yield session.endSession();
         });
     }
     /**
@@ -80,7 +87,8 @@ class MongooseRepository {
             if (config_1.getConfig().DATABASE_TRANSACTIONS !== 'true') {
                 return;
             }
-            return session.abortTransaction();
+            yield session.abortTransaction();
+            yield session.endSession();
         });
     }
     /**
@@ -95,36 +103,27 @@ class MongooseRepository {
         });
     }
     /**
-     * Returns the session as an option object if it exists on the options.
-     */
-    static getSessionOptionsIfExists(options) {
-        if (!this.getSession(options)) {
-            return undefined;
-        }
-        return { session: this.getSession(options) };
-    }
-    /**
      * In the case of a two way relationship, both records from both collections
      * must be in sync.
      * This method ensures it for Many to One relations.
      */
     static refreshTwoWayRelationManyToOne(record, sourceModel, sourceProperty, targetModel, targetProperty, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.wrapWithSessionIfExists(sourceModel.updateMany({
+            yield sourceModel.updateMany({
                 _id: { $nin: record._id },
                 [sourceProperty]: { $in: record[sourceProperty] },
             }, {
                 $pullAll: {
                     [sourceProperty]: record[sourceProperty],
                 },
-            }), options);
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({
+            }, options);
+            yield targetModel.updateMany({
                 _id: { $in: record[sourceProperty] },
-            }, { [targetProperty]: record._id }), options);
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({
+            }, { [targetProperty]: record._id }, options);
+            yield targetModel.updateMany({
                 _id: { $nin: record[sourceProperty] },
                 [targetProperty]: record._id,
-            }, { [targetProperty]: null }), options);
+            }, { [targetProperty]: null }, options);
         });
     }
     /**
@@ -134,11 +133,11 @@ class MongooseRepository {
      */
     static refreshTwoWayRelationOneToMany(record, sourceProperty, targetModel, targetProperty, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.wrapWithSessionIfExists(targetModel.updateOne({ _id: record[sourceProperty] }, { $addToSet: { [targetProperty]: record._id } }), options);
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({
+            yield targetModel.updateOne({ _id: record[sourceProperty] }, { $addToSet: { [targetProperty]: record._id } }, options);
+            yield targetModel.updateMany({
                 _id: { $ne: record[sourceProperty] },
                 [targetProperty]: record._id,
-            }, { $pull: { [targetProperty]: record._id } }), options);
+            }, { $pull: { [targetProperty]: record._id } }, options);
         });
     }
     /**
@@ -148,11 +147,11 @@ class MongooseRepository {
      */
     static refreshTwoWayRelationManyToMany(record, sourceProperty, targetModel, targetProperty, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({ _id: { $in: record[sourceProperty] } }, { $addToSet: { [targetProperty]: record._id } }), options);
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({
+            yield targetModel.updateMany({ _id: { $in: record[sourceProperty] } }, { $addToSet: { [targetProperty]: record._id } }, options);
+            yield targetModel.updateMany({
                 _id: { $nin: record[sourceProperty] },
                 [targetProperty]: { $in: record._id },
-            }, { $pull: { [targetProperty]: record._id } }), options);
+            }, { $pull: { [targetProperty]: record._id } }, options);
         });
     }
     /**
@@ -162,7 +161,7 @@ class MongooseRepository {
      */
     static destroyRelationToMany(recordId, targetModel, targetProperty, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({ [targetProperty]: recordId }, { $pull: { [targetProperty]: recordId } }), options);
+            yield targetModel.updateMany({ [targetProperty]: recordId }, { $pull: { [targetProperty]: recordId } }, options);
         });
     }
     /**
@@ -172,7 +171,7 @@ class MongooseRepository {
      */
     static destroyRelationToOne(recordId, targetModel, targetProperty, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.wrapWithSessionIfExists(targetModel.updateMany({ [targetProperty]: recordId }, { [targetProperty]: null }), options);
+            yield targetModel.updateMany({ [targetProperty]: recordId }, { [targetProperty]: null }, options);
         });
     }
     static handleUniqueFieldError(error, language, entityName) {

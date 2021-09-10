@@ -16,15 +16,18 @@ const mongooseRepository_1 = __importDefault(require("./mongooseRepository"));
 const mongooseQueryUtils_1 = __importDefault(require("../utils/mongooseQueryUtils"));
 const auditLogRepository_1 = __importDefault(require("./auditLogRepository"));
 const Error404_1 = __importDefault(require("../../errors/Error404"));
+const lodash_1 = __importDefault(require("lodash"));
 const serviceReservation_1 = __importDefault(require("../models/serviceReservation"));
+const fileRepository_1 = __importDefault(require("./fileRepository"));
+const businessPaymentCycle_1 = __importDefault(require("../models/businessPaymentCycle"));
 class ServiceReservationRepository {
     static create(data, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
             const currentUser = mongooseRepository_1.default.getCurrentUser(options);
             const [record] = yield serviceReservation_1.default(options.database).create([
-                Object.assign(Object.assign({}, data), { tenant: currentTenant.id, createdBy: currentUser.id, updatedBy: currentUser.id }),
-            ], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+                Object.assign(Object.assign({}, data), { tenant: currentTenant.id, createdBy: currentUser.id, updatedBy: currentUser.id })
+            ], options);
             yield this._createAuditLog(auditLogRepository_1.default.CREATE, record.id, data, options);
             return this.findById(record.id, options);
         });
@@ -32,12 +35,11 @@ class ServiceReservationRepository {
     static update(id, data, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
-            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database).findById(id), options);
-            if (!record ||
-                String(record.tenant) !== String(currentTenant.id)) {
+            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database).findOne({ _id: id, tenant: currentTenant.id }), options);
+            if (!record) {
                 throw new Error404_1.default();
             }
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database).updateOne({ _id: id }, Object.assign(Object.assign({}, data), { updatedBy: mongooseRepository_1.default.getCurrentUser(options).id })), options);
+            yield serviceReservation_1.default(options.database).updateOne({ _id: id }, Object.assign(Object.assign({}, data), { updatedBy: mongooseRepository_1.default.getCurrentUser(options).id }), options);
             yield this._createAuditLog(auditLogRepository_1.default.UPDATE, id, data, options);
             record = yield this.findById(id, options);
             return record;
@@ -46,13 +48,33 @@ class ServiceReservationRepository {
     static destroy(id, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
-            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database).findById(id), options);
-            if (!record ||
-                String(record.tenant) !== String(currentTenant.id)) {
+            let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database).findOne({ _id: id, tenant: currentTenant.id }), options);
+            if (!record) {
                 throw new Error404_1.default();
             }
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database).deleteOne({ _id: id }), options);
+            yield serviceReservation_1.default(options.database).deleteOne({ _id: id }, options);
             yield this._createAuditLog(auditLogRepository_1.default.DELETE, id, record, options);
+            yield mongooseRepository_1.default.destroyRelationToMany(id, businessPaymentCycle_1.default(options.database), 'businessServiceReservationsUsed', options);
+        });
+    }
+    static filterIdInTenant(id, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return lodash_1.default.get(yield this.filterIdsInTenant([id], options), '[0]', null);
+        });
+    }
+    static filterIdsInTenant(ids, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!ids || !ids.length) {
+                return [];
+            }
+            const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
+            const records = yield serviceReservation_1.default(options.database)
+                .find({
+                _id: { $in: ids },
+                tenant: currentTenant.id,
+            })
+                .select(['_id']);
+            return records.map((record) => record._id);
         });
     }
     static count(filter, options) {
@@ -65,16 +87,19 @@ class ServiceReservationRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
             let record = yield mongooseRepository_1.default.wrapWithSessionIfExists(serviceReservation_1.default(options.database)
-                .findById(id)
+                .findOne({ _id: id, tenant: currentTenant.id })
                 .populate('businessId')
                 .populate('customerId')
                 .populate('serviceType')
-                .populate('place'), options);
-            if (!record ||
-                String(record.tenant) !== String(currentTenant.id)) {
+                .populate('serviceProviderIDs')
+                .populate('place')
+                .populate('discountCode')
+                .populate('currency')
+                .populate('country'), options);
+            if (!record) {
                 throw new Error404_1.default();
             }
-            return this._fillFileDownloadUrls(record);
+            return this._mapRelationshipsAndFillDownloadUrl(record);
         });
     }
     static findAndCountAll({ filter, limit = 0, offset = 0, orderBy = '' }, options) {
@@ -119,10 +144,7 @@ class ServiceReservationRepository {
                 }
                 if (filter.time) {
                     criteriaAnd.push({
-                        time: {
-                            $regex: mongooseQueryUtils_1.default.escapeRegExp(filter.time),
-                            $options: 'i',
-                        },
+                        time: filter.time
                     });
                 }
                 if (filter.needTransportation === true ||
@@ -142,6 +164,94 @@ class ServiceReservationRepository {
                 if (filter.status) {
                     criteriaAnd.push({
                         status: filter.status
+                    });
+                }
+                if (filter.totalPriceRange) {
+                    const [start, end] = filter.totalPriceRange;
+                    if (start !== undefined && start !== null && start !== '') {
+                        criteriaAnd.push({
+                            totalPrice: {
+                                $gte: start,
+                            },
+                        });
+                    }
+                    if (end !== undefined && end !== null && end !== '') {
+                        criteriaAnd.push({
+                            totalPrice: {
+                                $lte: end,
+                            },
+                        });
+                    }
+                }
+                if (filter.totalPriceWithDiscountRange) {
+                    const [start, end] = filter.totalPriceWithDiscountRange;
+                    if (start !== undefined && start !== null && start !== '') {
+                        criteriaAnd.push({
+                            totalPriceWithDiscount: {
+                                $gte: start,
+                            },
+                        });
+                    }
+                    if (end !== undefined && end !== null && end !== '') {
+                        criteriaAnd.push({
+                            totalPriceWithDiscount: {
+                                $lte: end,
+                            },
+                        });
+                    }
+                }
+                if (filter.discountCode) {
+                    criteriaAnd.push({
+                        discountCode: mongooseQueryUtils_1.default.uuid(filter.discountCode),
+                    });
+                }
+                if (filter.currency) {
+                    criteriaAnd.push({
+                        currency: mongooseQueryUtils_1.default.uuid(filter.currency),
+                    });
+                }
+                if (filter.totalPriceTransportartionRange) {
+                    const [start, end] = filter.totalPriceTransportartionRange;
+                    if (start !== undefined && start !== null && start !== '') {
+                        criteriaAnd.push({
+                            totalPriceTransportartion: {
+                                $gte: start,
+                            },
+                        });
+                    }
+                    if (end !== undefined && end !== null && end !== '') {
+                        criteriaAnd.push({
+                            totalPriceTransportartion: {
+                                $lte: end,
+                            },
+                        });
+                    }
+                }
+                if (filter.ratingFromCustomerRange) {
+                    const [start, end] = filter.ratingFromCustomerRange;
+                    if (start !== undefined && start !== null && start !== '') {
+                        criteriaAnd.push({
+                            ratingFromCustomer: {
+                                $gte: start,
+                            },
+                        });
+                    }
+                    if (end !== undefined && end !== null && end !== '') {
+                        criteriaAnd.push({
+                            ratingFromCustomer: {
+                                $lte: end,
+                            },
+                        });
+                    }
+                }
+                if (filter.country) {
+                    criteriaAnd.push({
+                        country: mongooseQueryUtils_1.default.uuid(filter.country),
+                    });
+                }
+                if (filter.source) {
+                    criteriaAnd.push({
+                        source: filter.source
                     });
                 }
                 if (filter.createdAtRange) {
@@ -180,9 +290,13 @@ class ServiceReservationRepository {
                 .populate('businessId')
                 .populate('customerId')
                 .populate('serviceType')
-                .populate('place');
+                .populate('serviceProviderIDs')
+                .populate('place')
+                .populate('discountCode')
+                .populate('currency')
+                .populate('country');
             const count = yield serviceReservation_1.default(options.database).countDocuments(criteria);
-            rows = yield Promise.all(rows.map(this._fillFileDownloadUrls));
+            rows = yield Promise.all(rows.map(this._mapRelationshipsAndFillDownloadUrl));
             return { rows, count };
         });
     }
@@ -224,7 +338,7 @@ class ServiceReservationRepository {
             }, options);
         });
     }
-    static _fillFileDownloadUrls(record) {
+    static _mapRelationshipsAndFillDownloadUrl(record) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!record) {
                 return null;
@@ -232,6 +346,7 @@ class ServiceReservationRepository {
             const output = record.toObject
                 ? record.toObject()
                 : record;
+            output.digitalReservationDoc = yield fileRepository_1.default.fillDownloadUrl(output.digitalReservationDoc);
             return output;
         });
     }

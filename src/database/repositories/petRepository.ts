@@ -13,6 +13,7 @@ import PetExamination from '../models/petExamination';
 class PetRepository {
   
   static async create(data, options: IRepositoryOptions) {
+    console.log(options);
     const currentTenant = MongooseRepository.getCurrentTenant(
       options,
     );
@@ -42,9 +43,26 @@ class PetRepository {
       options,
     );
 
-    
-
     return this.findById(record.id, options);
+  }
+
+  static async createWithTenantAndCurrentUserFromRequest(data, options: IRepositoryOptions) {
+
+    const [record] = await Pet(
+        options.database,
+    ).create(
+        [data],
+        options,
+    );
+
+    await this._createAuditLog(
+        AuditLogRepository.CREATE,
+        record.id,
+        data,
+        options,
+    );
+
+    return this.findByIdWithTenant(record.id, data.tenant, options);
   }
 
   static async update(id, data, options: IRepositoryOptions) {
@@ -202,6 +220,33 @@ class PetRepository {
       .populate('matches')
       .populate('petFriends'),
       options,
+    );
+
+    if (!record) {
+      throw new Error404();
+    }
+
+    return this._mapRelationshipsAndFillDownloadUrl(record);
+  }
+
+  static async findByIdWithTenant(id, tenantId, options: IRepositoryOptions) {
+
+    let record = await MongooseRepository.wrapWithSessionIfExists(
+        Pet(options.database)
+            .findOne({_id: id, tenant: tenantId})
+            .populate('breed')
+            .populate('secondBreedMixed')
+            .populate('type')
+            .populate('customerId')
+            .populate('petOwners')
+            .populate('photos')
+            .populate('vaccines')
+            .populate('usersAuthorized')
+            .populate('businessAuthorized')
+            .populate('diseases')
+            .populate('matches')
+            .populate('petFriends'),
+        options,
     );
 
     if (!record) {

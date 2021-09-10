@@ -12,9 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const orderRepository_1 = __importDefault(require("../database/repositories/orderRepository"));
 const Error400_1 = __importDefault(require("../errors/Error400"));
 const mongooseRepository_1 = __importDefault(require("../database/repositories/mongooseRepository"));
+const orderRepository_1 = __importDefault(require("../database/repositories/orderRepository"));
+const customerRepository_1 = __importDefault(require("../database/repositories/customerRepository"));
+const productRepository_1 = __importDefault(require("../database/repositories/productRepository"));
+const businessRepository_1 = __importDefault(require("../database/repositories/businessRepository"));
+const userRepository_1 = __importDefault(require("../database/repositories/userRepository"));
 class OrderService {
     constructor(options) {
         this.options = options;
@@ -23,6 +27,10 @@ class OrderService {
         return __awaiter(this, void 0, void 0, function* () {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
+                data.customer = yield customerRepository_1.default.filterIdInTenant(data.customer, Object.assign(Object.assign({}, this.options), { session }));
+                data.products = yield productRepository_1.default.filterIdsInTenant(data.products, Object.assign(Object.assign({}, this.options), { session }));
+                data.employee = yield userRepository_1.default.filterIdInTenant(data.employee, Object.assign(Object.assign({}, this.options), { session }));
+                data.businessId = yield businessRepository_1.default.filterIdInTenant(data.businessId, Object.assign(Object.assign({}, this.options), { session }));
                 const record = yield orderRepository_1.default.create(data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
@@ -38,6 +46,10 @@ class OrderService {
         return __awaiter(this, void 0, void 0, function* () {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
+                data.customer = yield customerRepository_1.default.filterIdInTenant(data.customer, Object.assign(Object.assign({}, this.options), { session }));
+                data.products = yield productRepository_1.default.filterIdsInTenant(data.products, Object.assign(Object.assign({}, this.options), { session }));
+                data.employee = yield userRepository_1.default.filterIdInTenant(data.employee, Object.assign(Object.assign({}, this.options), { session }));
+                data.businessId = yield businessRepository_1.default.filterIdInTenant(data.businessId, Object.assign(Object.assign({}, this.options), { session }));
                 const record = yield orderRepository_1.default.update(id, data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;

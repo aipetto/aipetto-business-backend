@@ -36,6 +36,8 @@ app.use(defaultRateLimiter);
 // Enables Helmet, a set of tools to
 // increase security.
 app.use(helmet_1.default());
+// support encoded bodies
+app.use(body_parser_1.default.urlencoded({ extended: true }));
 // Parses the body of POST/PUT request
 // to JSON
 app.use(body_parser_1.default.json({
@@ -69,6 +71,38 @@ require('./business').default(routes);
 require('./place').default(routes);
 require('./businessServicesTypes').default(routes);
 require('./serviceReservation').default(routes);
+require('./businessPlaceServiceAvailability').default(routes);
+require('./country').default(routes);
+require('./city').default(routes);
+require('./state').default(routes);
+require('./messages').default(routes);
+require('./professionalsServiceAvailability').default(routes);
+require('./languages').default(routes);
+require('./currency').default(routes);
+require('./discounts').default(routes);
+require('./wallet').default(routes);
+require('./businessCategory').default(routes);
+require('./providers').default(routes);
+require('./vaccineTypes').default(routes);
+require('./petVaccines').default(routes);
+require('./placeType').default(routes);
+require('./landingSurvey').default(routes);
+require('./newBusinessSurvey').default(routes);
+require('./petPhotos').default(routes);
+require('./petDiseases').default(routes);
+require('./businessServicesPrices').default(routes);
+require('./posts').default(routes);
+require('./postCategories').default(routes);
+require('./postComments').default(routes);
+require('./pointsChallenges').default(routes);
+require('./challengesCategories').default(routes);
+require('./productCategory').default(routes);
+require('./deals').default(routes);
+require('./businessPaymentCycle').default(routes);
+require('./questions').default(routes);
+require('./answers').default(routes);
+require('./petExamination').default(routes);
+require('./contacts').default(routes);
 // Loads the Tenant if the :tenantId param is passed
 routes.param('tenantId', tenantMiddleware_1.tenantMiddleware);
 // Add the routes to the /api endpoint

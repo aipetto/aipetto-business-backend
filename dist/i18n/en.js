@@ -5,7 +5,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const en = {
     app: {
-        title: 'Application',
+        title: 'aipetto',
     },
     auth: {
         userNotFound: `Sorry, we don't recognize your credentials`,
@@ -31,8 +31,8 @@ const en = {
             userAlreadyExists: 'User with this email already exists.',
             userNotFound: 'User not found.',
             destroyingHimself: `You can't delete yourself.`,
-            revokingOwnPermission: `You can't revoke your own aipettoAdmin permission.`,
-            revokingPlanUser: `You can't revoke the aipettoAdmin permission of the plan manager.`,
+            revokingOwnPermission: `You can't revoke your own admin permission.`,
+            revokingPlanUser: `You can't revoke the admin permission of the plan manager.`,
             destroyingPlanUser: `You can't delete the plan manager.`,
         },
     },
@@ -76,7 +76,9 @@ const en = {
     entities: {
         customer: {
             errors: {
-                unique: {}
+                unique: {
+                    uniqueCustomIdentifier: 'UniqueCustomIdentifier must be unique',
+                }
             }
         },
         product: {
@@ -91,7 +93,9 @@ const en = {
         },
         pet: {
             errors: {
-                unique: {}
+                unique: {
+                    governmentUniqueID: 'GovernmentUniqueID must be unique',
+                }
             }
         },
         breed: {
@@ -106,7 +110,9 @@ const en = {
         },
         business: {
             errors: {
-                unique: {}
+                unique: {
+                    businessID: 'BusinessID must be unique',
+                }
             }
         },
         place: {
@@ -120,6 +126,182 @@ const en = {
             }
         },
         serviceReservation: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessPlaceServiceAvailability: {
+            errors: {
+                unique: {}
+            }
+        },
+        country: {
+            errors: {
+                unique: {}
+            }
+        },
+        city: {
+            errors: {
+                unique: {}
+            }
+        },
+        state: {
+            errors: {
+                unique: {}
+            }
+        },
+        messages: {
+            errors: {
+                unique: {}
+            }
+        },
+        professionalsServiceAvailability: {
+            errors: {
+                unique: {}
+            }
+        },
+        languages: {
+            errors: {
+                unique: {}
+            }
+        },
+        currency: {
+            errors: {
+                unique: {}
+            }
+        },
+        discounts: {
+            errors: {
+                unique: {
+                    codeName: 'CodeName must be unique',
+                }
+            }
+        },
+        wallet: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessCategory: {
+            errors: {
+                unique: {}
+            }
+        },
+        providers: {
+            errors: {
+                unique: {
+                    providerID: 'ProviderID must be unique',
+                }
+            }
+        },
+        vaccineTypes: {
+            errors: {
+                unique: {
+                    vaccineCustomUniqueID: 'VaccineCustomUniqueID must be unique',
+                }
+            }
+        },
+        petVaccines: {
+            errors: {
+                unique: {
+                    uniqueVetVaccineCode: 'UniqueVetVaccineCode must be unique',
+                }
+            }
+        },
+        placeType: {
+            errors: {
+                unique: {}
+            }
+        },
+        landingSurvey: {
+            errors: {
+                unique: {}
+            }
+        },
+        newBusinessSurvey: {
+            errors: {
+                unique: {}
+            }
+        },
+        petPhotos: {
+            errors: {
+                unique: {}
+            }
+        },
+        petDiseases: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessServicesPrices: {
+            errors: {
+                unique: {}
+            }
+        },
+        posts: {
+            errors: {
+                unique: {}
+            }
+        },
+        postCategories: {
+            errors: {
+                unique: {
+                    name: 'Name must be unique',
+                }
+            }
+        },
+        postComments: {
+            errors: {
+                unique: {}
+            }
+        },
+        pointsChallenges: {
+            errors: {
+                unique: {
+                    name: 'Name must be unique',
+                }
+            }
+        },
+        challengesCategories: {
+            errors: {
+                unique: {
+                    name: 'Name must be unique',
+                }
+            }
+        },
+        productCategory: {
+            errors: {
+                unique: {
+                    name: 'Name must be unique',
+                }
+            }
+        },
+        deals: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessPaymentCycle: {
+            errors: {
+                unique: {}
+            }
+        },
+        questions: {
+            errors: {
+                unique: {}
+            }
+        },
+        answers: {
+            errors: {
+                unique: {}
+            }
+        },
+        petExamination: {
+            errors: {
+                unique: {}
+            }
+        },
+        contacts: {
             errors: {
                 unique: {}
             }
