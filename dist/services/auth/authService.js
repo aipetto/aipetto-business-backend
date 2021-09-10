@@ -25,6 +25,7 @@ const tenantRepository_1 = __importDefault(require("../../database/repositories/
 const tenantSubdomain_1 = require("../tenantSubdomain");
 const Error401_1 = __importDefault(require("../../errors/Error401"));
 const moment_1 = __importDefault(require("moment"));
+const roles_1 = __importDefault(require("../../security/roles"));
 const BCRYPT_SALT_ROUNDS = 12;
 class AuthService {
     static signup(email, password, invitationToken, tenantId, options = {}) {
@@ -145,7 +146,8 @@ class AuthService {
                 yield new tenantService_1.default(Object.assign(Object.assign({}, options), { currentUser })).joinWithDefaultRolesOrAskApproval({
                     tenantId,
                     // leave empty to require aipettoAdmin's approval
-                    roles: [],
+                    // By default as the most basic role an user is assigned to is petOwner
+                    roles: [roles_1.default.values.petOwner],
                 }, options);
             }
             const singleTenant = config_1.getConfig().TENANT_MODE === 'single';
@@ -157,7 +159,8 @@ class AuthService {
                 // Creates or join default Tenant
                 yield new tenantService_1.default(Object.assign(Object.assign({}, options), { currentUser })).createOrJoinDefault({
                     // leave empty to require aipettoAdmin's approval
-                    roles: [],
+                    // By default as the most basic role an user is assigned to is petOwner
+                    roles: [roles_1.default.values.petOwner],
                 }, options.session);
             }
         });
@@ -276,7 +279,7 @@ class AuthService {
             return userRepository_1.default.updatePassword(currentUser.id, newHashedPassword, true, options);
         });
     }
-    static signinFromSocial(provider, providerId, email, emailVerified, firstName, lastName, options = {}) {
+    static signinFromSocial(provider, providerId, email, emailVerified, firstName, lastName, avatars, options = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!email) {
                 throw new Error('auth-no-email');
@@ -285,13 +288,12 @@ class AuthService {
             try {
                 email = email.toLowerCase();
                 let user = yield userRepository_1.default.findByEmail(email, options);
-                if (user &&
-                    (user.provider !== provider ||
-                        user.providerId !== providerId)) {
-                    throw new Error('auth-invalid-provider');
+                if (user) {
+                    const token = jsonwebtoken_1.default.sign({ id: user.id }, config_1.getConfig().AUTH_JWT_SECRET, { expiresIn: config_1.getConfig().AUTH_JWT_EXPIRES_IN });
+                    return token;
                 }
                 if (!user) {
-                    user = yield userRepository_1.default.createFromSocial(provider, providerId, email, emailVerified, firstName, lastName, options);
+                    user = yield userRepository_1.default.createFromSocial(provider, providerId, email, emailVerified, firstName, lastName, avatars, options);
                 }
                 const token = jsonwebtoken_1.default.sign({ id: user.id }, config_1.getConfig().AUTH_JWT_SECRET, { expiresIn: config_1.getConfig().AUTH_JWT_EXPIRES_IN });
                 yield mongooseRepository_1.default.commitTransaction(session);

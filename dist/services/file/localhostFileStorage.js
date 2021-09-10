@@ -18,6 +18,7 @@ const os_1 = __importDefault(require("os"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = require("../../config");
 const mv_1 = __importDefault(require("mv"));
+const Error403_1 = __importDefault(require("../../errors/Error403"));
 /**
  * The directory where the files should be uploaded.
  * Change this to a persisted folder.
@@ -44,6 +45,9 @@ class LocalFileStorage {
     static upload(fileTempUrl, privateUrl) {
         return __awaiter(this, void 0, void 0, function* () {
             const internalUrl = path_1.default.join(UPLOAD_DIR, privateUrl);
+            if (!isPathInsideUploadDir(internalUrl)) {
+                throw new Error403_1.default();
+            }
             ensureDirectoryExistence(internalUrl);
             return new Promise((resolve, reject) => {
                 mv_1.default(fileTempUrl, internalUrl, (err) => {
@@ -71,7 +75,11 @@ class LocalFileStorage {
      */
     static download(privateUrl) {
         return __awaiter(this, void 0, void 0, function* () {
-            return path_1.default.join(UPLOAD_DIR, privateUrl);
+            let finalPath = path_1.default.join(UPLOAD_DIR, privateUrl);
+            if (!isPathInsideUploadDir(finalPath)) {
+                throw new Error403_1.default();
+            }
+            return finalPath;
         });
     }
 }
@@ -83,5 +91,9 @@ function ensureDirectoryExistence(filePath) {
     }
     ensureDirectoryExistence(dirname);
     fs_1.default.mkdirSync(dirname);
+}
+function isPathInsideUploadDir(path) {
+    const uploadUrlWithSlash = UPLOAD_DIR.endsWith('/') ? UPLOAD_DIR : `${UPLOAD_DIR}/`;
+    return path.indexOf(uploadUrlWithSlash) === 0;
 }
 //# sourceMappingURL=localhostFileStorage.js.map

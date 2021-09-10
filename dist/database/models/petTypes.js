@@ -18,13 +18,14 @@ exports.default = (database) => {
             type: String,
         },
         image: [fileSchema_1.default],
-        breeds: [{
-                type: Schema.Types.ObjectId,
-                ref: 'breed',
-            }],
+        language: {
+            type: Schema.Types.ObjectId,
+            ref: 'languages',
+        },
         tenant: {
             type: Schema.Types.ObjectId,
             ref: 'tenant',
+            required: true
         },
         createdBy: {
             type: Schema.Types.ObjectId,

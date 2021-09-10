@@ -12,10 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const permissionChecker_1 = __importDefault(require("../../services/user/permissionChecker"));
 const apiResponseHandler_1 = __importDefault(require("../apiResponseHandler"));
 const permissions_1 = __importDefault(require("../../security/permissions"));
 const breedService_1 = __importDefault(require("../../services/breedService"));
+const permissionChecker_1 = __importDefault(require("../../services/user/permissionChecker"));
 exports.default = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         new permissionChecker_1.default(req).validateHas(permissions_1.default.values.breedEdit);

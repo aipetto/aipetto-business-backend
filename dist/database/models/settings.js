@@ -14,12 +14,13 @@ exports.default = (database) => {
         // continue, because model doesnt exist
     }
     const SettingsSchema = new Schema({
-        theme: { type: String },
+        theme: { type: String, required: true },
         backgroundImages: [fileSchema_1.default],
         logos: [fileSchema_1.default],
         tenant: {
             type: Schema.Types.ObjectId,
             ref: 'tenant',
+            required: true
         },
         createdBy: {
             type: Schema.Types.ObjectId,

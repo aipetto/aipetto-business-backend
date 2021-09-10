@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const fileSchema_1 = __importDefault(require("./schemas/fileSchema"));
 const Schema = mongoose_1.default.Schema;
 exports.default = (database) => {
     try {
@@ -16,13 +17,108 @@ exports.default = (database) => {
         name: {
             type: String,
         },
+        language: {
+            type: Schema.Types.ObjectId,
+            ref: 'languages',
+        },
         type: {
             type: Schema.Types.ObjectId,
             ref: 'petTypes',
         },
+        size: {
+            type: String,
+            enum: [
+                "Small",
+                "Medium",
+                "Large",
+                null
+            ],
+        },
+        exercise: {
+            type: String,
+            enum: [
+                "up_to_30_minutes_per_day",
+                "up_to_1_hour_per_day",
+                "more_than_2_hours_per_day",
+                null
+            ],
+        },
+        sizeOfHome: {
+            type: String,
+            enum: [
+                "flat_apartment",
+                "small_house",
+                "large_house",
+                null
+            ],
+        },
+        grooming: {
+            type: String,
+            enum: [
+                "more_than_once_a_week",
+                "every_day",
+                "once_a_week",
+                null
+            ],
+        },
+        coatLength: {
+            type: String,
+            enum: [
+                "short",
+                "medium",
+                "long",
+                null
+            ],
+        },
+        sheds: {
+            type: String,
+            enum: [
+                "yes",
+                "no",
+                null
+            ],
+        },
+        lifespan: {
+            type: String,
+            enum: [
+                "under_10_years",
+                "over_10_years",
+                "over_12_years",
+                null
+            ],
+        },
+        vulnerableNativeBreed: {
+            type: String,
+            enum: [
+                "yes",
+                "no",
+                null
+            ],
+        },
+        townOrCountry: {
+            type: String,
+            enum: [
+                "country",
+                "town",
+                "either",
+                null
+            ],
+        },
+        sizeOfGarden: {
+            type: String,
+            enum: [
+                "small",
+                "medium",
+                "small_medium",
+                "large",
+                null
+            ],
+        },
+        image: [fileSchema_1.default],
         tenant: {
             type: Schema.Types.ObjectId,
             ref: 'tenant',
+            required: true
         },
         createdBy: {
             type: Schema.Types.ObjectId,

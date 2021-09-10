@@ -20,13 +20,6 @@ export default class PetService {
     );
 
     try {
-      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
-      data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
-      data.photos = await PetPhotosRepository.filterIdsInTenant(data.photos, { ...this.options, session });
-      data.usersAuthorized = await UserRepository.filterIdsInTenant(data.usersAuthorized, { ...this.options, session });
-      data.businessAuthorized = await BusinessRepository.filterIdsInTenant(data.businessAuthorized, { ...this.options, session });
-      data.petFriends = await PetRepository.filterIdsInTenant(data.petFriends, { ...this.options, session });
-
       const record = await PetRepository.create(data, {
         ...this.options,
         session,
@@ -48,19 +41,39 @@ export default class PetService {
     }
   }
 
+  async createWitTenantOnPayload(data) {
+    const session = await MongooseRepository.createSession(
+        this.options.database,
+    );
+
+    try {
+      const record = await PetRepository.createWithTenantAndCurrentUserFromRequest(data, {
+        ...this.options,
+        session,
+      });
+
+      await MongooseRepository.commitTransaction(session);
+
+      return record;
+    } catch (error) {
+      await MongooseRepository.abortTransaction(session);
+
+      MongooseRepository.handleUniqueFieldError(
+          error,
+          this.options.language,
+          'pet',
+      );
+
+      throw error;
+    }
+  }
+
   async update(id, data) {
     const session = await MongooseRepository.createSession(
       this.options.database,
     );
 
     try {
-      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
-      data.petOwners = await UserRepository.filterIdsInTenant(data.petOwners, { ...this.options, session });
-      data.photos = await PetPhotosRepository.filterIdsInTenant(data.photos, { ...this.options, session });
-      data.usersAuthorized = await UserRepository.filterIdsInTenant(data.usersAuthorized, { ...this.options, session });
-      data.businessAuthorized = await BusinessRepository.filterIdsInTenant(data.businessAuthorized, { ...this.options, session });
-      data.petFriends = await PetRepository.filterIdsInTenant(data.petFriends, { ...this.options, session });
-
       const record = await PetRepository.update(
         id,
         data,

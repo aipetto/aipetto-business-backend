@@ -53,7 +53,7 @@ class TenantService {
             }
             let record = yield tenantRepository_1.default.create({ name: 'default', url: 'default' }, Object.assign(Object.assign({}, this.options), { session }));
             yield settingsService_1.default.findOrCreateDefault(Object.assign(Object.assign({}, this.options), { currentTenant: record, session }));
-            yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roles_1.default.values.aipettoAdmin], Object.assign(Object.assign({}, this.options), { session }));
+            yield tenantUserRepository_1.default.create(record, this.options.currentUser, [], Object.assign(Object.assign({}, this.options), { session }));
         });
     }
     joinWithDefaultRolesOrAskApproval({ roles, tenantId }, { session }) {
@@ -113,7 +113,8 @@ class TenantService {
                 }
                 let record = yield tenantRepository_1.default.create(data, Object.assign(Object.assign({}, this.options), { session }));
                 yield settingsService_1.default.findOrCreateDefault(Object.assign(Object.assign({}, this.options), { currentTenant: record, session }));
-                yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roles_1.default.values.aipettoAdmin], Object.assign(Object.assign({}, this.options), { session }));
+                const roleToBeAssigned = record.name.substring(0, 7) == 'aipetto' ? roles_1.default.values.petOwner : roles_1.default.values.aipettoAdmin;
+                yield tenantUserRepository_1.default.create(record, this.options.currentUser, [roleToBeAssigned], Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
             }

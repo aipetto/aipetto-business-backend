@@ -3,6 +3,10 @@ export default (app) => {
     `/tenant/:tenantId/pet`,
     require('./petCreate').default,
   );
+  app.post(
+      `/tenant/:tenantId/petWithTenant`,
+      require('./petCreateWithTenant').default,
+  );
   app.put(
     `/tenant/:tenantId/pet/:id`,
     require('./petUpdate').default,

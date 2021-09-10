@@ -34,9 +34,14 @@ exports.default = (database) => {
             default: false
         },
         attachments: [fileSchema_1.default],
+        businessId: {
+            type: Schema.Types.ObjectId,
+            ref: 'business',
+        },
         tenant: {
             type: Schema.Types.ObjectId,
             ref: 'tenant',
+            required: true
         },
         createdBy: {
             type: Schema.Types.ObjectId,

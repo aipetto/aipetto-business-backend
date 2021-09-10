@@ -37,8 +37,8 @@ class SettingsRepository {
             const [settings] = yield settings_1.default(options.database).create([
                 Object.assign(Object.assign({}, defaults), { tenant: currentTenant.id, createdBy: mongooseRepository_1.default.getCurrentUser(options)
                         ? mongooseRepository_1.default.getCurrentUser(options).id
-                        : null }),
-            ], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+                        : null })
+            ], options);
             return this._fillFileDownloadUrls(settings);
         });
     }
@@ -48,7 +48,7 @@ class SettingsRepository {
             const record = yield mongooseRepository_1.default.wrapWithSessionIfExists(settings_1.default(options.database).findOne({
                 tenant: currentTenant.id,
             }), options);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(settings_1.default(options.database).updateOne({ _id: record.id }, Object.assign(Object.assign({}, data), { tenant: currentTenant.id })), options);
+            yield settings_1.default(options.database).updateOne({ _id: record.id }, Object.assign(Object.assign({}, data), { tenant: currentTenant.id }), options);
             yield auditLogRepository_1.default.log({
                 entityName: 'settings',
                 entityId: record.id,

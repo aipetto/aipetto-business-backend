@@ -38,7 +38,7 @@ class TenantUserRepository {
         return __awaiter(this, void 0, void 0, function* () {
             roles = roles || [];
             const status = selectStatus('active', roles);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateMany({ _id: user.id }, {
+            yield user_1.default(options.database).updateMany({ _id: user.id }, {
                 $push: {
                     tenants: {
                         tenant: tenant.id,
@@ -46,7 +46,7 @@ class TenantUserRepository {
                         roles,
                     },
                 },
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: user.id,
@@ -62,11 +62,11 @@ class TenantUserRepository {
     static destroy(tenantId, id, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).findById(id), options);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+            yield user_1.default(options.database).updateOne({ _id: id }, {
                 $pull: {
                     tenants: { tenant: tenantId },
                 },
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: user.id,
@@ -96,11 +96,11 @@ class TenantUserRepository {
                         .toString('hex'),
                     roles: [],
                 };
-                yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+                yield user_1.default(options.database).updateOne({ _id: id }, {
                     $push: {
                         tenants: tenantUser,
                     },
-                }), options);
+                }, options);
             }
             let { roles: existingRoles } = tenantUser;
             let newRoles = [];
@@ -115,12 +115,12 @@ class TenantUserRepository {
             }
             tenantUser.roles = newRoles;
             tenantUser.status = selectStatus(tenantUser.status, newRoles);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id, 'tenants.tenant': tenantId }, {
+            yield user_1.default(options.database).updateOne({ _id: id, 'tenants.tenant': tenantId }, {
                 $set: {
                     'tenants.$.roles': newRoles,
                     'tenants.$.status': tenantUser.status,
                 },
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: user.id,
@@ -165,12 +165,12 @@ class TenantUserRepository {
             // Auto-verifies email if the invitation token matches the same email
             const emailVerified = currentUser.emailVerified ||
                 isSameEmailFromInvitation;
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: currentUser.id }, {
+            yield user_1.default(options.database).updateOne({ _id: currentUser.id }, {
                 emailVerified,
                 $push: {
                     tenants: tenantUser,
                 },
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: currentUser.id,

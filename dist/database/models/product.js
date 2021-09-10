@@ -31,9 +31,33 @@ exports.default = (database) => {
             max: 99999,
         },
         photos: [fileSchema_1.default],
+        businessId: {
+            type: Schema.Types.ObjectId,
+            ref: 'business',
+        },
+        acceptPointsToShop: {
+            type: Boolean,
+            default: false
+        },
+        pointsPrice: {
+            type: Number,
+        },
+        currency: {
+            type: Schema.Types.ObjectId,
+            ref: 'currency',
+        },
+        language: {
+            type: Schema.Types.ObjectId,
+            ref: 'languages',
+        },
+        country: {
+            type: Schema.Types.ObjectId,
+            ref: 'country',
+        },
         tenant: {
             type: Schema.Types.ObjectId,
             ref: 'tenant',
+            required: true
         },
         createdBy: {
             type: Schema.Types.ObjectId,

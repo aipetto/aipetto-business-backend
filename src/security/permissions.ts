@@ -256,12 +256,12 @@ class Permissions {
 
       petImport: {
         id: 'petImport',
-        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       petCreate: {
         id: 'petCreate',
-        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.petProfileImage,
@@ -269,7 +269,7 @@ class Permissions {
       },
       petEdit: {
         id: 'petEdit',
-        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.petProfileImage,
@@ -277,7 +277,7 @@ class Permissions {
       },
       petDestroy: {
         id: 'petDestroy',
-        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.petProfileImage,
@@ -285,12 +285,12 @@ class Permissions {
       },
       petRead: {
         id: 'petRead',
-        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
       petAutocomplete: {
         id: 'petAutocomplete',
-        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
       },
 

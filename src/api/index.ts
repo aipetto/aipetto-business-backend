@@ -40,6 +40,9 @@ app.use(defaultRateLimiter);
 // increase security.
 app.use(helmet());
 
+// support encoded bodies
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Parses the body of POST/PUT request
 // to JSON
 app.use(

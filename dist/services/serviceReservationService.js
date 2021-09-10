@@ -12,9 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const serviceReservationRepository_1 = __importDefault(require("../database/repositories/serviceReservationRepository"));
 const Error400_1 = __importDefault(require("../errors/Error400"));
 const mongooseRepository_1 = __importDefault(require("../database/repositories/mongooseRepository"));
+const serviceReservationRepository_1 = __importDefault(require("../database/repositories/serviceReservationRepository"));
+const businessRepository_1 = __importDefault(require("../database/repositories/businessRepository"));
+const customerRepository_1 = __importDefault(require("../database/repositories/customerRepository"));
+const providersRepository_1 = __importDefault(require("../database/repositories/providersRepository"));
+const placeRepository_1 = __importDefault(require("../database/repositories/placeRepository"));
+const discountsRepository_1 = __importDefault(require("../database/repositories/discountsRepository"));
 class ServiceReservationService {
     constructor(options) {
         this.options = options;
@@ -23,6 +28,11 @@ class ServiceReservationService {
         return __awaiter(this, void 0, void 0, function* () {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
+                data.businessId = yield businessRepository_1.default.filterIdInTenant(data.businessId, Object.assign(Object.assign({}, this.options), { session }));
+                data.customerId = yield customerRepository_1.default.filterIdInTenant(data.customerId, Object.assign(Object.assign({}, this.options), { session }));
+                data.serviceProviderIDs = yield providersRepository_1.default.filterIdsInTenant(data.serviceProviderIDs, Object.assign(Object.assign({}, this.options), { session }));
+                data.place = yield placeRepository_1.default.filterIdInTenant(data.place, Object.assign(Object.assign({}, this.options), { session }));
+                data.discountCode = yield discountsRepository_1.default.filterIdInTenant(data.discountCode, Object.assign(Object.assign({}, this.options), { session }));
                 const record = yield serviceReservationRepository_1.default.create(data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
@@ -38,6 +48,11 @@ class ServiceReservationService {
         return __awaiter(this, void 0, void 0, function* () {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
+                data.businessId = yield businessRepository_1.default.filterIdInTenant(data.businessId, Object.assign(Object.assign({}, this.options), { session }));
+                data.customerId = yield customerRepository_1.default.filterIdInTenant(data.customerId, Object.assign(Object.assign({}, this.options), { session }));
+                data.serviceProviderIDs = yield providersRepository_1.default.filterIdsInTenant(data.serviceProviderIDs, Object.assign(Object.assign({}, this.options), { session }));
+                data.place = yield placeRepository_1.default.filterIdInTenant(data.place, Object.assign(Object.assign({}, this.options), { session }));
+                data.discountCode = yield discountsRepository_1.default.filterIdInTenant(data.discountCode, Object.assign(Object.assign({}, this.options), { session }));
                 const record = yield serviceReservationRepository_1.default.update(id, data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;

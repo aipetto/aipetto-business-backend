@@ -469,6 +469,28 @@ class PlaceRepository {
 
     if (filter) {
       console.log(filter);
+
+      if (filter.longitude !== undefined &&
+          filter.latitude !== undefined &&
+          filter.longitude !== null &&
+          filter.longitude !== '' &&
+          filter.latitude !== null &&
+          filter.latitude !== '') {
+        criteriaAnd.push({
+          location: {
+            "$near": {
+              "$geometry": {
+                "type": "Point",
+                "coordinates": [
+                  parseFloat(filter.longitude),
+                  parseFloat(filter.latitude)
+                ]
+              },
+              "$maxDistance": 10000
+            }
+          }
+        });
+      }
       /**
       if (filter.id) {
         criteriaAnd.push({
@@ -516,16 +538,7 @@ class PlaceRepository {
         }
       }
 
-      if (filter.address) {
-        criteriaAnd.push({
-          address: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-                filter.address,
-            ),
-            $options: 'i',
-          },
-        });
-      }
+
 
       if (filter.addressNumber) {
         criteriaAnd.push({

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const es = {
     app: {
-        title: 'Aplicación',
+        title: 'aipetto',
     },
     auth: {
         userNotFound: 'Lo sentimos, no reconocemos tus credenciales',
@@ -28,9 +28,9 @@ const es = {
             userAlreadyExists: 'El usuario con este correo electrónico ya existe.',
             userNotFound: 'Usuario no encontrado.',
             destroyingHimself: 'No puedes eliminarte a ti mismo.',
-            revokingOwnPermission: 'No puede revocar su propio permiso de aipettoAdministrador.',
-            revokingPlanUser: 'No puede revocar el permiso de aipettoAdministrador del aipettoAdministrador del plan.',
-            destroyingPlanUser: 'No puede eliminar el aipettoAdministrador del plan.',
+            revokingOwnPermission: 'No puede revocar su propio permiso de administrador.',
+            revokingPlanUser: 'No puede revocar el permiso de administrador del administrador del plan.',
+            destroyingPlanUser: 'No puede eliminar el administrador del plan.',
         },
     },
     tenant: {
@@ -73,7 +73,9 @@ const es = {
     entities: {
         customer: {
             errors: {
-                unique: {}
+                unique: {
+                    uniqueCustomIdentifier: 'UniqueCustomIdentifier debe ser único',
+                }
             }
         },
         product: {
@@ -88,7 +90,9 @@ const es = {
         },
         pet: {
             errors: {
-                unique: {}
+                unique: {
+                    governmentUniqueID: 'GovernmentUniqueID debe ser único',
+                }
             }
         },
         breed: {
@@ -103,7 +107,9 @@ const es = {
         },
         business: {
             errors: {
-                unique: {}
+                unique: {
+                    businessID: 'BusinessID debe ser único',
+                }
             }
         },
         place: {
@@ -117,6 +123,182 @@ const es = {
             }
         },
         serviceReservation: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessPlaceServiceAvailability: {
+            errors: {
+                unique: {}
+            }
+        },
+        country: {
+            errors: {
+                unique: {}
+            }
+        },
+        city: {
+            errors: {
+                unique: {}
+            }
+        },
+        state: {
+            errors: {
+                unique: {}
+            }
+        },
+        messages: {
+            errors: {
+                unique: {}
+            }
+        },
+        professionalsServiceAvailability: {
+            errors: {
+                unique: {}
+            }
+        },
+        languages: {
+            errors: {
+                unique: {}
+            }
+        },
+        currency: {
+            errors: {
+                unique: {}
+            }
+        },
+        discounts: {
+            errors: {
+                unique: {
+                    codeName: 'CodeName debe ser único',
+                }
+            }
+        },
+        wallet: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessCategory: {
+            errors: {
+                unique: {}
+            }
+        },
+        providers: {
+            errors: {
+                unique: {
+                    providerID: 'ProviderID debe ser único',
+                }
+            }
+        },
+        vaccineTypes: {
+            errors: {
+                unique: {
+                    vaccineCustomUniqueID: 'VaccineCustomUniqueID debe ser único',
+                }
+            }
+        },
+        petVaccines: {
+            errors: {
+                unique: {
+                    uniqueVetVaccineCode: 'UniqueVetVaccineCode debe ser único',
+                }
+            }
+        },
+        placeType: {
+            errors: {
+                unique: {}
+            }
+        },
+        landingSurvey: {
+            errors: {
+                unique: {}
+            }
+        },
+        newBusinessSurvey: {
+            errors: {
+                unique: {}
+            }
+        },
+        petPhotos: {
+            errors: {
+                unique: {}
+            }
+        },
+        petDiseases: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessServicesPrices: {
+            errors: {
+                unique: {}
+            }
+        },
+        posts: {
+            errors: {
+                unique: {}
+            }
+        },
+        postCategories: {
+            errors: {
+                unique: {
+                    name: 'Name debe ser único',
+                }
+            }
+        },
+        postComments: {
+            errors: {
+                unique: {}
+            }
+        },
+        pointsChallenges: {
+            errors: {
+                unique: {
+                    name: 'Name debe ser único',
+                }
+            }
+        },
+        challengesCategories: {
+            errors: {
+                unique: {
+                    name: 'Name debe ser único',
+                }
+            }
+        },
+        productCategory: {
+            errors: {
+                unique: {
+                    name: 'Name debe ser único',
+                }
+            }
+        },
+        deals: {
+            errors: {
+                unique: {}
+            }
+        },
+        businessPaymentCycle: {
+            errors: {
+                unique: {}
+            }
+        },
+        questions: {
+            errors: {
+                unique: {}
+            }
+        },
+        answers: {
+            errors: {
+                unique: {}
+            }
+        },
+        petExamination: {
+            errors: {
+                unique: {}
+            }
+        },
+        contacts: {
             errors: {
                 unique: {}
             }

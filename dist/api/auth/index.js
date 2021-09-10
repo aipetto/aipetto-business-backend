@@ -17,6 +17,7 @@ exports.default = (app) => {
         message: 'errors.429',
     });
     app.post(`/auth/sign-in`, signInRateLimiter, require('./authSignIn').default);
+    app.post('/auth/mobile/google', require('./authGoogle').default);
     const signUpRateLimiter = apiRateLimiter_1.createRateLimiter({
         max: 20,
         windowMs: 60 * 60 * 1000,

@@ -33,7 +33,7 @@ function format(message, args) {
  * Checks if the key exists on the language.
  */
 exports.i18nExists = (languageCode, key) => {
-    const dictionary = languages[languageCode] || languages['en'];
+    const dictionary = languages[languageCode] || languages['pt-BR'];
     const message = get_1.default(dictionary, key);
     return Boolean(message);
 };
@@ -41,7 +41,7 @@ exports.i18nExists = (languageCode, key) => {
  * Returns the translation based on the key.
  */
 exports.i18n = (languageCode, key, ...args) => {
-    const dictionary = languages[languageCode] || languages['en'];
+    const dictionary = languages[languageCode] || languages['es'];
     const message = get_1.default(dictionary, key);
     if (!message) {
         return key;

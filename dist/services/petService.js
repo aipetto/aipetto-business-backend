@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const petRepository_1 = __importDefault(require("../database/repositories/petRepository"));
 const Error400_1 = __importDefault(require("../errors/Error400"));
 const mongooseRepository_1 = __importDefault(require("../database/repositories/mongooseRepository"));
+const petRepository_1 = __importDefault(require("../database/repositories/petRepository"));
 class PetService {
     constructor(options) {
         this.options = options;
@@ -24,6 +24,21 @@ class PetService {
             const session = yield mongooseRepository_1.default.createSession(this.options.database);
             try {
                 const record = yield petRepository_1.default.create(data, Object.assign(Object.assign({}, this.options), { session }));
+                yield mongooseRepository_1.default.commitTransaction(session);
+                return record;
+            }
+            catch (error) {
+                yield mongooseRepository_1.default.abortTransaction(session);
+                mongooseRepository_1.default.handleUniqueFieldError(error, this.options.language, 'pet');
+                throw error;
+            }
+        });
+    }
+    createWithoutTenantOnRequest(data) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const session = yield mongooseRepository_1.default.createSession(this.options.database);
+            try {
+                const record = yield petRepository_1.default.createWithTenantAndCurrentUserFromRequest(data, Object.assign(Object.assign({}, this.options), { session }));
                 yield mongooseRepository_1.default.commitTransaction(session);
                 return record;
             }

@@ -14,6 +14,7 @@ const aws = require('aws-sdk');
 const s3 = new aws.S3({
     accessKeyId: config_1.getConfig().AWS_ACCESS_KEY_ID,
     secretAccessKey: config_1.getConfig().AWS_SECRET_ACCESS_KEY,
+    region: config_1.getConfig().AWS_REGION,
 });
 class AWSStorage {
     /**

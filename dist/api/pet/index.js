@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = (app) => {
     app.post(`/tenant/:tenantId/pet`, require('./petCreate').default);
+    app.post(`/tenant/:tenantId/petNew`, require('./petCreateNew').default);
     app.put(`/tenant/:tenantId/pet/:id`, require('./petUpdate').default);
     app.post(`/tenant/:tenantId/pet/import`, require('./petImport').default);
     app.delete(`/tenant/:tenantId/pet`, require('./petDestroy').default);

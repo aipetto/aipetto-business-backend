@@ -210,13 +210,10 @@ class BusinessServicesTypesRepository {
   }
 
   static async findById(id, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       BusinessServicesTypes(options.database)
-        .findOne({_id: id, tenant: currentTenant.id})
+        .findOne({_id: id})
       .populate('category')
       .populate('language'),
       options,

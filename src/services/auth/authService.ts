@@ -588,6 +588,7 @@ class AuthService {
     emailVerified,
     firstName,
     lastName,
+    avatars,
     options: any = {},
   ) {
     if (!email) {
@@ -605,12 +606,13 @@ class AuthService {
         options,
       );
 
-      if (
-        user &&
-        (user.provider !== provider ||
-          user.providerId !== providerId)
-      ) {
-        throw new Error('auth-invalid-provider');
+      if (user) {
+        const token = jwt.sign(
+            { id: user.id },
+            getConfig().AUTH_JWT_SECRET,
+            { expiresIn: getConfig().AUTH_JWT_EXPIRES_IN },
+        );
+        return token;
       }
 
       if (!user) {
@@ -621,6 +623,7 @@ class AuthService {
           emailVerified,
           firstName,
           lastName,
+          avatars,
           options,
         );
       }

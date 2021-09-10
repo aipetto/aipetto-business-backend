@@ -57,7 +57,7 @@ class AuditLogRepository {
                         ? options.currentUser.email
                         : null,
                 },
-            ], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+            ], options);
             return log;
         });
     }

@@ -15,6 +15,15 @@ function createRateLimiter({ max, windowMs, message, }) {
         max,
         windowMs,
         message,
+        skip: (req) => {
+            if (req.method === 'OPTIONS') {
+                return true;
+            }
+            if (req.originalUrl.endsWith('/import')) {
+                return true;
+            }
+            return false;
+        }
     });
 }
 exports.createRateLimiter = createRateLimiter;

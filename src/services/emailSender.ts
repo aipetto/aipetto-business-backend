@@ -10,7 +10,7 @@ export default class EmailSender {
   templateId: string;
   variables: any;
 
-  constructor(templateId, variables) {
+    constructor(templateId, variables) {
     this.templateId = templateId;
     this.variables = variables;
   }
@@ -45,6 +45,7 @@ export default class EmailSender {
     const msg = {
       to: recipient,
       from: getConfig().SENDGRID_EMAIL_FROM,
+      subject: 'Aipetto Team',
       templateId: this.templateId,
       dynamicTemplateData: this.variables,
     };

@@ -21,6 +21,7 @@ const crypto_1 = __importDefault(require("crypto"));
 const Error404_1 = __importDefault(require("../../errors/Error404"));
 const settingsRepository_1 = __importDefault(require("./settingsRepository"));
 const userTenantUtils_1 = require("../utils/userTenantUtils");
+const lodash_1 = __importDefault(require("lodash"));
 class UserRepository {
     static create(data, options) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -38,7 +39,7 @@ class UserRepository {
                     createdBy: currentUser.id,
                     updatedBy: currentUser.id,
                 },
-            ], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+            ], options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: user.id,
@@ -57,8 +58,8 @@ class UserRepository {
                     password: data.password,
                     firstName: data.firstName,
                     fullName: data.fullName,
-                },
-            ], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+                }
+            ], options);
             delete user.password;
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
@@ -79,7 +80,7 @@ class UserRepository {
             if (invalidateOldTokens) {
                 data.jwtTokenInvalidBefore = new Date();
             }
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, data), options);
+            yield user_1.default(options.database).updateOne({ _id: id }, data, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: id,
@@ -96,14 +97,14 @@ class UserRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const currentUser = mongooseRepository_1.default.getCurrentUser(options);
             data = this._preSave(data);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+            yield user_1.default(options.database).updateOne({ _id: id }, {
                 firstName: data.firstName || null,
                 lastName: data.lastName || null,
                 fullName: data.fullName || null,
                 phoneNumber: data.phoneNumber || null,
                 updatedBy: currentUser.id,
                 avatars: data.avatars || [],
-            }), options);
+            }, options);
             const user = yield this.findById(id, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
@@ -122,11 +123,11 @@ class UserRepository {
                 .randomBytes(20)
                 .toString('hex');
             const emailVerificationTokenExpiresAt = Date.now() + 24 * 60 * 60 * 1000;
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+            yield user_1.default(options.database).updateOne({ _id: id }, {
                 emailVerificationToken,
                 emailVerificationTokenExpiresAt,
                 updatedBy: currentUser.id,
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: id,
@@ -148,11 +149,11 @@ class UserRepository {
                 .randomBytes(20)
                 .toString('hex');
             const passwordResetTokenExpiresAt = Date.now() + 24 * 60 * 60 * 1000;
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+            yield user_1.default(options.database).updateOne({ _id: id }, {
                 passwordResetToken,
                 passwordResetTokenExpiresAt,
                 updatedBy: currentUser.id,
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: id,
@@ -170,14 +171,14 @@ class UserRepository {
         return __awaiter(this, void 0, void 0, function* () {
             const currentUser = mongooseRepository_1.default.getCurrentUser(options);
             data = this._preSave(data);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+            yield user_1.default(options.database).updateOne({ _id: id }, {
                 firstName: data.firstName || null,
                 lastName: data.lastName || null,
                 fullName: data.fullName || null,
                 phoneNumber: data.phoneNumber || null,
                 updatedBy: currentUser.id,
                 avatars: data.avatars || [],
-            }), options);
+            }, options);
             const user = yield this.findById(id, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
@@ -338,6 +339,30 @@ class UserRepository {
             }));
         });
     }
+    static filterIdInTenant(id, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return lodash_1.default.get(yield this.filterIdsInTenant([id], options), '[0]', null);
+        });
+    }
+    static filterIdsInTenant(ids, options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!ids || !ids.length) {
+                return ids;
+            }
+            const currentTenant = mongooseRepository_1.default.getCurrentTenant(options);
+            let users = yield user_1.default(options.database)
+                .find({
+                _id: {
+                    $in: ids,
+                },
+                tenants: {
+                    $elemMatch: { tenant: currentTenant.id },
+                },
+            })
+                .select(['_id']);
+            return users.map((user) => user._id);
+        });
+    }
     static findByIdWithPassword(id, options) {
         return __awaiter(this, void 0, void 0, function* () {
             return yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database)
@@ -407,10 +432,10 @@ class UserRepository {
     static markEmailVerified(id, options) {
         return __awaiter(this, void 0, void 0, function* () {
             const currentUser = mongooseRepository_1.default.getCurrentUser(options);
-            yield mongooseRepository_1.default.wrapWithSessionIfExists(user_1.default(options.database).updateOne({ _id: id }, {
+            yield user_1.default(options.database).updateOne({ _id: id }, {
                 emailVerified: true,
                 updatedBy: currentUser.id,
-            }), options);
+            }, options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: id,
@@ -488,7 +513,7 @@ class UserRepository {
             return output;
         });
     }
-    static createFromSocial(provider, providerId, email, emailVerified, firstName, lastName, options) {
+    static createFromSocial(provider, providerId, email, emailVerified, firstName, lastName, avatars, options) {
         return __awaiter(this, void 0, void 0, function* () {
             let data = {
                 email,
@@ -497,9 +522,10 @@ class UserRepository {
                 provider,
                 firstName,
                 lastName,
+                avatars
             };
             data = this._preSave(data);
-            let [user] = yield user_1.default(options.database).create([data], mongooseRepository_1.default.getSessionOptionsIfExists(options));
+            let [user] = yield user_1.default(options.database).create([data], options);
             yield auditLogRepository_1.default.log({
                 entityName: 'user',
                 entityId: user.id,
@@ -508,6 +534,27 @@ class UserRepository {
             }, options);
             return this.findById(user.id, Object.assign(Object.assign({}, options), { bypassPermissionValidation: true }));
         });
+    }
+    static cleanupForRelationships(userOrUsers) {
+        if (!userOrUsers) {
+            return userOrUsers;
+        }
+        if (Array.isArray(userOrUsers)) {
+            return userOrUsers.map((user) => lodash_1.default.pick(user, [
+                '_id',
+                'id',
+                'firstName',
+                'lastName',
+                'email',
+            ]));
+        }
+        return lodash_1.default.pick(userOrUsers, [
+            '_id',
+            'id',
+            'firstName',
+            'lastName',
+            'email',
+        ]);
     }
 }
 exports.default = UserRepository;
