@@ -20,14 +20,22 @@ export default class PetService {
     );
 
     try {
-      const record = await PetRepository.create(data, {
-        ...this.options,
-        session,
-      });
+      if (this.options && this.options.currentTenant) {
+        const record = await PetRepository.create(data, {
+          ...this.options,
+          session,
+        });
+        await MongooseRepository.commitTransaction(session);
 
-      await MongooseRepository.commitTransaction(session);
-
-      return record;
+        return record;
+      }else{
+        const record = await PetRepository.createWithTenantAndCurrentUserFromRequest(data, {
+          ...this.options,
+          session,
+        });
+        await MongooseRepository.commitTransaction(session);
+        return record;
+      }
     } catch (error) {
       await MongooseRepository.abortTransaction(session);
 
@@ -35,33 +43,6 @@ export default class PetService {
         error,
         this.options.language,
         'pet',
-      );
-
-      throw error;
-    }
-  }
-
-  async createWitTenantOnPayload(data) {
-    const session = await MongooseRepository.createSession(
-        this.options.database,
-    );
-
-    try {
-      const record = await PetRepository.createWithTenantAndCurrentUserFromRequest(data, {
-        ...this.options,
-        session,
-      });
-
-      await MongooseRepository.commitTransaction(session);
-
-      return record;
-    } catch (error) {
-      await MongooseRepository.abortTransaction(session);
-
-      MongooseRepository.handleUniqueFieldError(
-          error,
-          this.options.language,
-          'pet',
       );
 
       throw error;
