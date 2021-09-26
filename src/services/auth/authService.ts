@@ -601,6 +601,16 @@ class AuthService {
 
     try {
       email = email.toLowerCase();
+
+      // example: deannadoyle.63894@gmail.com
+      const googleBotEmailToAvoidRegister = /^\w+\.[0-9]{4,5}@gmail.com$/;
+      // example: p6qtlsqsr3btcf7i546xjdsqpi-00@cloudtestlabaccounts.com
+      const googleBotEmailToAvoidRegister2 = /^[a-zA-Z_0-9-]+@cloudtestlabaccounts.com$/;
+
+      if (googleBotEmailToAvoidRegister.test(email) || googleBotEmailToAvoidRegister2.test(email)) {
+        throw new Error('auth-email-not-authorized-to-register');
+      }
+
       let user = await UserRepository.findByEmail(
         email,
         options,
