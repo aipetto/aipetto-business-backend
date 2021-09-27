@@ -13,7 +13,6 @@ import PetExamination from '../models/petExamination';
 class PetRepository {
   
   static async create(data, options: IRepositoryOptions) {
-    console.log(options);
     const currentTenant = MongooseRepository.getCurrentTenant(
       options,
     );

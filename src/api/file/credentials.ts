@@ -38,6 +38,8 @@ export default async (req, res) => {
 
     // The private URL is the path related to the bucket/file system folder
     let privateUrl = `${config.folder}/${filename}`;
+
+
     privateUrl = privateUrl.replace(
       ':tenantId',
       req.currentTenant.id,
