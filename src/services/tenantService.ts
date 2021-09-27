@@ -22,7 +22,7 @@ export default class TenantService {
   /**
    * Creates the default tenant or joins the default with
    * roles passed.
-   * If default roles are empty, the aipettoAdmin will have to asign the roles
+   * If default roles are empty, the aipettoAdmin will have to assign the roles
    * to new users.
    */
   async createOrJoinDefault({ roles }, session) {
