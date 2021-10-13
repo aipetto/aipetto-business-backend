@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "aipetto",
-    "version": "1.0.3-alpha",
+    "title": "Aipetto",
+    "version": "1.0.5-alpha",
     "description": "To use the API you must first sign-in using the `POST /auth/sign-in` endpoint and collect the **Bearer token** from the response.\n"
   },
   "servers": [
@@ -4780,7 +4780,7 @@
         }
       }
     },
-    "/tenant/{tenantId}/business-services-types": {
+    "/business-services-types": {
       "get": {
         "security": [
           {
@@ -4789,14 +4789,6 @@
         ],
         "tags": ["BusinessServicesTypes"],
         "parameters": [
-          {
-            "in": "path",
-            "name": "tenantId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "in": "query",
             "name": "filter[id]",
@@ -4990,7 +4982,7 @@
         }
       }
     },
-    "/tenant/{tenantId}/business-services-types/autocomplete": {
+    "/business-services-types/autocomplete": {
       "get": {
         "security": [
           {
@@ -4999,14 +4991,6 @@
         ],
         "tags": ["BusinessServicesTypes"],
         "parameters": [
-          {
-            "in": "path",
-            "name": "tenantId",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "in": "query",
             "name": "query",
