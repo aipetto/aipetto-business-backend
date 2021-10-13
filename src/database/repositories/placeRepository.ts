@@ -138,7 +138,6 @@ class PlaceRepository {
     );
   }
 
-
   static async filterIdsInTenant(
     ids,
     options: IRepositoryOptions,
@@ -774,7 +773,6 @@ class PlaceRepository {
       options,
     );
   }
-
 
   static async _mapRelationshipsAndFillDownloadUrl(record) {
     if (!record) {

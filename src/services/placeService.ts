@@ -1,12 +1,8 @@
 import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
-import { IServiceOptions } from './IServiceOptions';
+import {IServiceOptions} from './IServiceOptions';
 import PlaceRepository from '../database/repositories/placeRepository';
-import PlaceTypeRepository from '../database/repositories/placeTypeRepository';
 import BusinessRepository from '../database/repositories/businessRepository';
-import BusinessServicesTypesRepository from '../database/repositories/businessServicesTypesRepository';
-import BusinessCategoryRepository from '../database/repositories/businessCategoryRepository';
-import CountryRepository from '../database/repositories/countryRepository';
 
 export default class PlaceService {
   options: IServiceOptions;
