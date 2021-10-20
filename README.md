@@ -1,8 +1,11 @@
 # aipetto-business-backend
 
 ### Building a new image and deploy to Google Clound Run
-Add versioning to image and git tag before generate image and deploy. Check steps in order to set a CI/CD on future.
+This process is done automatically by Google Cloud Build when new commits are sent to main branch of the aipetto-business-backend repository in Github.
 
+![](screenshots/google-cloud-build-actors.png)
+
+## Manual Steps
 Run the command `npm run deploy:production`, below are the manual steps included:
 ``` 
 gcloud auth login 
