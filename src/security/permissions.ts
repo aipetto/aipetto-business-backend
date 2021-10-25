@@ -542,7 +542,7 @@ class Permissions {
       },
       serviceReservationCreate: {
         id: 'serviceReservationCreate',
-        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager],
+        allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.veterinarian, roles.petOwner],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
           storage.serviceReservationDigitalReservationDoc,
