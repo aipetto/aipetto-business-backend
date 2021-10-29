@@ -22,7 +22,7 @@ export default class ActiveCampaign {
                                 "value": contact.allowReceiveNotifications
                             },
                             {
-                                "field":"6",
+                                "field":"2",
                                 "value":contact.nameBusiness
                             }
                         ]
@@ -41,9 +41,32 @@ export default class ActiveCampaign {
     async addContactProfessional(contact){
 
         try {
-            console.log(contact);
-            //final contactResponse = await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contacts');
-            //await addContactForList(contactResponse, 8);
+            const nameSplitted = contact.contactName.split(' ');
+
+            const body =  {
+                "contact": {
+                    "email": contact.contactEmail,
+                    "firstName": nameSplitted[0],
+                    "lastName": nameSplitted[1],
+                    "phone": contact.contactPhone,
+                    "fieldValues":[
+                        {
+                            "field":"4",
+                            "value": contact.allowReceiveNotifications
+                        },
+                        {
+                            "field":"6",
+                            "value":contact.nameBusiness
+                        }
+                    ]
+                }
+            };
+            const contactResponse = await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contacts', body,
+                { headers: {'Api-Token': getConfig().ACTIVE_CAMPAIGN_DEVELOPER_TOKEN}}
+            ).then( resp => {
+                this.addContactForList(resp.data.contact.id, 8);
+            })
+
         }catch (error){
             throw error;
         }
