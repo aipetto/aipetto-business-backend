@@ -2,6 +2,7 @@ import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import NewBusinessSurveyRepository from '../database/repositories/newBusinessSurveyRepository';
+import ActiveCampaign from "./activeCampaign";
 
 export default class NewBusinessSurveyService {
   options: IServiceOptions;
@@ -25,6 +26,10 @@ export default class NewBusinessSurveyService {
 
       await MongooseRepository.commitTransaction(session);
 
+      if(!process.env.FRONTEND_URL?.includes('localhost')) {
+        await this.activeCampaignNewBusinessAutomationFlow(data);
+      }
+
       return record;
     } catch (error) {
       await MongooseRepository.abortTransaction(session);
@@ -37,6 +42,10 @@ export default class NewBusinessSurveyService {
 
       throw error;
     }
+  }
+
+  async activeCampaignNewBusinessAutomationFlow(newBusinessData){
+    return new ActiveCampaign().addContactProspect(newBusinessData);
   }
 
   async update(id, data) {

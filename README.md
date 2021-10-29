@@ -5,6 +5,10 @@ This process is done automatically by Google Cloud Build when new commits are se
 
 ![](screenshots/google-cloud-build-actors.png)
 
+
+### Parameters to be set
+Check .env-sample file please.
+
 ## Manual Steps
 Run the command `npm run deploy:production`, below are the manual steps included:
 ``` 
