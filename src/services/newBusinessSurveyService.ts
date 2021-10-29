@@ -26,6 +26,10 @@ export default class NewBusinessSurveyService {
 
       await MongooseRepository.commitTransaction(session);
 
+      if(!process.env.FRONTEND_URL?.includes('localhost')) {
+        await this.activeCampaignNewBusinessAutomationFlow(data);
+      }
+
       return record;
     } catch (error) {
       await MongooseRepository.abortTransaction(session);
@@ -38,13 +42,9 @@ export default class NewBusinessSurveyService {
 
       throw error;
     }
-
-    if(!process.env.FRONTEND_URL?.includes('localhost')){
-      await this._activeCampaignNewBusinessAutomationFlow(data);
-    }
   }
 
-  async _activeCampaignNewBusinessAutomationFlow(newBusinessData){
+  async activeCampaignNewBusinessAutomationFlow(newBusinessData){
     return new ActiveCampaign().addContactProspect(newBusinessData);
   }
 

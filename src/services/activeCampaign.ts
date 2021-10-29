@@ -6,27 +6,35 @@ export default class ActiveCampaign {
     async addContactProspect(contact){
 
         try {
-            console.log(contact);
-            //return await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contacts');
-            /**
-             {
-                    "contact": {
-                        "email": "",
-                        "firstName": "",
-                        "lastName": "",
-                        "phone": "",
-                    "fieldValues":[
-                      {
-                        "field":"package_plan",
-                        "value":"premium"
-                      }
-                    ]
-                    }
-                }
+            const nameSplitted = contact.contactName.split(' ');
 
-             */
+            // GET getConfig().ACTIVE_CAMPAIGN_API_URL + /fields to check fieldValues IDs
+            // TODO create an enum with ids and fields
+            const body =  {
+                    "contact": {
+                        "email": contact.contactEmail,
+                            "firstName": nameSplitted[0],
+                            "lastName": nameSplitted[1],
+                            "phone": contact.contactPhone,
+                            "fieldValues":[
+                            {
+                                "field":"4",
+                                "value": contact.allowReceiveNotifications
+                            },
+                            {
+                                "field":"6",
+                                "value":contact.nameBusiness
+                            }
+                        ]
+                    }
+                };
+            const contactResponse = await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contacts', body,
+                { headers: {'Api-Token': getConfig().ACTIVE_CAMPAIGN_DEVELOPER_TOKEN}}
+             ).then( resp => {
+                this.addContactForList(resp.data.contact.id, 2);
+            })
         }catch (error){
-            throw error;
+            console.log(error.response.data);
         }
     }
 
@@ -34,27 +42,26 @@ export default class ActiveCampaign {
 
         try {
             console.log(contact);
-            //return await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contacts');
+            //final contactResponse = await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contacts');
+            //await addContactForList(contactResponse, 8);
         }catch (error){
             throw error;
         }
     }
 
-    async addContactForAList(contactId, listId){
+    async addContactForList(contactId, listId){
 
         try {
-            console.log(contactId);
-            console.log(listId);
-            //return await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contactLists');
-            /**
-             {
+            const body =  {
                 "contactList": {
-                    "list": 2,
-                    "contact": 4,
+                "list": listId,
+                    "contact": contactId,
                     "status": 1
                 }
-            }
-            */
+            };
+            await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contactLists', body,
+                { headers: {'Api-Token': getConfig().ACTIVE_CAMPAIGN_DEVELOPER_TOKEN}}
+            );
         }catch (error){
             throw error;
         }
@@ -65,15 +72,21 @@ export default class ActiveCampaign {
         try {
             console.log(contactId);
             console.log(automationId);
-            //return await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contactAutomations');
-            /**
-             {
-                "contactAutomation": {
-                    "contact": "3",
-                    "automation": "42"
-                }
+            if (ActiveCampaign.isDeveloperTokenConfigured){
+            try {
+                const body =  {
+                    "contactAutomation": {
+                        "contact": contactId,
+                        "automation": automationId,
+                    }
+                };
+                await axios.post(getConfig().ACTIVE_CAMPAIGN_API_URL + '/contactAutomations', body,
+                    { headers: {'Api-Token': getConfig().ACTIVE_CAMPAIGN_DEVELOPER_TOKEN}}
+                );
+            }catch (error){
+                throw error;
             }
-             */
+         }
         }catch (error){
             throw error;
         }
