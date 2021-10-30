@@ -523,8 +523,7 @@
             "in": "query",
             "name": "filter[businessId]",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -538,8 +537,7 @@
             "in": "query",
             "name": "filter[userId]",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -5786,8 +5784,7 @@
             "in": "query",
             "name": "filter[businessId]",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
@@ -5823,8 +5820,7 @@
             "in": "query",
             "name": "filter[serviceType]",
             "schema": {
-              "type": "string",
-              "format": "uuid"
+              "type": "string"
             }
           },
           {
