@@ -187,6 +187,29 @@ class ServiceReservationRepository {
     return this._mapRelationshipsAndFillDownloadUrl(record);
   }
 
+  static async findByIdAndCustomerId(id, customerTenantId, options: IRepositoryOptions) {
+
+    let record = await MongooseRepository.wrapWithSessionIfExists(
+        ServiceReservation(options.database)
+            .findOne({_id: id, customerTenant: customerTenantId})
+            .populate('businessId')
+            .populate('customerId')
+            .populate('serviceType')
+            .populate('serviceProviderIDs')
+            .populate('place')
+            .populate('discountCode')
+            .populate('currency')
+            .populate('country'),
+        options,
+    );
+
+    if (!record) {
+      throw new Error404();
+    }
+
+    return this._mapRelationshipsAndFillDownloadUrl(record);
+  }
+
   static async findAndCountAll(
     { filter, limit = 0, offset = 0, orderBy = '' },
     options: IRepositoryOptions,
@@ -446,6 +469,107 @@ class ServiceReservationRepository {
 
     rows = await Promise.all(
       rows.map(this._mapRelationshipsAndFillDownloadUrl),
+    );
+
+    return { rows, count };
+  }
+
+  static async findAndCountCustomersAllReservations(
+      { filter, limit = 0, offset = 0, orderBy = '' },
+      options: IRepositoryOptions,
+  ) {
+
+    let criteriaAnd: any = [];
+
+    if (filter) {
+      if (filter.id) {
+        criteriaAnd.push({
+          ['_id']: MongooseQueryUtils.uuid(filter.id),
+        });
+      }
+
+      if (filter.dateRange) {
+        const [start, end] = filter.dateRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            date: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            date: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.customerTenant) {
+        criteriaAnd.push({
+          customerTenant:
+          filter.customerTenant,
+        });
+      }
+
+      if (filter.createdAtRange) {
+        const [start, end] = filter.createdAtRange;
+
+        if (
+            start !== undefined &&
+            start !== null &&
+            start !== ''
+        ) {
+          criteriaAnd.push({
+            ['createdAt']: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (
+            end !== undefined &&
+            end !== null &&
+            end !== ''
+        ) {
+          criteriaAnd.push({
+            ['createdAt']: {
+              $lte: end,
+            },
+          });
+        }
+      }
+    }
+
+    const sort = MongooseQueryUtils.sort(
+        orderBy || 'createdAt_DESC',
+    );
+
+    const skip = Number(offset || 0) || undefined;
+    const limitEscaped = Number(limit || 0) || undefined;
+    const criteria = criteriaAnd.length
+        ? { $and: criteriaAnd }
+        : null;
+
+    let rows = await ServiceReservation(options.database)
+        .find(criteria)
+        .skip(skip)
+        .limit(limitEscaped)
+        .sort(sort)
+        .populate('serviceType')
+        .populate('serviceProviderIDs')
+        .populate('place')
+        .populate('discountCode')
+
+    const count = await ServiceReservation(
+        options.database,
+    ).countDocuments(criteria);
+
+    rows = await Promise.all(
+        rows.map(this._mapRelationshipsAndFillDownloadUrl),
     );
 
     return { rows, count };

@@ -109,6 +109,10 @@ export default class ServiceReservationService {
     return ServiceReservationRepository.findById(id, this.options);
   }
 
+  async findByIdAndCustomerId(id, customerTenantId) {
+    return ServiceReservationRepository.findByIdAndCustomerId(id, customerTenantId, this.options);
+  }
+
   async findAllAutocomplete(search, limit) {
     return ServiceReservationRepository.findAllAutocomplete(
       search,
@@ -121,6 +125,13 @@ export default class ServiceReservationService {
     return ServiceReservationRepository.findAndCountAll(
       args,
       this.options,
+    );
+  }
+
+  async findAndCountCustomerAllReservations(args) {
+    return ServiceReservationRepository.findAndCountCustomersAllReservations(
+        args,
+        this.options,
     );
   }
 
