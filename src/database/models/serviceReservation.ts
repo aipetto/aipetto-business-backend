@@ -77,7 +77,7 @@ export default (database) => {
           "03_30AM",
           "04_00AM",
           "04_30AM",
-          "05_00",
+          "05_00AM",
           "05_30AM"
         ],
       },
@@ -140,6 +140,9 @@ export default (database) => {
         ref: 'tenant',
         required: true
       },
+      customerTenant: {
+          type: String,
+      },
       createdBy: {
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -162,8 +165,6 @@ export default (database) => {
       },
     },
   );
-
-  
 
   ServiceReservationSchema.virtual('id').get(function () {
     // @ts-ignore

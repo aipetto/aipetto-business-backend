@@ -24,7 +24,15 @@ export default (app) => {
     require('./serviceReservationList').default,
   );
   app.get(
+      `/customer-service-reservation`,
+      require('./customerServiceReservationList').default,
+  );
+  app.get(
     `/tenant/:tenantId/service-reservation/:id`,
     require('./serviceReservationFind').default,
+  );
+  app.get(
+    `/customer/:customerTenantId/service-reservation/:id`,
+    require('./serviceCustomerReservationFind').default,
   );
 };
