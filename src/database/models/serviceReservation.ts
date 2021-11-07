@@ -135,6 +135,12 @@ export default (database) => {
           null
         ],
       },
+      notes: {
+        type: String,
+      },
+      customerQuestions: {
+        type: String,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
