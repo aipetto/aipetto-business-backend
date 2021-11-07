@@ -112,6 +112,13 @@ export default class PlaceService {
     );
   }
 
+  async findAllPlacesAndCountAll(args) {
+    return PlaceRepository.findAllPlacesAndCountAll(
+        args,
+        this.options,
+    );
+  }
+
   async findPlacesNearbyByGeolocation (args) {
     return PlaceRepository.findPlacesNearby(
         args,

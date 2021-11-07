@@ -23,6 +23,11 @@ export default (app) => {
     `/tenant/:tenantId/place`,
     require('./placeList').default,
   );
+  // TODO temporary until we only let /place/nearby
+  app.get(
+      `/places`,
+      require('./allPlaceList').default,
+  );
   app.get(
       `/place/nearby`,
       require('./findPlacesNearbyByGeolocation').default,
