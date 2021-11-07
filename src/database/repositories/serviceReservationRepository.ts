@@ -410,6 +410,28 @@ class ServiceReservationRepository {
         });
       }
 
+      if (filter.notes) {
+        criteriaAnd.push({
+          notes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.notes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.customerQuestions) {
+        criteriaAnd.push({
+          customerQuestions: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.customerQuestions,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
