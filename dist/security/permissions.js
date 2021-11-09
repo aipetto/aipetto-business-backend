@@ -1261,7 +1261,7 @@ class Permissions {
             },
             businessServicesPricesRead: {
                 id: 'businessServicesPricesRead',
-                allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin],
+                allowedRoles: [roles.aipettoAdmin, roles.aipettoManager, roles.aipettoEditor, roles.businessAdmin, roles.businessManager, roles.veterinaryAdmin, roles.petOwner],
                 allowedPlans: [plans.free, plans.growth, plans.premium],
             },
             businessServicesPricesAutocomplete: {
