@@ -253,6 +253,17 @@ class BusinessServicesPricesRepository {
         });
       }
 
+      if (filter.notesToCustomersOnThisService) {
+        criteriaAnd.push({
+          notesToCustomersOnThisService: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.notesToCustomersOnThisService,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

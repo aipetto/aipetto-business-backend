@@ -13,28 +13,29 @@ export default (database) => {
       name: {
         type: String,
       },
-      businessId: {
-        type: Schema.Types.ObjectId,
-        ref: 'business',
-      },
-      timeSlot: [{
-        type: String  
-      }],
-      days: [{
-        type: String  
-      }],
-      workOnHolidays: {
-        type: Boolean,
-        default: false
-      },
-      serviceType: {
-        type: Schema.Types.ObjectId,
-        ref: 'businessServicesTypes',
-      },
       places: [{
         type: Schema.Types.ObjectId,
         ref: 'place',
       }],
+      businessId: {
+        type: Schema.Types.ObjectId,
+        ref: 'business',
+      },
+      dateStart: {
+        type: String,
+        required: true,
+      },
+      dateEnd: {
+        type: String,
+        required: true,
+      },
+      timeSlot: [{
+        type: String  
+      }],
+      serviceType: {
+        type: Schema.Types.ObjectId,
+        ref: 'businessServicesTypes',
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

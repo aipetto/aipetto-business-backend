@@ -856,6 +856,13 @@
           },
           {
             "in": "query",
+            "name": "filter[campaignTrackerID]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[createdAtRange][]",
             "schema": {
               "type": "array",
@@ -1273,6 +1280,13 @@
           },
           {
             "in": "query",
+            "name": "filter[sku]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[name]",
             "schema": {
               "type": "string"
@@ -1335,6 +1349,36 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[barcodeRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[productNCMRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[inStockRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
             }
           },
           {
@@ -2450,6 +2494,34 @@
           },
           {
             "in": "query",
+            "name": "filter[microchipNumberRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[isDead]",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[deathDateRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[createdAtRange][]",
             "schema": {
               "type": "array",
@@ -2870,6 +2942,14 @@
             "name": "filter[name]",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[language]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -3386,6 +3466,14 @@
           },      
           {
             "in": "query",
+            "name": "filter[language]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[createdAtRange][]",
             "schema": {
               "type": "array",
@@ -3803,6 +3891,13 @@
           },
           {
             "in": "query",
+            "name": "filter[businessID]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[name]",
             "schema": {
               "type": "string"
@@ -3852,6 +3947,13 @@
           },
           {
             "in": "query",
+            "name": "filter[streetComplement]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[addressPostCode]",
             "schema": {
               "type": "string"
@@ -3881,6 +3983,78 @@
               "format": "uuid"
             }
           },      
+          {
+            "in": "query",
+            "name": "filter[latitude]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[longitude]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[website]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[facebook]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[linkedin]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[notes]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[language]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[currency]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[instagram]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[campaingTrackerID]",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "in": "query",
             "name": "filter[createdAtRange][]",
@@ -4300,6 +4474,21 @@
           },
           {
             "in": "query",
+            "name": "filter[name]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[placeType]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
             "name": "filter[businessId]",
             "schema": {
               "type": "string",
@@ -4345,6 +4534,28 @@
             "name": "filter[addressZipCode]",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressCity]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressState]",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[addressCountry]",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
             }
           },
           {
@@ -4815,6 +5026,13 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[isEnabled]",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
