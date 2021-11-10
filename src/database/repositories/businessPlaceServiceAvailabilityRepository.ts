@@ -229,7 +229,7 @@ class BusinessPlaceServiceAvailabilityRepository {
         if (end !== undefined && end !== null && end !== '') {
           criteriaAnd.push({
             dateStart: {
-              $lte: end,
+              $gte: end,
             },
           });
         }
@@ -241,7 +241,7 @@ class BusinessPlaceServiceAvailabilityRepository {
         if (start !== undefined && start !== null && start !== '') {
           criteriaAnd.push({
             dateEnd: {
-              $gte: start,
+              $lte: start,
             },
           });
         }
