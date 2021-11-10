@@ -215,28 +215,49 @@ class BusinessPlaceServiceAvailabilityRepository {
         });
       }
 
+      if (filter.dateStartRange) {
+        const [start, end] = filter.dateStartRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            dateStart: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            dateStart: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.dateEndRange) {
+        const [start, end] = filter.dateEndRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            dateEnd: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            dateEnd: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
       if (filter.timeSlot) {
         criteriaAnd.push({
           timeSlot: { $all: filter.timeSlot },
-        });
-      }
-
-      if (filter.days) {
-        criteriaAnd.push({
-          days: { $all: filter.days },
-        });
-      }
-
-      if (
-        filter.workOnHolidays === true ||
-        filter.workOnHolidays === 'true' ||
-        filter.workOnHolidays === false ||
-        filter.workOnHolidays === 'false'
-      ) {
-        criteriaAnd.push({
-          workOnHolidays:
-            filter.workOnHolidays === true ||
-            filter.workOnHolidays === 'true',
         });
       }
 

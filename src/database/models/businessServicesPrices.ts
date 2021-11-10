@@ -13,6 +13,7 @@ export default (database) => {
       service: {
         type: Schema.Types.ObjectId,
         ref: 'businessServicesTypes',
+        required: true,
       },
       businessId: {
         type: Schema.Types.ObjectId,
@@ -25,10 +26,14 @@ export default (database) => {
       currency: {
         type: Schema.Types.ObjectId,
         ref: 'currency',
+        required: true,
       },
       isFree: {
         type: Boolean,
         default: false
+      },
+      notesToCustomersOnThisService: {
+        type: String,
       },
       tenant: {
         type: Schema.Types.ObjectId,
