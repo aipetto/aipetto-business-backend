@@ -598,7 +598,7 @@ class Permissions {
       },
       businessPlaceServiceAvailabilityDestroy: {
         id: 'businessPlaceServiceAvailabilityDestroy',
-        allowedRoles: [roles.aipettoAdmin],
+        allowedRoles: [roles.aipettoAdmin, roles.businessAdmin, roles.businessManager, roles.aipettoEditor, roles.aipettoManager],
         allowedPlans: [plans.free, plans.growth, plans.premium],
         allowedStorage: [
 
