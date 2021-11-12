@@ -221,7 +221,7 @@ class BusinessPlaceServiceAvailabilityRepository {
         if (start !== undefined && start !== null && start !== '') {
           criteriaAnd.push({
             dateStart: {
-              $gte: start,
+              $lte: start,
             },
           });
         }
@@ -229,7 +229,7 @@ class BusinessPlaceServiceAvailabilityRepository {
         if (end !== undefined && end !== null && end !== '') {
           criteriaAnd.push({
             dateStart: {
-              $gte: end,
+              $lte: end,
             },
           });
         }
@@ -241,7 +241,7 @@ class BusinessPlaceServiceAvailabilityRepository {
         if (start !== undefined && start !== null && start !== '') {
           criteriaAnd.push({
             dateEnd: {
-              $lte: start,
+              $gte: start,
             },
           });
         }
@@ -249,7 +249,7 @@ class BusinessPlaceServiceAvailabilityRepository {
         if (end !== undefined && end !== null && end !== '') {
           criteriaAnd.push({
             dateEnd: {
-              $lte: end,
+              $gte: end,
             },
           });
         }
