@@ -22,7 +22,7 @@ export default class CustomerService {
       data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
 
       // TODO remove only for debug what data is receipt to create customer
-      console.log('customer data ' + data);
+      console.log('customer data ' + data.businessId);
 
       const record = await CustomerRepository.create(data, {
         ...this.options,
