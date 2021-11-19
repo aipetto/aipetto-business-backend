@@ -45,12 +45,9 @@ class VaccineTypesRepository {
   }
 
   static async update(id, data, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
-      VaccineTypes(options.database).findOne({_id: id, tenant: currentTenant.id}),
+      VaccineTypes(options.database).findOne({_id: id}),
       options,
     );
 
