@@ -21,6 +21,9 @@ export default class CustomerService {
       data.businessId = await BusinessRepository.filterIdInTenant(data.businessId, { ...this.options, session });
       data.userId = await UserRepository.filterIdInTenant(data.userId, { ...this.options, session });
 
+      // TODO remove only for debug what data is receipt to create customer
+      console.log('customer data ' + data);
+
       const record = await CustomerRepository.create(data, {
         ...this.options,
         session,
@@ -28,6 +31,7 @@ export default class CustomerService {
 
       await MongooseRepository.commitTransaction(session);
 
+      console.log('record result ' + record);
       return record;
     } catch (error) {
       await MongooseRepository.abortTransaction(session);
