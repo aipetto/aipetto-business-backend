@@ -4,7 +4,7 @@ export default (app) => {
     require('./vaccineTypesCreate').default,
   );
   app.put(
-    `/tenant/:tenantId/vaccine-types/:id`,
+    `/tenant/vaccine-types/:id`,
     require('./vaccineTypesUpdate').default,
   );
   app.post(

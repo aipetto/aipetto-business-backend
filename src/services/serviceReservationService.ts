@@ -28,9 +28,8 @@ export default class ServiceReservationService {
 
       // TODO add customer to tenant with the information from data
       // TODO add pet to customer just created
-      console.log('reservation data ' + data);
+      console.log('reservation data ' + data.place);
 
-      data.customerId = await CustomerRepository.filterIdInTenant(data.customerId, { ...this.options, session });
       data.serviceProviderIDs = await ProvidersRepository.filterIdsInTenant(data.serviceProviderIDs, { ...this.options, session });
       data.place = await PlaceRepository.filterIdInTenant(data.place, { ...this.options, session });
       data.discountCode = await DiscountsRepository.filterIdInTenant(data.discountCode, { ...this.options, session });
