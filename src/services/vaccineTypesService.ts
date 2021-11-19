@@ -19,10 +19,6 @@ export default class VaccineTypesService {
     );
 
     try {
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      data.petSpecificType = await PetTypesRepository.filterIdsInTenant(data.petSpecificType, { ...this.options, session });
-      data.specificBreeds = await BreedRepository.filterIdsInTenant(data.specificBreeds, { ...this.options, session });
-
       const record = await VaccineTypesRepository.create(data, {
         ...this.options,
         session,
@@ -50,9 +46,6 @@ export default class VaccineTypesService {
     );
 
     try {
-      data.country = await CountryRepository.filterIdInTenant(data.country, { ...this.options, session });
-      data.petSpecificType = await PetTypesRepository.filterIdsInTenant(data.petSpecificType, { ...this.options, session });
-      data.specificBreeds = await BreedRepository.filterIdsInTenant(data.specificBreeds, { ...this.options, session });
 
       const record = await VaccineTypesRepository.update(
         id,
