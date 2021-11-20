@@ -241,6 +241,48 @@ class PetExaminationRepository {
         });
       }
 
+      if (filter.examinationDiagnosticNotes) {
+        criteriaAnd.push({
+          examinationDiagnosticNotes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.examinationDiagnosticNotes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.examinationRecommendationNotes) {
+        criteriaAnd.push({
+          examinationRecommendationNotes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.examinationRecommendationNotes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.nextExaminationSessionRange) {
+        const [start, end] = filter.nextExaminationSessionRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            nextExaminationSession: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            nextExaminationSession: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

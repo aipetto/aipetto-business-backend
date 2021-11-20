@@ -169,6 +169,7 @@ class PetVaccinesRepository {
       PetVaccines(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('name')
+      .populate('uniqueVetVaccineCode')
       .populate('veterinarianID')
       .populate('placeTaken')
       .populate('businessID')
@@ -214,12 +215,9 @@ class PetVaccinesRepository {
 
       if (filter.uniqueVetVaccineCode) {
         criteriaAnd.push({
-          uniqueVetVaccineCode: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.uniqueVetVaccineCode,
-            ),
-            $options: 'i',
-          },
+          uniqueVetVaccineCode: MongooseQueryUtils.uuid(
+            filter.uniqueVetVaccineCode,
+          ),
         });
       }
 
@@ -275,6 +273,17 @@ class PetVaccinesRepository {
         });
       }
 
+      if (filter.vaccinationNotes) {
+        criteriaAnd.push({
+          vaccinationNotes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.vaccinationNotes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -320,6 +329,7 @@ class PetVaccinesRepository {
       .limit(limitEscaped)
       .sort(sort)
       .populate('name')
+      .populate('uniqueVetVaccineCode')
       .populate('veterinarianID')
       .populate('placeTaken')
       .populate('businessID')
@@ -351,17 +361,12 @@ class PetVaccinesRepository {
           {
             _id: MongooseQueryUtils.uuid(search),
           },
-          {
-            uniqueVetVaccineCode: {
-              $regex: MongooseQueryUtils.escapeRegExp(search),
-              $options: 'i',
-            }
-          },          
+
         ],
       });
     }
 
-    const sort = MongooseQueryUtils.sort('uniqueVetVaccineCode_ASC');
+    const sort = MongooseQueryUtils.sort('id_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
@@ -397,6 +402,8 @@ class PetVaccinesRepository {
     const output = record.toObject
       ? record.toObject()
       : record;
+
+
 
 
 

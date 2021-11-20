@@ -120,10 +120,10 @@ class CustomerRepository {
       options,
     );
 
-    await MongooseRepository.destroyRelationToOne(
+    await MongooseRepository.destroyRelationToMany(
       id,
       Pet(options.database),
-      'customerId',
+      'customerIds',
       options,
     );
 
@@ -214,7 +214,8 @@ class CustomerRepository {
       .populate('userId')
       .populate('country')
       .populate('currency')
-      .populate('language'),
+      .populate('language')
+      .populate('pets'),
       options,
     );
 
@@ -246,6 +247,17 @@ class CustomerRepository {
         });
       }
 
+      if (filter.uniqueCustomIdentifier) {
+        criteriaAnd.push({
+          uniqueCustomIdentifier: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.uniqueCustomIdentifier,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.name) {
         criteriaAnd.push({
           name: {
@@ -262,17 +274,6 @@ class CustomerRepository {
           businessId: MongooseQueryUtils.uuid(
             filter.businessId,
           ),
-        });
-      }
-
-      if (filter.uniqueCustomIdentifier) {
-        criteriaAnd.push({
-          uniqueCustomIdentifier: {
-            $regex: MongooseQueryUtils.escapeRegExp(
-              filter.uniqueCustomIdentifier,
-            ),
-            $options: 'i',
-          },
         });
       }
 
@@ -755,6 +756,17 @@ class CustomerRepository {
         });
       }
 
+      if (filter.campaignTrackerID) {
+        criteriaAnd.push({
+          campaignTrackerID: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.campaignTrackerID,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -803,7 +815,8 @@ class CustomerRepository {
       .populate('userId')
       .populate('country')
       .populate('currency')
-      .populate('language');
+      .populate('language')
+      .populate('pets');
 
     const count = await Customer(
       options.database,
@@ -832,7 +845,7 @@ class CustomerRepository {
             _id: MongooseQueryUtils.uuid(search),
           },
           {
-            name: {
+            uniqueCustomIdentifier: {
               $regex: MongooseQueryUtils.escapeRegExp(search),
               $options: 'i',
             }
@@ -841,7 +854,7 @@ class CustomerRepository {
       });
     }
 
-    const sort = MongooseQueryUtils.sort('name_ASC');
+    const sort = MongooseQueryUtils.sort('uniqueCustomIdentifier_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
@@ -853,7 +866,7 @@ class CustomerRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record.name,
+      label: record.uniqueCustomIdentifier,
     }));
   }
 
