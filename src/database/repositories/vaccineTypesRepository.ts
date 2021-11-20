@@ -158,13 +158,10 @@ class VaccineTypesRepository {
   }
 
   static async findById(id, options: IRepositoryOptions) {
-    const currentTenant = MongooseRepository.getCurrentTenant(
-      options,
-    );
 
     let record = await MongooseRepository.wrapWithSessionIfExists(
       VaccineTypes(options.database)
-        .findOne({_id: id, tenant: currentTenant.id})
+        .findOne({_id: id})
       .populate('country')
       .populate('petSpecificType')
       .populate('specificBreeds'),
