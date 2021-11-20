@@ -171,6 +171,7 @@ class ServiceReservationRepository {
         .findOne({_id: id, tenant: currentTenant.id})
       .populate('businessId')
       .populate('customerId')
+      .populate('pet')
       .populate('serviceType')
       .populate('serviceProviderIDs')
       .populate('place')
@@ -263,6 +264,14 @@ class ServiceReservationRepository {
         criteriaAnd.push({
           customerId: MongooseQueryUtils.uuid(
             filter.customerId,
+          ),
+        });
+      }
+
+      if (filter.pet) {
+        criteriaAnd.push({
+          pet: MongooseQueryUtils.uuid(
+              filter.pet,
           ),
         });
       }
@@ -478,6 +487,7 @@ class ServiceReservationRepository {
       .sort(sort)
       .populate('businessId')
       .populate('customerId')
+      .populate('pet')
       .populate('serviceType')
       .populate('serviceProviderIDs')
       .populate('place')

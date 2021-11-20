@@ -204,11 +204,11 @@ class NewBusinessSurveyRepository {
         });
       }
 
-      if (filter.numberOfPlaces) {
+      if (filter.numberOfEmployees) {
         criteriaAnd.push({
-          numberOfPlaces: {
+          numberOfEmployees: {
             $regex: MongooseQueryUtils.escapeRegExp(
-              filter.numberOfPlaces,
+              filter.numberOfEmployees,
             ),
             $options: 'i',
           },

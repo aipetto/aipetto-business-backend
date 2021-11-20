@@ -17,6 +17,10 @@ export default (database) => {
       nickname: {
         type: String,
       },
+      uniqueIdentifier: {
+        type: String,
+        required: true,
+      },
       profileImage: [FileSchema],
       birthdate: {
         type: String,
@@ -89,10 +93,10 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'petTypes',
       },
-      customerId: {
+      customerIds: [{
         type: Schema.Types.ObjectId,
         ref: 'customer',
-      },
+      }],
       petOwners: [{
         type: Schema.Types.ObjectId,
         ref: 'user',
@@ -238,6 +242,57 @@ export default (database) => {
                 required: false
             }
       },
+        microchipNumber: {
+            type: Number,
+            max: 15,
+        },
+        isDead: {
+            type: Boolean,
+            default: false
+        },
+        deathDate: {
+            type: Date,
+        },
+        allowedBusinessesAccess: [{
+            type: Schema.Types.ObjectId,
+            ref: 'business',
+        }],
+        hasPedigree: {
+            type: Boolean,
+            default: false
+        },
+        isAggressive: {
+            type: Boolean,
+            default: false
+        },
+        isHyperActive: {
+            type: Boolean,
+            default: false
+        },
+        allowedToGrooming: {
+            type: Boolean,
+            default: false
+        },
+        phobias: {
+            type: String,
+        },
+        feeding: {
+            type: String,
+        },
+        isObsessive: {
+            type: Boolean,
+            default: false
+        },
+        isAntiSocial: {
+            type: Boolean,
+            default: false
+        },
+        generalNotes: {
+            type: String,
+        },
+        problemsAndRestrinctions: {
+            type: String,
+        },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -266,7 +321,15 @@ export default (database) => {
     },
   );
 
-  PetSchema.index({ location: '2dsphere' });
+  PetSchema.index(
+    { uniqueIdentifier: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        uniqueIdentifier: { $type: 'string' },
+      },
+    },
+  );
 
   PetSchema.index(
     { governmentUniqueID: 1, tenant: 1 },

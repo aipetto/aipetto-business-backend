@@ -204,6 +204,17 @@ class ProductRepository {
         });
       }
 
+      if (filter.sku) {
+        criteriaAnd.push({
+          sku: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+                filter.sku,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.name) {
         criteriaAnd.push({
           name: {
@@ -298,6 +309,66 @@ class ProductRepository {
             filter.country,
           ),
         });
+      }
+
+      if (filter.barcodeRange) {
+        const [start, end] = filter.barcodeRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            barcode: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            barcode: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.productNCMRange) {
+        const [start, end] = filter.productNCMRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            productNCM: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            productNCM: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (filter.inStockRange) {
+        const [start, end] = filter.inStockRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            inStock: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            inStock: {
+              $lte: end,
+            },
+          });
+        }
       }
 
       if (filter.createdAtRange) {

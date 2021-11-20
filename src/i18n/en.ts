@@ -98,7 +98,7 @@ const en = {
     product: {
       errors: {
         unique: {
-
+          sku: 'SKU must be unique',
         }
       }
     },
@@ -112,6 +112,7 @@ const en = {
     pet: {
       errors: {
         unique: {
+          uniqueIdentifier: 'UniqueIdentifier must be unique',
           governmentUniqueID: 'GovernmentUniqueID must be unique',
         }
       }

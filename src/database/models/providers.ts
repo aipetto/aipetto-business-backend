@@ -92,6 +92,13 @@ export default (database) => {
         type: Boolean,
         default: false
       },
+      campaignTrackerID: {
+        type: String,
+      },
+      isAvailable: {
+        type: Boolean,
+        default: false
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

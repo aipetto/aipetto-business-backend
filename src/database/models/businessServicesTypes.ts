@@ -23,6 +23,10 @@ export default (database) => {
         ref: 'languages',
       },
       serviceImage: [FileSchema],
+      isEnabled: {
+        type: Boolean,
+        default: false
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
