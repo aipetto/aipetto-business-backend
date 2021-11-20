@@ -22,6 +22,11 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'customer',
       },
+      pet: {
+        type: Schema.Types.ObjectId,
+        ref: 'pet',
+        required: true,
+      },
       serviceType: [{
         type: Schema.Types.ObjectId,
         ref: 'businessServicesTypes',

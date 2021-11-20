@@ -15,7 +15,8 @@ export default (database) => {
         ref: 'vaccineTypes',
       },
       uniqueVetVaccineCode: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'vaccineTypes',
       },
       datetimeTaken: {
         type: Date,
@@ -35,6 +36,9 @@ export default (database) => {
       country: {
         type: Schema.Types.ObjectId,
         ref: 'country',
+      },
+      vaccinationNotes: {
+        type: String,
       },
       tenant: {
         type: Schema.Types.ObjectId,
@@ -64,15 +68,7 @@ export default (database) => {
     },
   );
 
-  PetVaccinesSchema.index(
-    { uniqueVetVaccineCode: 1, tenant: 1 },
-    {
-      unique: true,
-      partialFilterExpression: {
-        uniqueVetVaccineCode: { $type: 'string' },
-      },
-    },
-  );  
+
 
   PetVaccinesSchema.virtual('id').get(function () {
     // @ts-ignore

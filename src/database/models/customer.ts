@@ -11,6 +11,10 @@ export default (database) => {
 
   const CustomerSchema = new Schema(
     {
+      uniqueCustomIdentifier: {
+        type: String,
+        required: true,
+      },
       name: {
         type: String,
         required: true,
@@ -20,9 +24,6 @@ export default (database) => {
       businessId: {
         type: Schema.Types.ObjectId,
         ref: 'business',
-      },
-      uniqueCustomIdentifier: {
-        type: String,
       },
       userId: {
         type: Schema.Types.ObjectId,
@@ -198,6 +199,13 @@ export default (database) => {
       notes: {
         type: String,
       },
+      campaignTrackerID: {
+        type: String,
+      },
+      pets: [{
+        type: Schema.Types.ObjectId,
+        ref: 'pet',
+      }],
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

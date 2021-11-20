@@ -110,6 +110,7 @@ const ptBR = {
     pet: {
       errors: {
         unique: {
+          uniqueIdentifier: 'UniqueIdentifier deve ser único',
           governmentUniqueID: 'GovernmentUniqueID deve ser único',
         }
       }

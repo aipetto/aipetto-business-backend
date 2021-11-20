@@ -14,7 +14,7 @@ export default (database) => {
         type: String,
         required: true,
       },
-      numberOfPlaces: {
+      numberOfEmployees: {
         type: String,
       },
       contactName: {

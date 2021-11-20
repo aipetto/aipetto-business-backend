@@ -17,6 +17,7 @@ export default (database) => {
       },
       name: {
         type: String,
+        required: true,
       },
       services: [{
         type: Schema.Types.ObjectId,
@@ -95,6 +96,9 @@ export default (database) => {
         ref: 'currency',
       },
       instagram: {
+        type: String,
+      },
+      campaingTrackerID: {
         type: String,
       },
       tenant: {

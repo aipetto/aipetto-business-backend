@@ -48,6 +48,15 @@ export default (database) => {
       },
       examinationsFiles: [FileSchema],
       examinationImages: [FileSchema],
+      examinationDiagnosticNotes: {
+        type: String,
+      },
+      examinationRecommendationNotes: {
+        type: String,
+      },
+      nextExaminationSession: {
+        type: Date,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',

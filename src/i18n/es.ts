@@ -100,7 +100,7 @@ const es = {
     product: {
       errors: {
         unique: {
-
+          sku: 'SKU debe ser único',
         }
       }
     },
@@ -114,6 +114,7 @@ const es = {
     pet: {
       errors: {
         unique: {
+          uniqueIdentifier: 'UniqueIdentifier debe ser único',
           governmentUniqueID: 'GovernmentUniqueID debe ser único',
         }
       }

@@ -11,6 +11,9 @@ export default (database) => {
 
   const ProductSchema = new Schema(
     {
+      sku: {
+        type: String,
+      },
       name: {
         type: String,
         required: true,
@@ -51,6 +54,17 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'country',
       },
+      barcode: {
+        type: Number,
+        max: 13,
+      },
+      productNCM: {
+        type: Number,
+        max: 6,
+      },
+      inStock: {
+        type: Number,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
@@ -79,7 +93,15 @@ export default (database) => {
     },
   );
 
-  
+  ProductSchema.index(
+    { sku: 1, tenant: 1 },
+    {
+      unique: true,
+      partialFilterExpression: {
+        sku: { $type: 'string' },
+      },
+    },
+  );
 
   ProductSchema.virtual('id').get(function () {
     // @ts-ignore

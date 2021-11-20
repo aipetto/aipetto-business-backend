@@ -18,18 +18,22 @@ export default (database) => {
       placeType: {
         type: Schema.Types.ObjectId,
         ref: 'placeType',
+        required: true,
       },
       businessId: {
         type: Schema.Types.ObjectId,
         ref: 'business',
+        required: true,
       },
       services: [{
         type: Schema.Types.ObjectId,
         ref: 'businessServicesTypes',
+        required: true,
       }],
       categories: [{
         type: Schema.Types.ObjectId,
         ref: 'businessCategory',
+        required: true,
       }],
       location: {
         type: {
@@ -44,22 +48,27 @@ export default (database) => {
       },
       address: {
         type: String,
+        required: true,
       },
       addressNumber: {
         type: String,
+        required: true,
       },
       addressZipCode: {
         type: String,
       },
       addressCity: {
         type: String,
+        required: true,
       },
       addressState: {
         type: String,
+        required: true,
       },
       addressCountry: {
         type: Schema.Types.ObjectId,
         ref: 'country',
+        required: true,
       },
       openTime: {
         type: String,

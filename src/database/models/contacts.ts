@@ -124,6 +124,9 @@ export default (database) => {
         type: Schema.Types.ObjectId,
         ref: 'languages',
       },
+      campaignTrackerID: {
+        type: String,
+      },
       tenant: {
         type: Schema.Types.ObjectId,
         ref: 'tenant',
