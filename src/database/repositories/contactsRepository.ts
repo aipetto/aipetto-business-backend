@@ -467,6 +467,17 @@ class ContactsRepository {
         });
       }
 
+      if (filter.campaignTrackerID) {
+        criteriaAnd.push({
+          campaignTrackerID: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.campaignTrackerID,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 

@@ -7,6 +7,8 @@ import lodash from 'lodash';
 import Pet from '../models/pet';
 import UserRepository from './userRepository';
 import FileRepository from './fileRepository';
+import Customer from '../models/customer';
+import ServiceReservation from '../models/serviceReservation';
 import PetPhotos from '../models/petPhotos';
 import PetExamination from '../models/petExamination';
 
@@ -125,6 +127,13 @@ class PetRepository {
 
     await MongooseRepository.destroyRelationToMany(
       id,
+      Customer(options.database),
+      'pets',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToMany(
+      id,
       Pet(options.database),
       'matches',
       options,
@@ -134,6 +143,13 @@ class PetRepository {
       id,
       Pet(options.database),
       'petFriends',
+      options,
+    );
+
+    await MongooseRepository.destroyRelationToOne(
+      id,
+      ServiceReservation(options.database),
+      'pet',
       options,
     );
 
@@ -209,7 +225,7 @@ class PetRepository {
       .populate('breed')
       .populate('secondBreedMixed')
       .populate('type')
-      .populate('customerId')
+      .populate('customerIds')
       .populate('petOwners')
       .populate('photos')
       .populate('vaccines')
@@ -217,7 +233,8 @@ class PetRepository {
       .populate('businessAuthorized')
       .populate('diseases')
       .populate('matches')
-      .populate('petFriends'),
+      .populate('petFriends')
+      .populate('allowedBusinessesAccess'),
       options,
     );
 
@@ -292,6 +309,17 @@ class PetRepository {
           nickname: {
             $regex: MongooseQueryUtils.escapeRegExp(
               filter.nickname,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.uniqueIdentifier) {
+        criteriaAnd.push({
+          uniqueIdentifier: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.uniqueIdentifier,
             ),
             $options: 'i',
           },
@@ -382,14 +410,6 @@ class PetRepository {
         criteriaAnd.push({
           type: MongooseQueryUtils.uuid(
             filter.type,
-          ),
-        });
-      }
-
-      if (filter.customerId) {
-        criteriaAnd.push({
-          customerId: MongooseQueryUtils.uuid(
-            filter.customerId,
           ),
         });
       }
@@ -632,6 +652,181 @@ class PetRepository {
         }
       }
 
+      if (filter.microchipNumberRange) {
+        const [start, end] = filter.microchipNumberRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            microchipNumber: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            microchipNumber: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (
+        filter.isDead === true ||
+        filter.isDead === 'true' ||
+        filter.isDead === false ||
+        filter.isDead === 'false'
+      ) {
+        criteriaAnd.push({
+          isDead:
+            filter.isDead === true ||
+            filter.isDead === 'true',
+        });
+      }
+
+      if (filter.deathDateRange) {
+        const [start, end] = filter.deathDateRange;
+
+        if (start !== undefined && start !== null && start !== '') {
+          criteriaAnd.push({
+            deathDate: {
+              $gte: start,
+            },
+          });
+        }
+
+        if (end !== undefined && end !== null && end !== '') {
+          criteriaAnd.push({
+            deathDate: {
+              $lte: end,
+            },
+          });
+        }
+      }
+
+      if (
+        filter.hasPedigree === true ||
+        filter.hasPedigree === 'true' ||
+        filter.hasPedigree === false ||
+        filter.hasPedigree === 'false'
+      ) {
+        criteriaAnd.push({
+          hasPedigree:
+            filter.hasPedigree === true ||
+            filter.hasPedigree === 'true',
+        });
+      }
+
+      if (
+        filter.isAggressive === true ||
+        filter.isAggressive === 'true' ||
+        filter.isAggressive === false ||
+        filter.isAggressive === 'false'
+      ) {
+        criteriaAnd.push({
+          isAggressive:
+            filter.isAggressive === true ||
+            filter.isAggressive === 'true',
+        });
+      }
+
+      if (
+        filter.isHyperActive === true ||
+        filter.isHyperActive === 'true' ||
+        filter.isHyperActive === false ||
+        filter.isHyperActive === 'false'
+      ) {
+        criteriaAnd.push({
+          isHyperActive:
+            filter.isHyperActive === true ||
+            filter.isHyperActive === 'true',
+        });
+      }
+
+      if (
+        filter.allowedToGrooming === true ||
+        filter.allowedToGrooming === 'true' ||
+        filter.allowedToGrooming === false ||
+        filter.allowedToGrooming === 'false'
+      ) {
+        criteriaAnd.push({
+          allowedToGrooming:
+            filter.allowedToGrooming === true ||
+            filter.allowedToGrooming === 'true',
+        });
+      }
+
+      if (filter.phobias) {
+        criteriaAnd.push({
+          phobias: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.phobias,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.feeding) {
+        criteriaAnd.push({
+          feeding: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.feeding,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (
+        filter.isObsessive === true ||
+        filter.isObsessive === 'true' ||
+        filter.isObsessive === false ||
+        filter.isObsessive === 'false'
+      ) {
+        criteriaAnd.push({
+          isObsessive:
+            filter.isObsessive === true ||
+            filter.isObsessive === 'true',
+        });
+      }
+
+      if (
+        filter.isAntiSocial === true ||
+        filter.isAntiSocial === 'true' ||
+        filter.isAntiSocial === false ||
+        filter.isAntiSocial === 'false'
+      ) {
+        criteriaAnd.push({
+          isAntiSocial:
+            filter.isAntiSocial === true ||
+            filter.isAntiSocial === 'true',
+        });
+      }
+
+      if (filter.generalNotes) {
+        criteriaAnd.push({
+          generalNotes: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.generalNotes,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
+      if (filter.problemsAndRestrinctions) {
+        criteriaAnd.push({
+          problemsAndRestrinctions: {
+            $regex: MongooseQueryUtils.escapeRegExp(
+              filter.problemsAndRestrinctions,
+            ),
+            $options: 'i',
+          },
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
@@ -679,7 +874,7 @@ class PetRepository {
       .populate('breed')
       .populate('secondBreedMixed')
       .populate('type')
-      .populate('customerId')
+      .populate('customerIds')
       .populate('petOwners')
       .populate('photos')
       .populate('vaccines')
@@ -687,7 +882,8 @@ class PetRepository {
       .populate('businessAuthorized')
       .populate('diseases')
       .populate('matches')
-      .populate('petFriends');
+      .populate('petFriends')
+      .populate('allowedBusinessesAccess');
 
     const count = await Pet(
       options.database,
@@ -716,7 +912,7 @@ class PetRepository {
             _id: MongooseQueryUtils.uuid(search),
           },
           {
-            name: {
+            uniqueIdentifier: {
               $regex: MongooseQueryUtils.escapeRegExp(search),
               $options: 'i',
             }
@@ -725,7 +921,7 @@ class PetRepository {
       });
     }
 
-    const sort = MongooseQueryUtils.sort('name_ASC');
+    const sort = MongooseQueryUtils.sort('uniqueIdentifier_ASC');
     const limitEscaped = Number(limit || 0) || undefined;
 
     const criteria = { $and: criteriaAnd };
@@ -737,7 +933,7 @@ class PetRepository {
 
     return records.map((record) => ({
       id: record.id,
-      label: record.name,
+      label: record.uniqueIdentifier,
     }));
   }
 

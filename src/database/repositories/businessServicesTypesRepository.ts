@@ -269,6 +269,19 @@ class BusinessServicesTypesRepository {
         });
       }
 
+      if (
+        filter.isEnabled === true ||
+        filter.isEnabled === 'true' ||
+        filter.isEnabled === false ||
+        filter.isEnabled === 'false'
+      ) {
+        criteriaAnd.push({
+          isEnabled:
+            filter.isEnabled === true ||
+            filter.isEnabled === 'true',
+        });
+      }
+
       if (filter.createdAtRange) {
         const [start, end] = filter.createdAtRange;
 
