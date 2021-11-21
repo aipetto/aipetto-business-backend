@@ -2,10 +2,7 @@ import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import {IServiceOptions} from './IServiceOptions';
 import PetRepository from '../database/repositories/petRepository';
-import CustomerRepository from '../database/repositories/customerRepository';
-import PetPhotosRepository from '../database/repositories/petPhotosRepository';
-import BusinessRepository from '../database/repositories/businessRepository';
-import UserRepository from '../database/repositories/userRepository';
+import { v4 as uuid } from 'uuid';
 
 export default class PetService {
   options: IServiceOptions;
@@ -21,6 +18,9 @@ export default class PetService {
 
     try {
       if (this.options && this.options.currentTenant) {
+
+        data.uniqueIdentifier = data.name + uuid();
+
         const record = await PetRepository.create(data, {
           ...this.options,
           session,
@@ -29,6 +29,8 @@ export default class PetService {
 
         return record;
       }else{
+        data.uniqueIdentifier = data.name + uuid();
+
         const record = await PetRepository.createWithTenantAndCurrentUserFromRequest(data, {
           ...this.options,
           session,
