@@ -19,7 +19,7 @@ export default class PetService {
     try {
       if (this.options && this.options.currentTenant) {
 
-        data.uniqueIdentifier = data.name + uuid();
+        data.uniqueIdentifier = data.name + '-' + uuid();
 
         const record = await PetRepository.create(data, {
           ...this.options,
@@ -29,7 +29,7 @@ export default class PetService {
 
         return record;
       }else{
-        data.uniqueIdentifier = data.name + uuid();
+        data.uniqueIdentifier = data.name + '-' + uuid();
 
         const record = await PetRepository.createWithTenantAndCurrentUserFromRequest(data, {
           ...this.options,

@@ -231,17 +231,7 @@ export default (database) => {
           null
         ],
       },
-      location: {
-            type: {
-                type: String,
-                enum: ['Point'],
-                required: false
-            },
-            coordinates: {
-                type: [Number],
-                required: false
-            }
-      },
+
         microchipNumber: {
             type: Number,
             max: 15,
